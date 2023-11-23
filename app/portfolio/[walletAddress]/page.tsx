@@ -1,21 +1,23 @@
 import React from "react";
-import NavBar from "../components/NavBar";
-import Tabs from "../components/Tabs";
-import Overview from "../components/Overview";
-import { Token } from "../types/token";
+import NavBar from "../../components/NavBar";
+import Tabs from "../../components/Tabs";
+import Overview from "../../components/Overview";
+import { Token } from "../../types/token";
 
 export default async function PortfolioPage() {
   const tokenData: Token[] = await getData();
   return (
     <div>
-      <div className="m-5 mb-10">
-        <NavBar />
-      </div>
-      <div className="mx-5 my-4">
-        <Tabs />
-      </div>
-      <div className="mx-5 my-4">
-        <Overview tokens={tokenData} />
+      <div className="m-10">
+        <div className="m-5 mb-10">
+          <NavBar />
+        </div>
+        <div className="mx-5 my-4">
+          <Tabs />
+        </div>
+        <div className="mx-5 my-4">
+          <Overview tokens={tokenData} />
+        </div>
       </div>
     </div>
   );
@@ -43,6 +45,7 @@ async function getData() {
     throw new Error(`Failed to fetch data`);
   }
   const data = await response.json();
+  console.log(JSON.stringify(data.result, null, 2));
   const tokens: Token[] = data.result.items;
 
   return tokens;

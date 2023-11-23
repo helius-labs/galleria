@@ -12,7 +12,7 @@ const WalletInput = () => {
 
   const handleSubmit = () => {
     // Navigate to the portfolio page with the wallet address as a query parameter
-    router.push(`/portfolio?wallet=${encodeURIComponent(walletAddress)}`);
+    router.push(`/portfolio/${encodeURIComponent(walletAddress)}/overview`);
   };
 
   return (

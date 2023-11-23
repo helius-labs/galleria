@@ -1,8 +1,7 @@
 import React from "react";
-
 import { Token } from "../types/token";
 
-const Overview = ({ tokens }: { tokens: Token[] }) => {
+const Tokens = ({ tokens }: { tokens: Token[] }) => {
   if (!tokens) {
     return <div>Loading...</div>;
   }
@@ -68,4 +67,4 @@ const Overview = ({ tokens }: { tokens: Token[] }) => {
   );
 };
 
-export default Overview;
+export default Tokens;
