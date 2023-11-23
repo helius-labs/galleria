@@ -1,35 +1,48 @@
 "use client";
-import React from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-const Tabs = () => {
+const Tabs = ({
+  searchParams,
+  params,
+}: {
+  searchParams: { view: string };
+  params: { walletAddress: string };
+}) => {
   const router = useRouter();
 
-  const handleTabClick = (tabName: string) => {
-    window.location.hash = tabName.toLowerCase();
-  };
+  const tabClass = (tabName: string) =>
+    `flex-1 rounded-lg px-4 py-2 text-center font-bold text-white bg-neutral hover:bg-neutral-600 ${
+      searchParams.view === tabName ? "text-primary" : "text-white"
+    }`;
 
   return (
     <div className="flex items-center justify-center">
       <nav className="flex w-full">
-        <div
-          onClick={() => handleTabClick("Overview")}
-          className="mr-4 flex-1 cursor-pointer rounded-lg bg-neutral px-4 py-2 text-center font-bold text-white hover:bg-neutral-500"
+        <Link
+          href={`/portfolio/${params.walletAddress}?view=overview`}
+          className={` flex-1 rounded-lg bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 ${
+            searchParams.view === "overview" ? "text-primary" : "text-white"
+          }`}
         >
           Overview
-        </div>
-        <div
-          onClick={() => handleTabClick("Tokens")}
-          className="mx-4 flex-1 cursor-pointer rounded-lg bg-neutral px-4 py-2 text-center font-bold text-white hover:bg-neutral-500"
+        </Link>
+        <Link
+          href={`/portfolio/${params.walletAddress}?view=tokens`}
+          className={`mx-4 flex-1 rounded-lg bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 ${
+            searchParams.view === "tokens" ? "text-primary" : "text-white"
+          }`}
         >
           Tokens
-        </div>
-        <div
-          onClick={() => handleTabClick("NFTs")}
-          className="ml-4 flex-1 cursor-pointer rounded-lg bg-neutral px-4 py-2 text-center font-bold text-white hover:bg-neutral-500"
+        </Link>
+        <Link
+          href={`/portfolio/${params.walletAddress}?view=nfts`}
+          className={` flex-1 rounded-lg bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 ${
+            searchParams.view === "nfts" ? "text-primary" : "text-white"
+          }`}
         >
           NFTs
-        </div>
+        </Link>
       </nav>
     </div>
   );

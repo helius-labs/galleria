@@ -1,11 +1,20 @@
-import React from "react";
+import React, { Suspense, use } from "react";
 import NavBar from "../../components/NavBar";
 import Tabs from "../../components/Tabs";
 import Overview from "../../components/Overview";
 import { Token } from "../../types/token";
+import NFTs from "@/app/components/NFTs";
+import Tokens from "@/app/components/Tokens";
 
-export default async function PortfolioPage() {
+export default async function PortfolioPage({
+  searchParams,
+  params,
+}: {
+  searchParams: { view: string };
+  params: { walletAddress: string };
+}) {
   const tokenData: Token[] = await getData();
+  console.log(searchParams.view);
   return (
     <div>
       <div className="m-10">
@@ -13,11 +22,17 @@ export default async function PortfolioPage() {
           <NavBar />
         </div>
         <div className="mx-5 my-4">
-          <Tabs />
+          <Tabs searchParams={searchParams} params={params} />
         </div>
-        <div className="mx-5 my-4">
-          <Overview tokens={tokenData} />
-        </div>
+        <Suspense fallback={<div>Loading...</div>} key={searchParams.view}>
+          <div className="mx-5 my-4">
+            {searchParams.view === "overview" && (
+              <Overview tokens={tokenData} />
+            )}
+            {searchParams.view === "tokens" && <Tokens tokens={tokenData} />}
+            {searchParams.view === "nfts" && <NFTs tokens={tokenData} />}
+          </div>
+        </Suspense>
       </div>
     </div>
   );
