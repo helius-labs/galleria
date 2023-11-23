@@ -21,7 +21,7 @@ const WalletInput = () => {
         <input
           type="text"
           placeholder="wallet address"
-          className="w-full max-w-xs rounded-lg border-2 border-black bg-neutral text-center text-black focus:border-black focus:outline-none"
+          className="w-full max-w-sm rounded-lg border-2 border-black bg-white text-center text-black focus:border-black focus:outline-none"
           value={walletAddress}
           onChange={handleInputChange} // Update the state with the input value
         />

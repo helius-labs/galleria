@@ -1,7 +1,27 @@
 import React from "react";
-import NFTCard from "../components/NFTCard";
+import NavBar from "../components/NavBar";
+import Tabs from "../components/Tabs";
+import Overview from "../components/Overview";
 import { Token } from "../types/token";
-const PortfolioPage = async () => {
+
+export default async function PortfolioPage() {
+  const tokenData: Token[] = await getData();
+  return (
+    <div>
+      <div className="m-5 mb-10">
+        <NavBar />
+      </div>
+      <div className="mx-5 my-4">
+        <Tabs />
+      </div>
+      <div className="mx-5 my-4">
+        <Overview tokens={tokenData} />
+      </div>
+    </div>
+  );
+}
+
+async function getData() {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
@@ -19,33 +39,11 @@ const PortfolioPage = async () => {
       },
     }),
   });
+  if (!response.ok) {
+    throw new Error(`Failed to fetch data`);
+  }
   const data = await response.json();
   const tokens: Token[] = data.result.items;
-  console.log("Search Assets: ", JSON.stringify(data.result, null, 2));
 
-  return (
-    <>
-      <h1>Tokens</h1>
-      <table>
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Balance</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tokens.map((token) => (
-            <tr key={token.id}>
-              <td>{token.token_info.symbol}</td>
-              <td>{token.token_info.balance}</td>
-              <td>{token.token_info.price_info?.total_price || "N/A"}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
-  );
-};
-
-export default PortfolioPage;
+  return tokens;
+}
