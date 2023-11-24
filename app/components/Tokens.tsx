@@ -1,8 +1,8 @@
 import React from "react";
-import { Token } from "../types/token";
+import { FungibleToken } from "../types/fungibleToken";
 import TokenTable from "./TokenTable";
 
-const Tokens = ({ tokens }: { tokens: Token[] }) => {
+const Tokens = ({ tokens }: { tokens: FungibleToken[] }) => {
   if (!tokens) {
     return <div>Loading...</div>;
   }

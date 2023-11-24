@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 const WalletInput = () => {
+  const searchParams = useSearchParams();
   const [walletAddress, setWalletAddress] = useState("");
   const router = useRouter();
 
@@ -11,9 +13,14 @@ const WalletInput = () => {
   };
 
   const handleSubmit = () => {
-    // Navigate to the portfolio page with the wallet address as a query parameter
+    // Check if there are existing query parameters
+
+    const currentView = searchParams.get("view") || "nfts";
+    console.log(currentView);
+
+    // Navigate to the portfolio page with the wallet address and view parameter
     router.push(
-      `/portfolio/${encodeURIComponent(walletAddress)}?view=overview`,
+      `/portfolio/${encodeURIComponent(walletAddress)}?view=${currentView}`,
     );
   };
 
@@ -23,7 +30,7 @@ const WalletInput = () => {
         <input
           type="text"
           placeholder="wallet address"
-          className="w-full max-w-sm rounded-lg border-2 border-black bg-white text-center text-black focus:border-black focus:outline-none"
+          className="w-full max-w-sm rounded-lg border-2 border-black bg-white text-center text-black focus:border-2 focus:border-black focus:outline-none"
           value={walletAddress}
           onChange={handleInputChange} // Update the state with the input value
         />

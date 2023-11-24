@@ -1,5 +1,5 @@
 import React from "react";
-import { Token } from "../types/token";
+import { Token } from "../types/fungibleToken";
 
 const TokenTable = ({ tokens }: { tokens: Token[] }) => {
   if (!tokens) {

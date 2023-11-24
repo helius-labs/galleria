@@ -2,10 +2,10 @@ export interface ApiResponse {
   total: number;
   limit: number;
   cursor: string;
-  items: Token[];
+  items: FungibleToken[];
 }
 
-export interface Token {
+export interface FungibleToken {
   interface: string;
   id: string;
   content: Content;
