@@ -1,10 +1,23 @@
-import React from "react";
-import { Token } from "../types/fungibleToken";
+"use client";
+import React, { useState } from "react";
+import { FungibleToken } from "../types/fungibleToken";
 
-const TokenTable = ({ tokens }: { tokens: Token[] }) => {
+const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10; // Adjust the number of items per page as needed
+
   if (!tokens) {
     return <div>Loading...</div>;
   }
+
+  const indexOfLastToken = currentPage * itemsPerPage;
+  const indexOfFirstToken = indexOfLastToken - itemsPerPage;
+  const currentTokens = tokens.slice(indexOfFirstToken, indexOfLastToken);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  const totalPages = Math.ceil(tokens.length / itemsPerPage);
+
   return (
     <div className="rounded-lg bg-neutral">
       <div className="p-5">
@@ -58,7 +71,31 @@ const TokenTable = ({ tokens }: { tokens: Token[] }) => {
                 </tr>
               ))}
             </tbody>
-          </table>
+            <div className="flex justify-center p-4">
+        <div className="btn-group">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            className="btn"
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          {[...Array(totalPages).keys()].map((number) => (
+            <button
+              key={number + 1}
+              onClick={() => paginate(number + 1)}
+              className={`btn ${currentPage === number + 1 ? "btn-active" : ""}`}
+            >
+              {number + 1}
+            </button>
+          ))}
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            className="btn"
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
