@@ -7,7 +7,7 @@ const NFTDetails = ({
   walletAddress,
   nftData,
 }: {
-  searchParams: { view: string };
+  searchParams: { view: string; details: string };
   walletAddress: string;
   nftData: NonFungibleToken[];
 }) => {
