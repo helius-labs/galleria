@@ -53,7 +53,7 @@ export default async function PortfolioPage({
         <Suspense fallback={<div>Loading...</div>} key={searchParams.view}>
           <div className="mx-5 my-4">
             {searchParams.view === "overview" && (
-              <Overview tokens={fungibleTokenData} />
+              <Overview tokens={nonFungibleTokenData} />
             )}
             {searchParams.view === "tokens" && (
               <Tokens tokens={fungibleTokenData} />

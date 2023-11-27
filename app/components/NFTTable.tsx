@@ -10,7 +10,7 @@ const NFTTable = ({
 }: {
   searchParams: { view: string };
   walletAddress: string;
-  nftDataArray: { nftDataArray: NonFungibleToken[] };
+  nftDataArray: NonFungibleToken[];
 }) => {
   const itemsPerPage = 12;
   const [displayedItems, setDisplayedItems] = useState(

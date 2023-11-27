@@ -16,6 +16,8 @@ export interface NonFungibleToken {
   supply: Supply | null;
   mutable: boolean;
   burnt: boolean;
+  inscription: Inscription;
+  spl20: Spl20;
 }
 
 export interface NonFungibleContent {
@@ -50,8 +52,6 @@ export interface Authority {
   scopes: string[];
 }
 
-// Reuse Compression, Royalty, and Ownership interfaces from fungibleToken type file
-
 export interface Grouping {
   group_key: string;
   group_value: string;
@@ -67,4 +67,44 @@ export interface Supply {
   print_max_supply: number;
   print_current_supply: number;
   edition_nonce: number;
+}
+
+export interface Inscription {
+  order: number;
+  size: number;
+  contentType: string;
+  encoding: string;
+  validationHash: string;
+  inscriptionDataAccount: string;
+}
+export interface Spl20 {
+  p: string;
+  op: string;
+  tick: string;
+  amt: string;
+}
+export interface Compression {
+  eligible: boolean;
+  compressed: boolean;
+  data_hash: string;
+  creator_hash: string;
+  asset_hash: string;
+  tree: string;
+  seq: number;
+  leaf_id: number;
+}
+export interface Royalty {
+  royalty_model: string;
+  target: string | null;
+  percent: number;
+  basis_points: number;
+  primary_sale_happened: boolean;
+  locked: boolean;
+}
+export interface Ownership {
+  frozen: boolean;
+  delegated: boolean;
+  delegate: null | string;
+  ownership_model: string;
+  owner: string;
 }

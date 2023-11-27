@@ -1,8 +1,8 @@
 import React from "react";
 
-import { Token } from "../types/fungibleToken";
+import { NonFungibleToken } from "../types/nonFungibleToken";
 
-const Overview = ({ tokens }: { tokens: Token[] }) => {
+const Overview = ({ tokens }: { tokens: NonFungibleToken[] }) => {
   if (!tokens) {
     return <div>Loading...</div>;
   }

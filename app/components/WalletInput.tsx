@@ -8,7 +8,9 @@ const WalletInput = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const router = useRouter();
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: {
+    target: { value: React.SetStateAction<string> };
+  }) => {
     setWalletAddress(e.target.value);
   };
 

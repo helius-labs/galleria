@@ -14,7 +14,8 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
   const indexOfFirstToken = indexOfLastToken - itemsPerPage;
   const currentTokens = tokens.slice(indexOfFirstToken, indexOfLastToken);
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  const paginate = (pageNumber: React.SetStateAction<number>) =>
+    setCurrentPage(pageNumber);
 
   const totalPages = Math.ceil(tokens.length / itemsPerPage);
 
