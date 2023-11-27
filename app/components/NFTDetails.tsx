@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { NonFungibleToken } from "../types/nonFungibleToken";
 import Link from "next/link";
 
@@ -44,9 +44,14 @@ const NFTDetails = ({
       <div>
         <div className="m-4 flex justify-evenly">
           <div className="w-1/2 p-3">
-            <a href={imageSrc} target="_blank" rel="noopener noreferrer">
-              <img src={imageSrc} alt={title} className={`rounded-xl`} />
-            </a>
+            <Suspense
+              fallback={<div>Loading...</div>}
+              key={searchParams.details}
+            >
+              <a href={imageSrc} target="_blank" rel="noopener noreferrer">
+                <img src={imageSrc} alt={title} className={`rounded-xl`} />
+              </a>
+            </Suspense>
           </div>
           <div className="w-1/2 p-3">
             <div>
