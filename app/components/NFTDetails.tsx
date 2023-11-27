@@ -12,7 +12,8 @@ const NFTDetails = ({
   nftData: NonFungibleToken[];
 }) => {
   console.log(nftData);
-  const imageSrc = nftData[0].content.links.image;
+  const imageSrc =
+    nftData[0].content.files[0]?.cdn_uri || nftData[0].content.links.image;
   const title = nftData[0].content.metadata.name;
   const description = nftData[0].content.metadata.description;
   const mint = nftData[0].id;
@@ -21,7 +22,7 @@ const NFTDetails = ({
   const ownerAddress = nftData[0].ownership.owner;
 
   return (
-    <div className="m-4 h-full w-full overflow-y-auto rounded-lg bg-neutral-800 p-5 text-white">
+    <div className="m-4 h-full w-full overflow-x-auto overflow-y-auto rounded-lg bg-neutral-800 p-5 text-white">
       <div className="flex justify-between">
         <h1 className=" mx-4 px-3 text-xl font-bold">{title}</h1>
         <Link href={`/portfolio/${walletAddress}?view=nfts`}>

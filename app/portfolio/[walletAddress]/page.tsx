@@ -77,6 +77,7 @@ async function getFungibleData(walletAddress: string) {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
+    next: { revalidate: 30 },
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -107,6 +108,7 @@ async function getNonFungibleData(walletAddress: string) {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
+    next: { revalidate: 30 },
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -128,7 +130,7 @@ async function getNonFungibleData(walletAddress: string) {
     throw new Error(`Failed to fetch data`);
   }
   const data = await response.json();
-  console.log(JSON.stringify(data.result, null, 2));
+  // console.log(JSON.stringify(data.result, null, 2));
   const tokens: NonFungibleToken[] = data.result.items;
   // console.log(JSON.stringify(tokens, null, 2));
   return tokens;

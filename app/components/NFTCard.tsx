@@ -16,7 +16,8 @@ const NFTCard = ({
 
   // console.log(searchParams);
   // Extracting the relevant information from nftData
-  const imageSrc = nftData.content.links.image;
+  const imageSrc =
+    nftData.content.files[0]?.cdn_uri || nftData.content.links.image;
   const title = nftData.content.metadata.name;
   const description = nftData.content.metadata.description;
   const mint = nftData.id;
