@@ -6,12 +6,13 @@ import { FungibleToken } from "../../types/fungibleToken";
 import NFTs from "@/app/components/NFTs";
 import Tokens from "@/app/components/Tokens";
 import { NonFungibleToken } from "@/app/types/nonFungibleToken";
+import NFTDetails from "@/app/components/NFTDetails";
 
 export default async function PortfolioPage({
   searchParams,
   params,
 }: {
-  searchParams: { view: string };
+  searchParams: { view: string; details: string };
   params: { walletAddress: string };
 }) {
   const fungibleTokenData: FungibleToken[] = await getFungibleData(
@@ -20,9 +21,25 @@ export default async function PortfolioPage({
   const nonFungibleTokenData: NonFungibleToken[] = await getNonFungibleData(
     params.walletAddress,
   );
-  console.log(params.walletAddress);
+
+  //console.log(params.walletAddress);
   return (
     <div>
+      <div>
+        {searchParams.details && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-500 bg-opacity-50">
+            <div className="h-4/5 w-2/3">
+              <NFTDetails
+                nftData={nonFungibleTokenData.filter(
+                  (item) => item.id === searchParams.details,
+                )}
+                searchParams={searchParams}
+                walletAddress={params.walletAddress}
+              />
+            </div>
+          </div>
+        )}
+      </div>
       <div className="m-10">
         <div className="m-5 mb-10">
           <NavBar />
@@ -42,7 +59,11 @@ export default async function PortfolioPage({
               <Tokens tokens={fungibleTokenData} />
             )}
             {searchParams.view === "nfts" && (
-              <NFTs tokens={nonFungibleTokenData} />
+              <NFTs
+                tokens={nonFungibleTokenData}
+                searchParams={searchParams}
+                walletAddress={params.walletAddress}
+              />
             )}
           </div>
         </Suspense>
@@ -52,7 +73,7 @@ export default async function PortfolioPage({
 }
 
 async function getFungibleData(walletAddress: string) {
-  console.log(walletAddress);
+  //console.log(walletAddress);
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
@@ -79,7 +100,7 @@ async function getFungibleData(walletAddress: string) {
   const data = await response.json();
   //console.log(JSON.stringify(data.result, null, 2));
   const tokens: FungibleToken[] = data.result.items;
-  console.log(JSON.stringify(tokens, null, 2));
+  // console.log(JSON.stringify(tokens, null, 2));
   return tokens;
 }
 async function getNonFungibleData(walletAddress: string) {
@@ -97,6 +118,9 @@ async function getNonFungibleData(walletAddress: string) {
       params: {
         ownerAddress: walletAddress,
         tokenType: "nonFungible",
+        displayOptions: {
+          showInscription: true,
+        },
       },
     }),
   });
@@ -104,7 +128,7 @@ async function getNonFungibleData(walletAddress: string) {
     throw new Error(`Failed to fetch data`);
   }
   const data = await response.json();
-  //console.log(JSON.stringify(data.result, null, 2));
+  console.log(JSON.stringify(data.result, null, 2));
   const tokens: NonFungibleToken[] = data.result.items;
   // console.log(JSON.stringify(tokens, null, 2));
   return tokens;
