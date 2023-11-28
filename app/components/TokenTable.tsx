@@ -92,17 +92,17 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
         <div className="join">
           <button
             onClick={() => paginate(currentPage - 1)}
-            className="btn btn-primary join-item text-white disabled:bg-primary disabled:text-white disabled:opacity-60"
+            className="btn join-item btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
             disabled={currentPage === 1}
           >
             «
           </button>
-          <button className=" bg-primary px-2 text-white">
+          <button className=" bg-neutral px-2 text-white opacity-60">
             Page {currentPage}
           </button>
           <button
             onClick={() => paginate(currentPage + 1)}
-            className="btn btn-primary join-item text-white disabled:bg-primary disabled:text-white disabled:opacity-30"
+            className="btn join-item  btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
             disabled={currentPage === totalPages}
           >
             »
