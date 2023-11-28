@@ -54,17 +54,19 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle h-12 w-12">
-                          {/* <img
-                            src="https://quei6zhlcfsxdfyes577gy7bkxmuz7qqakyt72xlbkyh7fysmoza.arweave.net/hQiPZOsRZXGXBJd_82PhVdlM_hACsT_q6wqwf5cSY7I"
-                            alt="Avatar"
-                          /> */}
-                          <div className="skeleton h-12 w-12 shrink-0 rounded-full"></div>
+                          {token.content.links.image ? (
+                            <img src={token.content.links.image} alt="Avatar" />
+                          ) : (
+                            <div className="skeleton h-12 w-12 shrink-0 rounded-full"></div>
+                          )}
                         </div>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    {token.token_info.symbol || token.id}
+                    {token.token_info.symbol ||
+                      token.content.metadata.symbol ||
+                      token.id}
                   </td>
                   <td className="px-6 py-4">{token.token_info.balance}</td>
                   <td className="px-6 py-4">

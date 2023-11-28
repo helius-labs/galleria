@@ -99,7 +99,7 @@ async function getFungibleData(walletAddress: string) {
     throw new Error(`Failed to fetch data`);
   }
   const data = await response.json();
-  //console.log(JSON.stringify(data.result, null, 2));
+  console.log(JSON.stringify(data.result, null, 2));
   const tokens: FungibleToken[] = data.result.items;
   // console.log(JSON.stringify(tokens, null, 2));
   return tokens;

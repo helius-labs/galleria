@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
@@ -8,14 +8,12 @@ const WalletInput = () => {
   const [walletAddress, setWalletAddress] = useState("");
   const router = useRouter();
 
-  const handleInputChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWalletAddress(e.target.value);
   };
 
-  const handleSubmit = () => {
-    // Check if there are existing query parameters
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault(); // Prevent the default form submission behavior
 
     const currentView = searchParams.get("view") || "nfts";
     console.log(currentView);
@@ -24,21 +22,22 @@ const WalletInput = () => {
     router.push(
       `/portfolio/${encodeURIComponent(walletAddress)}?view=${currentView}`,
     );
+    setWalletAddress("");
   };
 
   return (
-    <div className="form-control">
+    <form onSubmit={handleSubmit} className="form-control">
       <div className="flex justify-center gap-2">
         <input
           type="text"
-          placeholder="wallet address"
+          placeholder="Wallet Address"
           className="w-full max-w-sm rounded-lg border-2 border-black bg-white text-center text-black focus:border-2 focus:border-black focus:outline-none"
           value={walletAddress}
-          onChange={handleInputChange} // Update the state with the input value
+          onChange={handleInputChange}
         />
         <button
+          type="submit"
           className="rounded-lg border-2 border-black bg-primary p-1 hover:bg-accent"
-          onClick={handleSubmit} // Call the navigation function when clicked
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -56,7 +55,7 @@ const WalletInput = () => {
           </svg>
         </button>
       </div>
-    </div>
+    </form>
   );
 };
 
