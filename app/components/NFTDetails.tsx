@@ -22,9 +22,8 @@ const NFTDetails = ({
   const ownerAddress = nftData[0].ownership.owner;
 
   return (
-    <div className="m-4 h-full w-full overflow-x-auto overflow-y-auto rounded-lg bg-neutral-800 p-5 text-white">
-      <div className="flex justify-between">
-        <h1 className=" mx-4 px-3 text-xl font-bold">{title}</h1>
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white sm:p-2">
+      <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=nfts`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -32,7 +31,7 @@ const NFTDetails = ({
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="currentColor"
-            className=" h-8 w-8"
+            className="absolute right-0 top-0 h-8 w-8"
           >
             <path
               strokeLinecap="round"
@@ -41,10 +40,12 @@ const NFTDetails = ({
             />
           </svg>
         </Link>
+        <h1 className="my-2 p-3 text-xl font-bold">{title}</h1>
       </div>
+
       <div>
-        <div className="m-4 flex justify-evenly">
-          <div className="w-1/2 p-3">
+        <div className="flex flex-col justify-evenly break-words sm:flex-row">
+          <div className="w-full p-3 sm:w-1/2">
             <Suspense
               fallback={<div>Loading...</div>}
               key={searchParams.details}
@@ -54,68 +55,87 @@ const NFTDetails = ({
               </a>
             </Suspense>
           </div>
-          <div className="w-1/2 p-3">
+          <div className="w-full p-3 sm:w-1/2">
             <div>
               <p className="text-lg font-bold">Description:</p>
+              <hr className="my-2 border-gray-600" />
               <p className="text-lg">{description}</p>
             </div>
-            <div className="mt-5">
-              <p className="text-xl font-bold">Details:</p>
-              {/* Adding collection details */}
-              {/* <p className=" text-base">{`${
-                grouping.charAt(0).toUpperCase() +
-                grouping.slice(1).toLowerCase()
-              }: ${grouping_value}`}</p> */}
-              <p className=" text-base">{`Owner: ${ownerAddress}`}</p>
-              <div>
-                <p className="text-base font-bold">Creators:</p>
-                {nftData[0].creators.map((creator, index) => (
-                  <div key={index}>
-                    <p className="text-base">Address: {creator.address}</p>
-                    <p className="text-base">Share: {creator.share}</p>
-                    <p className="text-base">
-                      Verified: {creator.verified ? "Yes" : "No"}
-                    </p>
-                  </div>
-                ))}
+            <a
+              href={"https://xray.helius.xyz/token/" + mint}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="pt-3">
+                <p className="text-lg font-bold">Mint:</p>
+                <hr className="my-2 border-gray-600" />
+                <p className="font-normal text-blue-500">{` ${mint}`}</p>
               </div>
-              <a
-                href={"https://xray.helius.xyz/token/" + mint}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="flex justify-normal">
-                  <p className="text-base font-bold">
-                    Mint:
-                    <span className="font-normal text-blue-500">{` ${mint}`}</span>
-                  </p>
-                </div>
-              </a>
-            </div>
+            </a>
           </div>
         </div>
         <div className="flex justify-center">
           <div className="mx-4 w-full p-3">
+            <div className="mt-5 break-words">
+              <p className="text-xl font-bold">Details:</p>
+              <hr className="my-2 border-gray-600" />
+
+              <div className="">
+                <p className="text-base font-bold">Owner:</p>
+                <p className="text-base">{ownerAddress}</p>
+              </div>
+
+              <div className="mt-2 space-y-2">
+                <p className="text-lg font-bold">Creators:</p>
+                <hr className="my-2 border-gray-600" />
+                {nftData[0].creators.map((creator, index) => (
+                  <div key={index} className="rounded-lg bg-neutral-700 p-4">
+                    <p className="text-base">
+                      <span className="font-bold">Address:</span>
+                      <span className="ml-2">{creator.address}</span>
+                    </p>
+                    <p className="text-base">
+                      <span className="font-bold">Share:</span>
+                      <span className="ml-2">{creator.share}</span>
+                    </p>
+                    <p className="text-base">
+                      <span className="font-bold">Verified:</span>
+                      <span className="ml-2">
+                        {creator.verified ? "Yes" : "No"}
+                      </span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
             <div className="my-3">
               <p className="text-xl font-bold">Attributes:</p>
-              {nftData[0].content.metadata?.attributes &&
-              nftData[0].content.metadata.attributes.length > 0 ? (
-                nftData[0].content.metadata.attributes.map(
-                  (attribute, index) => (
-                    <div key={index}>
-                      <p className="text-base">
-                        {attribute.trait_type}: {attribute.value}
-                      </p>
-                    </div>
-                  ),
-                )
-              ) : (
-                <p>No attributes available.</p>
-              )}
+              <hr className="my-2 border-gray-600" />
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+                {nftData[0].content.metadata?.attributes &&
+                nftData[0].content.metadata.attributes.length > 0 ? (
+                  nftData[0].content.metadata.attributes.map(
+                    (attribute, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col items-center rounded-lg bg-neutral-700 p-4"
+                      >
+                        <p className="text-sm font-semibold">
+                          {attribute.trait_type}
+                        </p>
+                        <p className="text-lg">{attribute.value}</p>
+                      </div>
+                    ),
+                  )
+                ) : (
+                  <p>No attributes available.</p>
+                )}
+              </div>
             </div>
             {nftData[0].compression.compressed && (
-              <div className="my-3">
+              <div className="my-3 break-words">
                 <p className="text-xl font-bold">Compression Details:</p>
+                <hr className="my-2  border-gray-600" />
                 <p>Data Hash: {nftData[0].compression.data_hash}</p>
                 <p>Creator Hash: {nftData[0].compression.creator_hash}</p>
                 <p>Asset Hash: {nftData[0].compression.asset_hash}</p>
@@ -125,8 +145,9 @@ const NFTDetails = ({
               </div>
             )}
             {nftData[0].spl20 && (
-              <div className="my-3">
+              <div className="my-3 break-words">
                 <p className="text-xl font-bold">SPL20 Details:</p>
+                <hr className="my-2 border-gray-600" />
                 <p>SPL-20: {nftData[0].spl20.p}</p>
                 <p>Operation: {nftData[0].spl20.op}</p>
                 <p>Ticker: {nftData[0].spl20.tick}</p>
@@ -135,8 +156,9 @@ const NFTDetails = ({
             )}
 
             {nftData[0].inscription && (
-              <div className="my-3">
+              <div className="my-3 break-words">
                 <p className="text-xl font-bold">Inscription Details:</p>
+                <hr className="my-2 border-gray-600" />
                 <p>Order: {nftData[0].inscription.order}</p>
                 <p>Size: {nftData[0].inscription.size}</p>
                 <p>Content Type: {nftData[0].inscription.contentType}</p>

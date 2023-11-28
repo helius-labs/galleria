@@ -28,7 +28,7 @@ export default async function PortfolioPage({
       <div>
         {searchParams.details && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-600 bg-opacity-70">
-            <div className="h-4/5 w-2/3">
+            <div className="h-4/5 w-10/12 sm:w-2/3">
               <NFTDetails
                 nftData={nonFungibleTokenData.filter(
                   (item) => item.id === searchParams.details,
