@@ -68,7 +68,12 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
                       token.content.metadata.symbol ||
                       token.id}
                   </td>
-                  <td className="px-6 py-4">{token.token_info.balance}</td>
+                  <td className="px-6 py-4">
+                    {(
+                      token.token_info.balance /
+                      Math.pow(10, token.token_info.decimals)
+                    ).toFixed(4)}
+                  </td>
                   <td className="px-6 py-4">
                     {token.token_info.price_info?.price_per_token || "N/A"}
                   </td>

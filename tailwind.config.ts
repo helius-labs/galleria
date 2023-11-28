@@ -12,9 +12,8 @@ const config: Config = {
         sans: ["Poppins", "sans-serif"],
       },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        "radial-gradient":
+          "linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), radial-gradient(145.33% 81.28% at 106.91% 112.02%, rgba(228, 85, 46, 0.20) 0%, rgba(0, 0, 0, 0.09) 100%), radial-gradient(98.39% 75.53% at 10.52% -34.67%, #E4552E 13.91%, rgba(30, 30, 31, 0.78) 100%)",
       },
     },
   },

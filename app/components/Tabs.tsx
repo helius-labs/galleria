@@ -13,28 +13,28 @@ const Tabs = ({
 
   return (
     <div className="flex items-center justify-center">
-      <nav className="flex w-full">
+      <nav className="flex w-full flex-col md:flex-row">
         <Link
           href={`/portfolio/${walletAddress}?view=overview`}
-          className={` flex-1 rounded bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 ${
+          className={`block flex-1 rounded bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 md:inline-flex md:justify-center ${
             searchParams.view === "overview" ? "text-primary" : "text-white"
-          }`}
+          } mb-2 md:mx-0 md:mb-0`}
         >
           Overview
         </Link>
         <Link
           href={`/portfolio/${walletAddress}?view=tokens`}
-          className={`mx-4 flex-1 rounded bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 ${
+          className={`block flex-1 rounded bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 md:inline-flex md:justify-center ${
             searchParams.view === "tokens" ? "text-primary" : "text-white"
-          }`}
+          } mx-0 mb-2 md:mx-4 md:mb-0`}
         >
           Tokens
         </Link>
         <Link
           href={`/portfolio/${walletAddress}?view=nfts`}
-          className={` flex-1 rounded bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 ${
+          className={`block flex-1 rounded bg-neutral px-4 py-2 text-center font-bold hover:bg-neutral-500 md:inline-flex md:justify-center ${
             searchParams.view === "nfts" ? "text-primary" : "text-white"
-          }`}
+          } mb-2 md:mx-0 md:mb-0`}
         >
           NFTs
         </Link>

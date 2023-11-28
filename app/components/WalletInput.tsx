@@ -39,12 +39,12 @@ const WalletInput = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form-control">
-      <div className="flex justify-center gap-2">
+    <div className="h-full w-full">
+      <form onSubmit={handleSubmit} className="form-control">
         <input
           type="text"
           placeholder="Wallet Address"
-          className={`h-12 w-full max-w-sm rounded-lg border-2 ${
+          className={`rounded-lg border-2 p-2 ${
             isValid
               ? "bg-white"
               : "outline-4 outline-red-500 focus:outline-4 focus:outline-red-500"
@@ -52,27 +52,8 @@ const WalletInput = () => {
           value={walletAddress}
           onChange={handleInputChange}
         />
-        {/* <button
-          type="submit"
-          className="rounded-lg border-2 border-black bg-primary p-1 hover:bg-accent"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="black"
-            className="h-8 w-8"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M8.25 4.5l7.5 7.5-7.5 7.5"
-            />
-          </svg>
-        </button> */}
-      </div>
-    </form>
+      </form>
+    </div>
   );
 };
 
