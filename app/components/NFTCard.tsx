@@ -25,26 +25,23 @@ const NFTCard = ({
   const handleImageLoaded = () => setIsLoaded(true); // handler for image load
 
   return (
-    <div className="max-w-sm p-4">
+    <div className="w-full max-w-sm p-4">
       <a href={`/portfolio/${walletAddress}?view=nfts&details=${mint}`}>
-        <div className="flex h-full flex-col rounded-lg bg-neutral-500 p-8 hover:bg-neutral-400 ">
-          <figure className="mb-3 flex items-center">
-            <h2 className="text-lg font-medium text-white dark:text-white">
-              {title}
-            </h2>
-          </figure>
+        <div className="flex h-full flex-col rounded-lg bg-neutral-500 p-6 hover:bg-neutral-400 ">
           <div className="flex-grow">
-            <div className="h-72 w-72 overflow-hidden rounded-lg">
-              {/* {!isLoaded && <div className=" skeleton h-72 w-72"></div>}{" "} */}
-              {/* Skeleton Loader */}
+            <div className="h-48 w-full overflow-hidden rounded-lg sm:h-72">
               <img
                 src={imageSrc}
                 alt={title}
-                className={`rounded-xl`} // Hide image until loaded
-                // onLoad={handleImageLoaded} // Event when image is loaded
+                className="h-full w-full rounded-xl object-cover"
               />
             </div>
           </div>
+          <figure className="mt-3 flex items-center justify-center">
+            <h2 className="text-lg font-medium text-white sm:text-lg">
+              {title}
+            </h2>
+          </figure>
         </div>
       </a>
     </div>

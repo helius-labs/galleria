@@ -26,8 +26,8 @@ const NFTTable = ({
   };
 
   return (
-    <div className="mt-10 flex flex-col items-center justify-center">
-      <div className="flex w-full flex-wrap justify-center">
+    <div className="mt-10 flex flex-col items-center justify-center px-4">
+      <div className="flex w-full flex-wrap justify-center gap-4">
         {displayedItems.map((nftData: NonFungibleToken, index) => (
           <NFTCard
             key={index}
@@ -38,7 +38,10 @@ const NFTTable = ({
         ))}
       </div>
       {displayedItems.length < nftDataArray.length && (
-        <button className="btn btn-primary mt-4 text-white" onClick={loadMore}>
+        <button
+          className="btn btn-primary mt-4 px-6 py-3 text-white"
+          onClick={loadMore}
+        >
           Load More
         </button>
       )}
