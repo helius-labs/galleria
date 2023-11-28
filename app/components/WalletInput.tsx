@@ -44,11 +44,11 @@ const WalletInput = () => {
         <input
           type="text"
           placeholder="Wallet Address"
-          className={`rounded-lg border-2 p-2 ${
+          className={`rounded-lg border-2 border-white bg-transparent p-2 placeholder:text-gray-400 ${
             isValid
-              ? "bg-white"
-              : "outline-4 outline-red-500 focus:outline-4 focus:outline-red-500"
-          }  text-center text-black focus:border-2 focus:border-black focus:outline-none`}
+              ? ""
+              : "border-4 border-red-500 focus:border-4 focus:border-red-500"
+          } text-center text-white focus:border-2 focus:border-white focus:outline-none`}
           value={walletAddress}
           onChange={handleInputChange}
         />

@@ -15,9 +15,8 @@ const NFTs = ({
     return <div>Loading...</div>;
   }
   return (
-    <div className="rounded-lg bg-neutral">
+    <div className="rounded-lg bg-black bg-opacity-50">
       <div className="p-5">
-        <h1 className=" text-xl font-bold">NFTs</h1>
         <NFTTable
           nftDataArray={tokens}
           searchParams={searchParams}

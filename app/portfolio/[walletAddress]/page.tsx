@@ -24,10 +24,10 @@ export default async function PortfolioPage({
 
   //console.log(params.walletAddress);
   return (
-    <div>
+    <div className="bg-radial-gradient h-screen">
       <div>
         {searchParams.details && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-500 bg-opacity-50">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-600 bg-opacity-70">
             <div className="h-4/5 w-2/3">
               <NFTDetails
                 nftData={nonFungibleTokenData.filter(
@@ -40,18 +40,18 @@ export default async function PortfolioPage({
           </div>
         )}
       </div>
-      <div className="m-10">
-        <div className="m-5 mb-10">
+      <div className="">
+        <div className="mb-8">
           <NavBar />
         </div>
-        <div className="mx-5 my-4">
+        <div className="mx-10 my-4">
           <Tabs
             searchParams={searchParams}
             walletAddress={params.walletAddress}
           />
         </div>
         <Suspense fallback={<div>Loading...</div>} key={searchParams.view}>
-          <div className="mx-5 my-4">
+          <div className={`mx-10 my-4 pb-4 `}>
             {searchParams.view === "overview" && (
               <Overview tokens={nonFungibleTokenData} />
             )}

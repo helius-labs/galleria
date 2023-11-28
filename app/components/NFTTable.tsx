@@ -12,23 +12,20 @@ const NFTTable = ({
   walletAddress: string;
   nftDataArray: NonFungibleToken[];
 }) => {
-  const itemsPerPage = 12;
-  const [displayedItems, setDisplayedItems] = useState(
-    nftDataArray.slice(0, itemsPerPage),
-  );
+  const itemsPerPage = 8;
+  const [currentPage, setCurrentPage] = useState(1);
 
-  const loadMore = () => {
-    const nextItems = nftDataArray.slice(
-      0,
-      displayedItems.length + itemsPerPage,
-    );
-    setDisplayedItems(nextItems);
-  };
+  const totalPages = Math.ceil(nftDataArray.length / itemsPerPage);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = nftDataArray.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className="mt-10 flex flex-col items-center justify-center px-4">
+    <div className=" flex flex-col items-center justify-center px-4">
       <div className="flex w-full flex-wrap justify-center gap-4">
-        {displayedItems.map((nftData: NonFungibleToken, index) => (
+        {currentItems.map((nftData: NonFungibleToken, index) => (
           <NFTCard
             key={index}
             nftData={nftData}
@@ -37,14 +34,27 @@ const NFTTable = ({
           />
         ))}
       </div>
-      {displayedItems.length < nftDataArray.length && (
-        <button
-          className="btn btn-primary mt-4 px-6 py-3 text-white"
-          onClick={loadMore}
-        >
-          Load More
-        </button>
-      )}
+      <div className="flex justify-center p-4">
+        <div className="join">
+          <button
+            onClick={() => paginate(currentPage - 1)}
+            className="btn btn-primary join-item text-white disabled:bg-primary disabled:text-white disabled:opacity-30"
+            disabled={currentPage === 1}
+          >
+            «
+          </button>
+          <button className=" bg-primary px-2 text-white">
+            Page {currentPage}
+          </button>
+          <button
+            onClick={() => paginate(currentPage + 1)}
+            className="btn btn-primary join-item text-white disabled:bg-primary disabled:text-white disabled:opacity-30"
+            disabled={currentPage === totalPages}
+          >
+            »
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -25,11 +25,11 @@ const NFTCard = ({
   const handleImageLoaded = () => setIsLoaded(true); // handler for image load
 
   return (
-    <div className="w-full max-w-sm p-4">
+    <div className="w-full max-w-xs p-3">
       <a href={`/portfolio/${walletAddress}?view=nfts&details=${mint}`}>
-        <div className="flex h-full flex-col rounded-lg bg-neutral-500 p-6 hover:bg-neutral-400 ">
+        <div className="flex flex-col rounded-lg bg-neutral bg-opacity-50 p-2 hover:bg-neutral-500 hover:bg-opacity-60 ">
           <div className="flex-grow">
-            <div className="h-48 w-full overflow-hidden rounded-lg sm:h-72">
+            <div className="h-48 overflow-hidden rounded-lg sm:h-64">
               <img
                 src={imageSrc}
                 alt={title}
@@ -38,7 +38,7 @@ const NFTCard = ({
             </div>
           </div>
           <figure className="mt-3 flex items-center justify-center">
-            <h2 className="text-lg font-medium text-white sm:text-lg">
+            <h2 className="truncate text-lg font-medium text-white sm:text-xl">
               {title}
             </h2>
           </figure>

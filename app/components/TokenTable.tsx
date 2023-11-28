@@ -20,15 +20,14 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
   const totalPages = Math.ceil(tokens.length / itemsPerPage);
 
   return (
-    <div className="rounded-lg bg-neutral">
-      <div className="p-5">
-        <h1 className="text-xl font-bold">Tokens</h1>
-        <div className="relative overflow-x-hidden shadow-md sm:rounded-lg">
-          <table className="w-full text-left text-sm text-gray-500 rtl:text-right dark:text-gray-400">
-            <thead className="bg-neutral-800 text-xs uppercase text-white">
+    <div className="rounded-lg bg-black bg-opacity-50 ">
+      <div className="p-3 sm:p-5">
+        <div className="relative m-2 overflow-x-auto rounded-lg bg-opacity-60">
+          <table className="min-w-full text-xs text-white sm:text-sm">
+            <thead className=" border-b border-gray-500 bg-neutral bg-opacity-60 text-sm uppercase text-white">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  Profile
+                  Icon
                 </th>
                 <th scope="col" className="px-6 py-3">
                   Symbol
@@ -48,14 +47,17 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
               {currentTokens.map((token) => (
                 <tr
                   key={token.id}
-                  className="border-b border-neutral-800 bg-neutral-500 text-white hover:bg-neutral-400"
+                  className="border-b border-neutral-600 bg-neutral bg-opacity-60 text-center text-white hover:bg-neutral-600 hover:bg-opacity-60"
                 >
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
+                  <td className="px-6 py-3">
+                    <div className="flex items-center justify-center gap-3">
                       <div className="avatar">
-                        <div className="mask mask-squircle h-12 w-12">
+                        <div className="mask mask-circle h-12 w-12">
                           {token.content.links.image ? (
-                            <img src={token.content.links.image} alt="Avatar" />
+                            <img
+                              src={token.content.links.image}
+                              alt="Token Icon"
+                            />
                           ) : (
                             <div className="skeleton h-12 w-12 shrink-0 rounded-full"></div>
                           )}
@@ -72,7 +74,7 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
                     {(
                       token.token_info.balance /
                       Math.pow(10, token.token_info.decimals)
-                    ).toFixed(4)}
+                    ).toFixed(2)}
                   </td>
                   <td className="px-6 py-4">
                     {token.token_info.price_info?.price_per_token || "N/A"}
@@ -86,11 +88,11 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
           </table>
         </div>
       </div>
-      <div className="flex justify-center p-4">
+      <div className="flex justify-center pb-2 sm:pb-4">
         <div className="join">
           <button
             onClick={() => paginate(currentPage - 1)}
-            className="btn btn-primary join-item text-white disabled:bg-primary disabled:text-white disabled:opacity-30"
+            className="btn btn-primary join-item text-white disabled:bg-primary disabled:text-white disabled:opacity-60"
             disabled={currentPage === 1}
           >
             «
