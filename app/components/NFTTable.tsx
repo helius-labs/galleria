@@ -14,7 +14,6 @@ const NFTTable = ({
 }) => {
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
-
   const totalPages = Math.ceil(nftDataArray.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
