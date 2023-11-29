@@ -36,15 +36,35 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
     router.push(`${pathname}?${queryString}`);
   };
 
+  const handleNoFilter = () => {
+    // Create a new instance of URLSearchParams
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    // Delete the 'collection' parameter
+    newSearchParams.delete("collection");
+
+    // Navigate to the updated URL
+    const newURL = `${pathname}?${newSearchParams.toString()}`;
+    router.push(newURL);
+  };
+
   return (
-    <div className="items-centerpx-4 flex w-full flex-col py-2 ">
+    <div className="flex w-full flex-col items-center px-4 py-2">
       <h1 className="text-lg font-bold">Filters</h1>
       <ul className="menu w-full rounded-box bg-neutral bg-opacity-50">
         <li>
           <details open>
             <summary className="text-base">Choose collection</summary>
-
-            <ul>
+            <ul className="max-h-60 overflow-y-auto">
+              {/* Scrollable list */}
+              {/* No Filter Option */}
+              <li
+                onClick={handleNoFilter}
+                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+              >
+                <a className="block px-4 py-2 text-sm text-white">No Filter</a>
+              </li>
+              {/* Collection Filters */}
               {collections.map((collection) =>
                 collection.collection_metadata ? (
                   <li
@@ -52,7 +72,7 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
                     onClick={() =>
                       handleCollectionFilter(collection.group_value)
                     }
-                    className="w-full  hover:bg-neutral-500 hover:bg-opacity-60"
+                    className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
                   >
                     <a className="block px-4 py-2 text-sm text-white">
                       {collection.collection_metadata.name}
@@ -63,31 +83,7 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
             </ul>
           </details>
         </li>
-        {/* <li>
-          <a>Test</a>
-        </li> */}
       </ul>
-
-      {/* <div className="dropdown w-full">
-        <div className=" w-full items-center rounded bg-neutral px-4 py-2 font-medium text-white hover:bg-neutral-500 hover:bg-opacity-60">
-          Select a Collection
-        </div>
-        <ul className="menu dropdown-content absolute z-10 w-full rounded-box bg-neutral bg-opacity-50 p-2 hover:bg-neutral-500 hover:bg-opacity-60">
-          {collections.map((collection) =>
-            collection.collection_metadata ? (
-              <li
-                key={collection.group_value}
-                onClick={() => handleCollectionFilter(collection.group_value)}
-                className="w-full bg-neutral bg-opacity-50 hover:bg-neutral-500 hover:bg-opacity-60"
-              >
-                <a className="block px-4 py-2 text-sm text-white">
-                  {collection.collection_metadata.name}
-                </a>
-              </li>
-            ) : null,
-          )}
-        </ul>
-      </div> */}
     </div>
   );
 };
