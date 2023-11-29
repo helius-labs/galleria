@@ -1,35 +1,61 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import NFTCard from "./NFTCard";
 import { NonFungibleToken } from "../types/nonFungibleToken";
 
 const NFTTable = ({
-  searchParams,
   walletAddress,
   nftDataArray,
 }: {
-  searchParams: { view: string };
   walletAddress: string;
   nftDataArray: NonFungibleToken[];
 }) => {
+  const searchParams = useSearchParams();
+  const collectionFilter = searchParams.get("collection");
+
   const itemsPerPage = 8;
   const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(nftDataArray.length / itemsPerPage);
+  const [groupedNFTs, setGroupedNFTs] = useState<
+    Map<string, NonFungibleToken[]>
+  >(new Map());
+
+  useEffect(() => {
+    // Group NFTs by their collection
+    const grouped = new Map<string, NonFungibleToken[]>();
+    nftDataArray.forEach((nft) => {
+      const collectionKey =
+        nft.grouping.find((g) => g.group_key === "collection")?.group_value ||
+        "Unknown";
+      if (!grouped.has(collectionKey)) {
+        grouped.set(collectionKey, []);
+      }
+      grouped.get(collectionKey)?.push(nft);
+    });
+    setGroupedNFTs(grouped);
+  }, [nftDataArray]);
+
+  // Filter grouped NFTs based on the collection query parameter
+  const filteredNFTs = collectionFilter
+    ? groupedNFTs.get(collectionFilter) || []
+    : Array.from(groupedNFTs.values()).flat();
+
+  const totalItems = filteredNFTs.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = nftDataArray.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = filteredNFTs.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
-    <div className=" flex flex-col items-center justify-center px-4">
+    <div className="flex flex-col items-center justify-center px-4">
       <div className="flex w-full flex-wrap justify-center gap-4">
         {currentItems.map((nftData: NonFungibleToken, index) => (
           <NFTCard
             key={index}
             nftData={nftData}
             walletAddress={walletAddress}
-            searchParams={searchParams}
           />
         ))}
       </div>
@@ -37,7 +63,7 @@ const NFTTable = ({
         <div className="join">
           <button
             onClick={() => paginate(currentPage - 1)}
-            className="btn join-item  btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
+            className="btn join-item btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
             disabled={currentPage === 1}
           >
             «
@@ -47,7 +73,7 @@ const NFTTable = ({
           </button>
           <button
             onClick={() => paginate(currentPage + 1)}
-            className="btn join-item  btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
+            className="btn join-item btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
             disabled={currentPage === totalPages}
           >
             »

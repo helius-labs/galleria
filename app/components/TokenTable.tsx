@@ -1,23 +1,34 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FungibleToken } from "../types/fungibleToken";
 
 const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [sortedTokens, setSortedTokens] = useState<FungibleToken[]>([]);
   const itemsPerPage = 8; // Adjust the number of items per page as needed
 
-  if (!tokens) {
+  useEffect(() => {
+    // Sort tokens by total value in descending order
+    const sorted = [...tokens].sort(
+      (a, b) =>
+        (b.token_info.price_info?.total_price || 0) -
+        (a.token_info.price_info?.total_price || 0),
+    );
+    setSortedTokens(sorted);
+  }, [tokens]);
+
+  if (!sortedTokens) {
     return <div>Loading...</div>;
   }
 
   const indexOfLastToken = currentPage * itemsPerPage;
   const indexOfFirstToken = indexOfLastToken - itemsPerPage;
-  const currentTokens = tokens.slice(indexOfFirstToken, indexOfLastToken);
+  const currentTokens = sortedTokens.slice(indexOfFirstToken, indexOfLastToken);
 
   const paginate = (pageNumber: React.SetStateAction<number>) =>
     setCurrentPage(pageNumber);
 
-  const totalPages = Math.ceil(tokens.length / itemsPerPage);
+  const totalPages = Math.ceil(sortedTokens.length / itemsPerPage);
 
   return (
     <div className="rounded-lg bg-black bg-opacity-50 ">
@@ -97,7 +108,7 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
           >
             «
           </button>
-          <button className=" bg-neutral px-2 text-white opacity-60">
+          <button className=" bg-neutral bg-opacity-60 px-2 text-white">
             Page {currentPage}
           </button>
           <button

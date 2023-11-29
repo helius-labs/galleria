@@ -73,7 +73,6 @@ export default async function PortfolioPage({
 }
 
 async function getFungibleData(walletAddress: string) {
-  //console.log(walletAddress);
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
@@ -99,9 +98,90 @@ async function getFungibleData(walletAddress: string) {
     throw new Error(`Failed to fetch data`);
   }
   const data = await response.json();
-  console.log(JSON.stringify(data.result, null, 2));
+  // console.log(JSON.stringify(data.result, null, 2));
+
   const tokens: FungibleToken[] = data.result.items;
-  // console.log(JSON.stringify(tokens, null, 2));
+
+  // Calculate SOL balance from lamports
+  const solBalance = data.result.nativeBalance.lamports;
+
+  // console.log("SOLAMIS:" + solBalance.lamports);
+
+  // Create SOL token object
+  const solToken = {
+    interface: "FungibleAsset",
+    id: "So11111111111111111111111111111111111111112", // Mint address as ID
+    content: {
+      $schema: "https://schema.metaplex.com/nft1.0.json",
+      json_uri: "",
+      files: [
+        {
+          uri: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+          cdn_uri: "", // Assuming this is correct
+          mime: "image/png",
+        },
+      ],
+      metadata: {
+        description: "Solana Token",
+        name: "Wrapped SOL",
+        symbol: "SOL",
+        token_standard: "Native Token",
+      },
+      links: {
+        image:
+          "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+      },
+    },
+    authorities: [], // Assuming empty for SOL
+    compression: {
+      eligible: false,
+      compressed: false,
+      data_hash: "",
+      creator_hash: "",
+      asset_hash: "",
+      tree: "",
+      seq: 0,
+      leaf_id: 0,
+    },
+    grouping: [], // Assuming empty for SOL
+    royalty: {
+      royalty_model: "", // Fill as needed
+      target: null,
+      percent: 0,
+      basis_points: 0,
+      primary_sale_happened: false,
+      locked: false,
+    },
+    creators: [], // Assuming empty for SOL
+    ownership: {
+      frozen: false,
+      delegated: false,
+      delegate: null,
+      ownership_model: "token",
+      owner: "", // Fill with appropriate owner address
+    },
+    supply: null, // Assuming null for SOL
+    mutable: true, // Assuming true for SOL
+    burnt: false, // Assuming false for SOL
+
+    token_info: {
+      symbol: "SOL",
+      balance: solBalance,
+      supply: 0, // Assuming null for SOL
+      decimals: 9,
+      token_program: "", // Fill as needed
+      associated_token_address: "", // Fill as needed
+      price_info: {
+        price_per_token: 50, // Fill with actual price if available
+        total_price: 50 * (solBalance / 1e9), // Fill with actual total price if available
+        currency: "", // Fill as needed
+      },
+    },
+  };
+
+  // Add SOL token to the tokens array
+  tokens.push(solToken);
+
   return tokens;
 }
 async function getNonFungibleData(walletAddress: string) {
@@ -122,6 +202,7 @@ async function getNonFungibleData(walletAddress: string) {
         tokenType: "nonFungible",
         displayOptions: {
           showInscription: true,
+          showCollectionMetadata: true,
         },
       },
     }),

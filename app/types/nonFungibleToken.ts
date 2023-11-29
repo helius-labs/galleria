@@ -52,9 +52,18 @@ export interface Authority {
   scopes: string[];
 }
 
+export interface CollectionMetadata {
+  name: string;
+  symbol: string;
+  image: string;
+  description: string;
+  external_url: string;
+}
+
 export interface Grouping {
   group_key: string;
   group_value: string;
+  collection_metadata: CollectionMetadata;
 }
 
 export interface Creator {
