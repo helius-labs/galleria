@@ -1,6 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer base {
+  html {
+      @apply  bg-[#222222];
+  }
+}
 
 :root {
   --foreground-rgb: 255, 255, 255;
@@ -10,5 +15,5 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-
+ 
 }

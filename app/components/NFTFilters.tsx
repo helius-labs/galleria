@@ -53,7 +53,7 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
       <h1 className="p-1 text-lg font-bold">Filters</h1>
       <ul className="menu w-full rounded-box bg-neutral bg-opacity-50">
         <li>
-          <details open>
+          <details>
             <summary className="text-base">Choose collection</summary>
             <ul className="max-h-60 overflow-y-auto">
               {/* Scrollable list */}

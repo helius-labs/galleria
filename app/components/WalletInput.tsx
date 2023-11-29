@@ -59,7 +59,7 @@ const WalletInput = () => {
               isValid
                 ? ""
                 : "border-4 border-red-500 focus:border-4 focus:border-red-500"
-            } text-center text-white focus:border-2 focus:border-white focus:outline-none`}
+            } text-center text-white focus:border-2  focus:outline-none`}
             value={walletAddress}
             onChange={handleInputChange}
           />
