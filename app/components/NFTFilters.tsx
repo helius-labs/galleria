@@ -50,7 +50,7 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
 
   return (
     <div className="flex w-full flex-col items-center px-4 py-2">
-      <h1 className="text-lg font-bold">Filters</h1>
+      <h1 className="p-1 text-lg font-bold">Filters</h1>
       <ul className="menu w-full rounded-box bg-neutral bg-opacity-50">
         <li>
           <details open>
