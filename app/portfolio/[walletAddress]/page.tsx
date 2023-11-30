@@ -189,7 +189,7 @@ async function getFungibleData(walletAddress: string) {
       delegated: false,
       delegate: null,
       ownership_model: "token",
-      owner: "", // Fill with appropriate owner address
+      owner: tokens[0]?.ownership.owner,
     },
     supply: null, // Assuming null for SOL
     mutable: true, // Assuming true for SOL

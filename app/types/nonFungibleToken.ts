@@ -39,7 +39,6 @@ export interface Metadata {
   description: string;
   name: string;
   symbol: string;
-  // Add any other fields present in the metadata
 }
 
 export interface Attribute {

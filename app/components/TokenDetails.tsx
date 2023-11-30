@@ -102,7 +102,7 @@ const TokenDetails = ({
                   rel="noopener noreferrer"
                   className="flex items-center"
                 >
-                  <p className="text-base">{`${ownerAddress.slice(
+                  <p className="text-base text-blue-500">{`${ownerAddress.slice(
                     0,
                     3,
                   )}...${ownerAddress.slice(-4)}`}</p>

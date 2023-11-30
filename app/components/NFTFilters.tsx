@@ -35,31 +35,45 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
     const queryString = createQueryString("collection", collection);
     router.push(`${pathname}?${queryString}`);
   };
+  const handleTypeFilter = (type: string) => {
+    const queryString = createQueryString("type", type);
+    router.push(`${pathname}?${queryString}`);
+  };
 
-  const handleNoFilter = () => {
-    // Create a new instance of URLSearchParams
-    const newSearchParams = new URLSearchParams(searchParams);
+  const handleNoFilter = (type: string) => {
+    if (type === "collection") {
+      // Create a new instance of URLSearchParams
+      const newSearchParams = new URLSearchParams(searchParams);
+      // Delete the 'collection' parameter
+      newSearchParams.delete("collection");
 
-    // Delete the 'collection' parameter
-    newSearchParams.delete("collection");
+      // Navigate to the updated URL
+      const newURL = `${pathname}?${newSearchParams.toString()}`;
+      router.push(newURL);
+    } else if (type === "type") {
+      // Create a new instance of URLSearchParams
+      const newSearchParams = new URLSearchParams(searchParams);
+      // Delete the 'type' parameter
+      newSearchParams.delete("type");
 
-    // Navigate to the updated URL
-    const newURL = `${pathname}?${newSearchParams.toString()}`;
-    router.push(newURL);
+      // Navigate to the updated URL
+      const newURL = `${pathname}?${newSearchParams.toString()}`;
+      router.push(newURL);
+    }
   };
 
   return (
     <div className="flex w-full flex-col px-4 py-2">
       <h1 className="p-1 text-lg font-bold">Filters</h1>
-      <ul className="menu w-full rounded-box bg-neutral bg-opacity-50">
+      <ul className="menu my-1 w-full rounded-box bg-neutral bg-opacity-50">
         <li>
           <details>
-            <summary className="text-base">Choose collection</summary>
+            <summary className="text-base">Collection</summary>
             <ul className="max-h-60 overflow-y-auto">
               {/* Scrollable list */}
               {/* No Filter Option */}
               <li
-                onClick={handleNoFilter}
+                onClick={() => handleNoFilter("collection")}
                 className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
               >
                 <a className="block px-4 py-2 text-sm text-white">
@@ -82,6 +96,59 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
                   </li>
                 ) : null,
               )}
+            </ul>
+          </details>
+        </li>
+      </ul>
+      <ul className="menu my-1 w-full rounded-box bg-neutral bg-opacity-50">
+        <li>
+          <details>
+            <summary className="text-base">NFT Type</summary>
+            <ul className="max-h-60 overflow-y-auto">
+              {/* Scrollable list */}
+              {/* No Filter Option */}
+              <li
+                onClick={() => handleNoFilter("type")}
+                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+              >
+                <a className="block px-4 py-2 text-sm text-white">All Types</a>
+              </li>
+              {/* NFT Type Filters */}
+
+              <li
+                key={"Standard NFT"}
+                onClick={() => handleTypeFilter("StandardNFT")}
+                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+              >
+                <a className="block px-4 py-2 text-sm text-white">
+                  {"Standard NFT"}
+                </a>
+              </li>
+              <li
+                key={"Compressed NFT"}
+                onClick={() => handleTypeFilter("CompressedNFT")}
+                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+              >
+                <a className="block px-4 py-2 text-sm text-white">
+                  {"Compressed NFT"}
+                </a>
+              </li>
+              <li
+                key={"Inscription"}
+                onClick={() => handleTypeFilter("Inscription")}
+                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+              >
+                <a className="block px-4 py-2 text-sm text-white">
+                  {"Inscription"}
+                </a>
+              </li>
+              <li
+                key={"SPL20"}
+                onClick={() => handleTypeFilter("SPL20")}
+                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+              >
+                <a className="block px-4 py-2 text-sm text-white">{"SPL20"}</a>
+              </li>
             </ul>
           </details>
         </li>
