@@ -4,9 +4,11 @@ import { NonFungibleToken } from "../types/nonFungibleToken";
 const NFTCard = ({
   walletAddress,
   nftData,
+  searchParams,
 }: {
   walletAddress: string;
   nftData: NonFungibleToken;
+  searchParams: string;
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -19,7 +21,7 @@ const NFTCard = ({
 
   return (
     <div className="w-full max-w-xs p-3">
-      <a href={`/portfolio/${walletAddress}?view=nfts&details=${mint}`}>
+      <a href={`/portfolio/${walletAddress}?${searchParams}&details=${mint}`}>
         <div className="flex flex-col rounded-lg bg-neutral bg-opacity-50 p-2 hover:bg-neutral-500 hover:bg-opacity-60 ">
           <div className="flex-grow">
             <div className="h-48 overflow-hidden rounded-lg sm:h-64">

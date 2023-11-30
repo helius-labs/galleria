@@ -7,12 +7,13 @@ import NFTs from "@/app/components/NFTs";
 import Tokens from "@/app/components/Tokens";
 import { NonFungibleToken } from "@/app/types/nonFungibleToken";
 import NFTDetails from "@/app/components/NFTDetails";
+import TokenDetails from "@/app/components/TokenDetails";
 
 export default async function PortfolioPage({
   searchParams,
   params,
 }: {
-  searchParams: { view: string; details: string };
+  searchParams: { view: string; details: string; tokenDetails: string };
   params: { walletAddress: string };
 }) {
   const fungibleTokenData: FungibleToken[] = await getFungibleData(
@@ -27,7 +28,7 @@ export default async function PortfolioPage({
     <div className="bg-radial-gradient h-screen">
       <div>
         {searchParams.details && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-600 bg-opacity-70">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
             <div className="h-4/5 w-10/12 sm:w-2/3">
               <NFTDetails
                 nftData={nonFungibleTokenData.filter(
@@ -40,9 +41,28 @@ export default async function PortfolioPage({
           </div>
         )}
       </div>
+      <div>
+        {searchParams.tokenDetails && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
+            <div className="h-4/5 w-10/12 sm:w-2/3">
+              <TokenDetails
+                tokenData={fungibleTokenData.filter(
+                  (item) => item.id === searchParams.tokenDetails,
+                )}
+                searchParams={searchParams}
+                walletAddress={params.walletAddress}
+              />
+            </div>
+          </div>
+        )}
+      </div>
       <div
         className={`${
           searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
+        }${
+          searchParams.tokenDetails
+            ? "flex h-screen flex-col overflow-hidden"
+            : ""
         }`}
       >
         <div className="mb-8">
@@ -60,12 +80,16 @@ export default async function PortfolioPage({
               <Overview tokens={nonFungibleTokenData} />
             )}
             {searchParams.view === "tokens" && (
-              <Tokens tokens={fungibleTokenData} />
+              <Tokens
+                tokens={fungibleTokenData}
+                searchParams={searchParams.toString()}
+                walletAddress={params.walletAddress}
+              />
             )}
             {searchParams.view === "nfts" && (
               <NFTs
                 tokens={nonFungibleTokenData}
-                searchParams={searchParams}
+                searchParams={searchParams.toString()}
                 walletAddress={params.walletAddress}
               />
             )}

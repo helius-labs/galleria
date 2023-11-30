@@ -15,6 +15,9 @@ const config: Config = {
         "radial-gradient":
           "radial-gradient(73.15% 70.06% at 50% -10.9%, rgba(228, 85, 46, 0.70) 0%, #222 100%)",
       },
+      boxShadow: {
+        glow: "0 0 5px 2px rgba(238, 199, 188, 0.6)", // This is a blue glow
+      },
     },
   },
 
