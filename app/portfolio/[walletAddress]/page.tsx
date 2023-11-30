@@ -107,7 +107,10 @@ async function getFungibleData(walletAddress: string) {
   const tokens: FungibleToken[] = data.result.items;
 
   // Calculate SOL balance from lamports
+  // console.log(data.result.nativeBalance);
   const solBalance = data.result.nativeBalance.lamports;
+  // const solPrice = data.result.nativeBalace.price_per_sol;
+  // const totalPrice = data.result.nativeBalace.total_price;
 
   // console.log("SOLAMIS:" + solBalance.lamports);
 
@@ -176,8 +179,8 @@ async function getFungibleData(walletAddress: string) {
       token_program: "", // Fill as needed
       associated_token_address: "", // Fill as needed
       price_info: {
-        price_per_token: 50, // Fill with actual price if available
-        total_price: 50 * (solBalance / 1e9), // Fill with actual total price if available
+        price_per_token: data.result.nativeBalance.price_per_sol, // Fill with actual price if available
+        total_price: data.result.nativeBalance.total_price, // Fill with actual total price if available
         currency: "", // Fill as needed
       },
     },
