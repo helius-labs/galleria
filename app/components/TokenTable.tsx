@@ -105,10 +105,12 @@ const TokenTable = ({
                     ).toFixed(2)}
                   </td>
                   <td className="px-6 py-4">
-                    {token.token_info.price_info?.price_per_token || "N/A"}
+                    ${token.token_info.price_info?.price_per_token || "N/A"}
                   </td>
                   <td className="px-6 py-4">
-                    {token.token_info.price_info?.total_price || "N/A"}
+                    $
+                    {token.token_info.price_info?.total_price.toFixed(2) ||
+                      "N/A"}
                   </td>
                 </tr>
               ))}

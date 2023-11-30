@@ -55,7 +55,7 @@ const WalletInput = () => {
           <input
             type="text"
             placeholder="Wallet Address"
-            className={`rounded-lg border-2 border-white bg-transparent p-2 placeholder:text-gray-400 ${
+            className={` focus:shadow-glow rounded-lg border-2 border-white bg-transparent p-2 placeholder:text-gray-400 ${
               isValid
                 ? ""
                 : "border-4 border-red-500 focus:border-4 focus:border-red-500"
