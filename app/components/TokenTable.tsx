@@ -1,11 +1,23 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FungibleToken } from "../types/fungibleToken";
+import { useRouter } from "next/navigation";
 
-const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
+const TokenTable = ({
+  tokens,
+  walletAddress,
+
+  searchParams,
+}: {
+  tokens: FungibleToken[];
+  walletAddress: string;
+
+  searchParams: string;
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedTokens, setSortedTokens] = useState<FungibleToken[]>([]);
   const itemsPerPage = 8; // Adjust the number of items per page as needed
+  const router = useRouter();
 
   useEffect(() => {
     // Sort tokens by total value in descending order
@@ -59,6 +71,11 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
                 <tr
                   key={token.id}
                   className="border-b border-neutral-600 bg-neutral bg-opacity-60 text-center text-white hover:bg-neutral-600 hover:bg-opacity-60"
+                  onClick={() =>
+                    router.push(
+                      `/portfolio/${walletAddress}?${searchParams}&tokenDetails=${token.id}`,
+                    )
+                  }
                 >
                   <td className="px-6 py-3">
                     <div className="flex items-center justify-center gap-3">
@@ -88,10 +105,12 @@ const TokenTable = ({ tokens }: { tokens: FungibleToken[] }) => {
                     ).toFixed(2)}
                   </td>
                   <td className="px-6 py-4">
-                    {token.token_info.price_info?.price_per_token || "N/A"}
+                    ${token.token_info.price_info?.price_per_token || "N/A"}
                   </td>
                   <td className="px-6 py-4">
-                    {token.token_info.price_info?.total_price || "N/A"}
+                    $
+                    {token.token_info.price_info?.total_price.toFixed(2) ||
+                      "N/A"}
                   </td>
                 </tr>
               ))}

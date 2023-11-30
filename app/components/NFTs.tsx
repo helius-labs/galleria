@@ -8,7 +8,7 @@ const NFTs = ({
   walletAddress,
   tokens,
 }: {
-  searchParams: { view: string };
+  searchParams: string;
   walletAddress: string;
   tokens: NonFungibleToken[];
 }) => {

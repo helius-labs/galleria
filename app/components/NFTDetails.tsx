@@ -19,9 +19,10 @@ const NFTDetails = ({
   //   const grouping = nftData[0].grouping[0].group_key;
   //   const grouping_value = nftData[0].grouping[0].group_value;
   const ownerAddress = nftData[0].ownership.owner;
+  const royaltyPercentage = nftData[0].royalty.percent;
 
   return (
-    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white sm:p-2">
+    <div className="shadow-glow h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white sm:p-2">
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=nfts`}>
           <svg
@@ -39,7 +40,7 @@ const NFTDetails = ({
             />
           </svg>
         </Link>
-        <h1 className="m-2 p-3 text-xl font-bold">{title}</h1>
+        <h1 className="m-2 p-3 text-3xl font-bold">{title}</h1>
       </div>
 
       <div>
@@ -54,36 +55,62 @@ const NFTDetails = ({
               </a>
             </Suspense>
           </div>
-          <div className="w-full p-3 sm:w-1/2">
+          <div className="mx-2 w-full p-3 sm:w-1/2">
             <div>
-              <p className="text-lg font-bold">Description:</p>
+              <p className="text-2xl font-bold">Description:</p>
               <hr className="my-2 border-gray-600" />
               <p className="text-lg">{description}</p>
             </div>
-            <a
-              href={"https://xray.helius.xyz/token/" + mint}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="pt-3">
-                <p className="text-lg font-bold">Mint:</p>
-                <hr className="my-2 border-gray-600" />
-                <p className="font-normal text-blue-500">{` ${mint}`}</p>
+            <div className="mt-5 break-words">
+              <p className="py-1 text-2xl font-bold">Details:</p>
+              <hr className="my-1 border-gray-600" />
+
+              {/* Flex container for each detail item with content justified between */}
+              <div className="my-1 flex items-center justify-between">
+                <p className="text-lg font-bold">Owner:</p>
+                {/* JavaScript slice method to show only the first 3 and last 4 characters of the ownerAddress */}
+                <a
+                  href={"https://xray.helius.xyz/token/" + mint}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center"
+                >
+                  <p className="text-base">{`${ownerAddress.slice(
+                    0,
+                    3,
+                  )}...${ownerAddress.slice(-4)}`}</p>
+                </a>
               </div>
-            </a>
+
+              {/* Flex container for each detail item with content justified between */}
+              <div className="my-1 flex items-center justify-between">
+                <p className="text-lg font-bold">Mint:</p>
+                {/* Anchor tag is kept within the flex container for layout purposes */}
+                <a
+                  href={"https://xray.helius.xyz/token/" + mint}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-blue-500"
+                >
+                  {/* JavaScript slice method to show only the first 3 and last 4 characters of the mint */}
+                  <p className="font-normal text-blue-500">{` ${mint.slice(
+                    0,
+                    3,
+                  )}...${mint.slice(-4)}`}</p>
+                </a>
+              </div>
+              <div className="my-1 flex items-center justify-between">
+                <p className="text-lg font-bold">Royalties:</p>
+                <p className="font-normal text-white">
+                  {royaltyPercentage * 100}%
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <div className="flex justify-center">
           <div className="mx-4 w-full p-3">
             <div className="mt-5 break-words">
-              <p className="text-xl font-bold">Details:</p>
-              <hr className="my-2 border-gray-600" />
-
-              <div className="">
-                <p className="text-base font-bold">Owner:</p>
-                <p className="text-base">{ownerAddress}</p>
-              </div>
-
               <div className="mt-2 space-y-2">
                 <p className="text-lg font-bold">Creators:</p>
                 <hr className="my-2 border-gray-600" />

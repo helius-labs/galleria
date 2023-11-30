@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import NFTCard from "./NFTCard";
 import { NonFungibleToken } from "../types/nonFungibleToken";
+import { useParams } from "next/navigation";
 
 const NFTTable = ({
   walletAddress,
@@ -46,6 +47,8 @@ const NFTTable = ({
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredNFTs.slice(indexOfFirstItem, indexOfLastItem);
   const MemoizedNFTCard = React.memo(NFTCard);
+  const searchPar = useSearchParams();
+  const param = useParams();
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -57,6 +60,7 @@ const NFTTable = ({
             key={nftData.id}
             nftData={nftData}
             walletAddress={walletAddress}
+            searchParams={searchPar.toString()}
           />
         ))}
       </div>
