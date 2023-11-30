@@ -25,11 +25,7 @@ const NFTs = ({
       {/* NFT Table */}
       <div className="sm:w-full">
         <div className="flex-grow p-5">
-          <NFTTable
-            nftDataArray={tokens}
-            searchParams={searchParams}
-            walletAddress={walletAddress}
-          />
+          <NFTTable nftDataArray={tokens} walletAddress={walletAddress} />
         </div>
       </div>
     </div>
