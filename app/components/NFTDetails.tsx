@@ -12,8 +12,7 @@ const NFTDetails = ({
   nftData: NonFungibleToken[];
 }) => {
   console.log(nftData);
-  const imageSrc =
-    nftData[0].content.files[0]?.cdn_uri || nftData[0].content.links.image;
+  const imageSrc = nftData[0]?.content?.links?.image || "/noImg.svg";
   const title = nftData[0].content.metadata.name;
   const description = nftData[0].content.metadata.description;
   const mint = nftData[0].id;
@@ -40,7 +39,7 @@ const NFTDetails = ({
             />
           </svg>
         </Link>
-        <h1 className="my-2 p-3 text-xl font-bold">{title}</h1>
+        <h1 className="m-2 p-3 text-xl font-bold">{title}</h1>
       </div>
 
       <div>
@@ -111,7 +110,7 @@ const NFTDetails = ({
             <div className="my-3">
               <p className="text-xl font-bold">Attributes:</p>
               <hr className="my-2 border-gray-600" />
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
+              <div className="grid auto-rows-auto grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                 {nftData[0].content.metadata?.attributes &&
                 nftData[0].content.metadata.attributes.length > 0 ? (
                   nftData[0].content.metadata.attributes.map(
@@ -120,10 +119,14 @@ const NFTDetails = ({
                         key={index}
                         className="flex flex-col items-center rounded-lg bg-neutral-700 p-4"
                       >
-                        <p className="text-sm font-semibold">
+                        <p className="break-words text-sm font-semibold">
                           {attribute.trait_type}
                         </p>
-                        <p className="text-lg">{attribute.value}</p>
+                        <div className=" w-full overflow-x-auto break-words">
+                          <p className="break-words text-center text-lg">
+                            {attribute.value}
+                          </p>
+                        </div>
                       </div>
                     ),
                   )
@@ -132,6 +135,7 @@ const NFTDetails = ({
                 )}
               </div>
             </div>
+
             {nftData[0].compression.compressed && (
               <div className="my-3 break-words">
                 <p className="text-xl font-bold">Compression Details:</p>

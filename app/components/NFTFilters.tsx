@@ -49,7 +49,7 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
   };
 
   return (
-    <div className="flex w-full flex-col items-center px-4 py-2">
+    <div className="flex w-full flex-col px-4 py-2">
       <h1 className="p-1 text-lg font-bold">Filters</h1>
       <ul className="menu w-full rounded-box bg-neutral bg-opacity-50">
         <li>
@@ -62,7 +62,9 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
                 onClick={handleNoFilter}
                 className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
               >
-                <a className="block px-4 py-2 text-sm text-white">No Filter</a>
+                <a className="block px-4 py-2 text-sm text-white">
+                  All collections
+                </a>
               </li>
               {/* Collection Filters */}
               {collections.map((collection) =>

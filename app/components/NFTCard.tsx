@@ -1,28 +1,21 @@
-"use client";
 import React, { useState } from "react";
 import { NonFungibleToken } from "../types/nonFungibleToken";
-import { useSearchParams } from "next/navigation";
 
 const NFTCard = ({
-  searchParams,
   walletAddress,
   nftData,
 }: {
-  searchParams: { view: string };
   walletAddress: string;
   nftData: NonFungibleToken;
 }) => {
-  const [isLoaded, setIsLoaded] = useState(false); // state to track image loading
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  // console.log(searchParams);
-  // Extracting the relevant information from nftData
-  const imageSrc =
-    nftData.content.files[0]?.cdn_uri || nftData.content.links.image;
+  const imageSrc = nftData.content.links.image;
   const title = nftData.content.metadata.name;
-  const description = nftData.content.metadata.description;
   const mint = nftData.id;
 
-  const handleImageLoaded = () => setIsLoaded(true); // handler for image load
+  const handleImageLoaded = () => setIsLoaded(true);
+  const handleImageError = () => setIsLoaded(false); // Optional: handle image load error
 
   return (
     <div className="w-full max-w-xs p-3">
@@ -30,10 +23,18 @@ const NFTCard = ({
         <div className="flex flex-col rounded-lg bg-neutral bg-opacity-50 p-2 hover:bg-neutral-500 hover:bg-opacity-60 ">
           <div className="flex-grow">
             <div className="h-48 overflow-hidden rounded-lg sm:h-64">
+              {!isLoaded && (
+                <div className="skeleton-seconda skeleton h-full w-full"></div>
+              )}{" "}
+              {/* Skeleton Loader */}
               <img
                 src={imageSrc}
                 alt={title}
-                className="h-full w-full rounded-xl object-cover"
+                className={`h-full w-full rounded-xl object-cover ${
+                  !isLoaded ? "hidden" : ""
+                }`}
+                onLoad={handleImageLoaded}
+                onError={handleImageError} // Optional: handle image load error
               />
             </div>
           </div>

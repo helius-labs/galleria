@@ -65,7 +65,9 @@ const WalletInput = () => {
           />
         </form>
       ) : (
-        <span className="loading loading-dots loading-lg"></span>
+        <div className="flex justify-center">
+          <span className="loading loading-dots loading-lg"></span>
+        </div>
       )}
     </div>
   );

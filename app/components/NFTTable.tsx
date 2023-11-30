@@ -14,7 +14,7 @@ const NFTTable = ({
   const searchParams = useSearchParams();
   const collectionFilter = searchParams.get("collection");
 
-  const itemsPerPage = 8;
+  const itemsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
   const [groupedNFTs, setGroupedNFTs] = useState<
     Map<string, NonFungibleToken[]>
@@ -45,20 +45,22 @@ const NFTTable = ({
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredNFTs.slice(indexOfFirstItem, indexOfLastItem);
+  const MemoizedNFTCard = React.memo(NFTCard);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   return (
     <div className="flex flex-col items-center justify-center px-4">
       <div className="flex w-full flex-wrap justify-center gap-4">
-        {currentItems.map((nftData: NonFungibleToken, index) => (
-          <NFTCard
-            key={index}
+        {currentItems.map((nftData) => (
+          <MemoizedNFTCard
+            key={nftData.id}
             nftData={nftData}
             walletAddress={walletAddress}
           />
         ))}
       </div>
+
       <div className="flex justify-center p-4">
         <div className="join">
           <button

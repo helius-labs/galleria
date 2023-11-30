@@ -33,7 +33,7 @@ const config: Config = {
 
           "neutral-2": "#5F5F5F",
 
-          "base-100": "#272729",
+          "base-100": "#222222",
 
           info: "#008ce5",
 
@@ -45,6 +45,7 @@ const config: Config = {
         },
       },
     ],
+    darkTheme: false,
   },
 };
 export default config;

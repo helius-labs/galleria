@@ -40,7 +40,11 @@ export default async function PortfolioPage({
           </div>
         )}
       </div>
-      <div className="">
+      <div
+        className={`${
+          searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
+        }`}
+      >
         <div className="mb-8">
           <NavBar />
         </div>
