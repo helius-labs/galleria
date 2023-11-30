@@ -24,21 +24,19 @@ const TokenDetails = ({
   const ownerAddress = tokenData[0].ownership.owner;
 
   const renderMintExtensionDetails = (
-    mintExtension: MintExtensionValue,
+    mintExtension: MintExtensions,
     indentLevel = 0,
   ) => {
     if (!mintExtension) return null;
 
-    const renderValue = (
-      value: MintExtensionValue,
-      key: string,
-      indent: number,
-    ) => {
+    const renderValue = (value: any, key: string, indent: number) => {
       if (typeof value === "object" && value !== null) {
         return (
           <div key={key} style={{ paddingLeft: `${indent * 20}px` }}>
             <p className=" text-xl font-bold underline "> {key}:</p>
-            {renderMintExtensionDetails(value, indent + 1)}
+            {Object.entries(value).map(([innerKey, innerValue]) =>
+              renderValue(innerValue, innerKey, indent + 1),
+            )}
           </div>
         );
       } else {
