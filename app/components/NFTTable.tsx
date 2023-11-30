@@ -113,7 +113,7 @@ const NFTTable = ({
           <h1 className="text-2xl">No NFTs Found</h1>
           {(collectionFilter || typeFilter) && (
             <button
-              className="btn btn-neutral m-5 bg-opacity-60 text-lg text-white "
+              className="btn btn-neutral m-5 bg-opacity-60 text-base text-white "
               onClick={clearFilters}
             >
               Clear Filters

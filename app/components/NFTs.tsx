@@ -18,13 +18,13 @@ const NFTs = ({
   return (
     <div className="flex flex-col rounded-lg bg-black bg-opacity-50 lg:flex-row">
       {/* NFT Filter Component */}
-      <div className="mx-auto w-full p-5 sm:w-2/5 ">
+      <div className="mx-auto w-full  p-3 sm:w-3/12">
         <NFTFilters nftDataArray={tokens} />
       </div>
 
       {/* NFT Table */}
-      <div className="sm:w-full">
-        <div className="flex-grow p-5">
+      <div className=" sm:w-full">
+        <div className="flex-grow py-5">
           <NFTTable nftDataArray={tokens} walletAddress={walletAddress} />
         </div>
       </div>

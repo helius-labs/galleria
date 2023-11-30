@@ -8,6 +8,8 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const collectionFilter = searchParams.get("collection");
+  const typeFilter = searchParams.get("type");
   const [collections, setCollections] = useState<Grouping[]>([]);
 
   useEffect(() => {
@@ -63,22 +65,22 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
   };
 
   return (
-    <div className="flex w-full flex-col px-4 py-2">
+    <div className="flex w-full flex-col px-2 py-2">
       <h1 className="p-1 text-lg font-bold">Filters</h1>
       <ul className="menu my-1 w-full rounded-box bg-neutral bg-opacity-50">
         <li>
           <details>
-            <summary className="text-base">Collection</summary>
+            <summary className="text-base font-bold">Collection</summary>
             <ul className="max-h-60 overflow-y-auto">
               {/* Scrollable list */}
               {/* No Filter Option */}
               <li
                 onClick={() => handleNoFilter("collection")}
-                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                  !collectionFilter ? "text-primary" : "text-white"
+                }`}
               >
-                <a className="block px-4 py-2 text-sm text-white">
-                  All collections
-                </a>
+                <a className="block px-4 py-2 text-sm">All Collections</a>
               </li>
               {/* Collection Filters */}
               {collections.map((collection) =>
@@ -88,9 +90,13 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
                     onClick={() =>
                       handleCollectionFilter(collection.group_value)
                     }
-                    className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+                    className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                      collectionFilter === collection.group_value
+                        ? "text-primary"
+                        : "text-white"
+                    }`}
                   >
-                    <a className="block px-4 py-2 text-sm text-white">
+                    <a className="block px-4 py-2 text-sm">
                       {collection.collection_metadata.name}
                     </a>
                   </li>
@@ -103,51 +109,55 @@ const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
       <ul className="menu my-1 w-full rounded-box bg-neutral bg-opacity-50">
         <li>
           <details>
-            <summary className="text-base">NFT Type</summary>
+            <summary className="text-base font-bold">NFT Type</summary>
             <ul className="max-h-60 overflow-y-auto">
               {/* Scrollable list */}
               {/* No Filter Option */}
               <li
                 onClick={() => handleNoFilter("type")}
-                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                  !typeFilter ? "text-primary" : "text-white"
+                }`}
               >
-                <a className="block px-4 py-2 text-sm text-white">All Types</a>
+                <a className="block px-4 py-2 text-sm">All Types</a>
               </li>
               {/* NFT Type Filters */}
 
               <li
                 key={"Standard NFT"}
                 onClick={() => handleTypeFilter("StandardNFT")}
-                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                  typeFilter === "StandardNFT" ? "text-primary" : "text-white"
+                }`}
               >
-                <a className="block px-4 py-2 text-sm text-white">
-                  {"Standard NFT"}
-                </a>
+                <a className="block px-4 py-2 text-sm">{"Standard NFTs"}</a>
               </li>
               <li
                 key={"Compressed NFT"}
                 onClick={() => handleTypeFilter("CompressedNFT")}
-                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                  typeFilter === "CompressedNFT" ? "text-primary" : "text-white"
+                }`}
               >
-                <a className="block px-4 py-2 text-sm text-white">
-                  {"Compressed NFT"}
-                </a>
+                <a className="block px-4 py-2 text-sm">{"Compressed NFTs"}</a>
               </li>
               <li
-                key={"Inscription"}
-                onClick={() => handleTypeFilter("Inscription")}
-                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+                key={"Inscriptions"}
+                onClick={() => handleTypeFilter("Inscriptions")}
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                  typeFilter === "Inscriptions" ? "text-primary" : "text-white"
+                }`}
               >
-                <a className="block px-4 py-2 text-sm text-white">
-                  {"Inscription"}
-                </a>
+                <a className="block px-4 py-2 text-sm">{"Inscriptions"}</a>
               </li>
               <li
                 key={"SPL20"}
                 onClick={() => handleTypeFilter("SPL20")}
-                className="w-full hover:bg-neutral-500 hover:bg-opacity-60"
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                  typeFilter === "SPL20" ? "text-primary" : "text-white"
+                }`}
               >
-                <a className="block px-4 py-2 text-sm text-white">{"SPL20"}</a>
+                <a className="block px-4 py-2 text-sm">{"SPL20"}</a>
               </li>
             </ul>
           </details>
