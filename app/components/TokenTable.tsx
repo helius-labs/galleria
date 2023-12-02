@@ -7,14 +7,16 @@ const TokenTable = ({
   tokens,
   walletAddress,
   source,
+  perPage,
 }: {
   tokens: FungibleToken[];
   walletAddress: string;
   source: string;
+  perPage: number;
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedTokens, setSortedTokens] = useState<FungibleToken[]>([]);
-  const itemsPerPage = 8; // Adjust the number of items per page as needed
+  const itemsPerPage = perPage || 8; // Adjust the number of items per page as needed
   const router = useRouter();
   const searchParams = useSearchParams();
 

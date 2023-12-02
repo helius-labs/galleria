@@ -86,16 +86,16 @@ const Overview = ({
         <hr className="my-2 border-gray-600" />
         <div className="flex flex-col p-2 md:flex-row">
           <div className="mb-4 px-2 md:mb-0 md:w-1/4">
-            <h2 className="font-bold">
+            <h2 className="text-xl font-bold">
               Total Token Value:
               <span className="font-bold text-primary">
                 {" "}
-                {totalValue.toFixed(2)} USDC
+                ${totalValue.toFixed(2)}
               </span>
             </h2>
             {totalValue !== 0 && (
               <div>
-                <h1 className="py-3 font-bold">Token Value Distribution:</h1>
+                <h1 className="py-3 text-xl font-bold">Token Distribution:</h1>
                 <div className="p-2">
                   <Pie data={chartData} options={options} />
                 </div>
@@ -107,6 +107,7 @@ const Overview = ({
               tokens={fungibleTokens}
               walletAddress={walletAddress}
               source="overview"
+              perPage={5}
             />
           </div>
         </div>

@@ -21,6 +21,7 @@ const Tokens = ({
           tokens={tokens}
           source="tokenPage"
           walletAddress={walletAddress}
+          perPage={8}
         />
       </div>
     </div>
