@@ -25,7 +25,7 @@ export default async function PortfolioPage({
 
   //console.log(params.walletAddress);
   return (
-    <div className="bg-radial-gradient h-screen">
+    <div className="h-screen bg-radial-gradient">
       <div>
         {searchParams.details && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
@@ -34,7 +34,7 @@ export default async function PortfolioPage({
                 nftData={nonFungibleTokenData.filter(
                   (item) => item.id === searchParams.details,
                 )}
-                searchParams={searchParams}
+                searchParams={"view=" + searchParams.view}
                 walletAddress={params.walletAddress}
               />
             </div>
@@ -77,7 +77,12 @@ export default async function PortfolioPage({
         <Suspense fallback={<div>Loading...</div>} key={searchParams.view}>
           <div className={`mx-10 my-4 pb-4 `}>
             {searchParams.view === "overview" && (
-              <Overview tokens={nonFungibleTokenData} />
+              <Overview
+                nonFungibleTokens={nonFungibleTokenData}
+                fungibleTokens={fungibleTokenData}
+                searchParams={searchParams.toString()}
+                walletAddress={params.walletAddress}
+              />
             )}
             {searchParams.view === "tokens" && (
               <Tokens
@@ -211,7 +216,9 @@ async function getFungibleData(walletAddress: string) {
   };
 
   // Add SOL token to the tokens array
-  tokens.push(solToken);
+  if (solBalance > 0) {
+    tokens.push(solToken);
+  }
 
   return tokens;
 }

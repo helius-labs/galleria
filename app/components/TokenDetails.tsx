@@ -54,9 +54,9 @@ const TokenDetails = ({
   };
 
   return (
-    <div className="shadow-glow h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white sm:p-2">
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
       <div className="relative">
-        <Link href={`/portfolio/${walletAddress}?view=tokens`}>
+        <Link href={`/portfolio/${walletAddress}?view=${searchParams.view}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

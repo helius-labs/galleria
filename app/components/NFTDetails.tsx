@@ -7,7 +7,7 @@ const NFTDetails = ({
   walletAddress,
   nftData,
 }: {
-  searchParams: { view: string; details: string };
+  searchParams: string;
   walletAddress: string;
   nftData: NonFungibleToken[];
 }) => {
@@ -16,15 +16,13 @@ const NFTDetails = ({
   const title = nftData[0].content.metadata.name;
   const description = nftData[0].content.metadata.description;
   const mint = nftData[0].id;
-  //   const grouping = nftData[0].grouping[0].group_key;
-  //   const grouping_value = nftData[0].grouping[0].group_value;
   const ownerAddress = nftData[0].ownership.owner;
   const royaltyPercentage = nftData[0].royalty.percent;
 
   return (
-    <div className="shadow-glow h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white sm:p-2">
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
       <div className="relative">
-        <Link href={`/portfolio/${walletAddress}?view=nfts`}>
+        <Link href={`/portfolio/${walletAddress}?${searchParams.toString()}`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -46,10 +44,7 @@ const NFTDetails = ({
       <div>
         <div className="flex flex-col justify-evenly break-words sm:flex-row">
           <div className="w-full p-3 sm:w-1/2">
-            <Suspense
-              fallback={<div>Loading...</div>}
-              key={searchParams.details}
-            >
+            <Suspense fallback={<div>Loading...</div>} key={searchParams}>
               <a href={imageSrc} target="_blank" rel="noopener noreferrer">
                 <img src={imageSrc} alt={title} className={`rounded-xl`} />
               </a>

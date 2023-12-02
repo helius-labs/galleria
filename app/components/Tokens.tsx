@@ -15,11 +15,15 @@ const Tokens = ({
     return <div>Loading...</div>;
   }
   return (
-    <TokenTable
-      tokens={tokens}
-      walletAddress={walletAddress}
-      searchParams={searchParams}
-    />
+    <div className="rounded-lg bg-black bg-opacity-50 ">
+      <div className="p-3 sm:p-5">
+        <TokenTable
+          tokens={tokens}
+          source="tokenPage"
+          walletAddress={walletAddress}
+        />
+      </div>
+    </div>
   );
 };
 

@@ -1,23 +1,22 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { FungibleToken } from "../types/fungibleToken";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const TokenTable = ({
   tokens,
   walletAddress,
-
-  searchParams,
+  source,
 }: {
   tokens: FungibleToken[];
   walletAddress: string;
-
-  searchParams: string;
+  source: string;
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedTokens, setSortedTokens] = useState<FungibleToken[]>([]);
   const itemsPerPage = 8; // Adjust the number of items per page as needed
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     // Sort tokens by total value in descending order
@@ -43,9 +42,9 @@ const TokenTable = ({
   const totalPages = Math.ceil(sortedTokens.length / itemsPerPage);
 
   return (
-    <div className="rounded-lg bg-black bg-opacity-50 ">
-      <div className="p-3 sm:p-5">
-        <div className="relative m-2 overflow-x-auto rounded-lg bg-opacity-60">
+    <div className="">
+      <div className="">
+        <div className="relative mb-2 overflow-x-auto rounded-lg bg-opacity-60">
           <table className="min-w-full text-xs text-white sm:text-sm">
             <thead className=" border-b border-gray-500 bg-neutral bg-opacity-60 text-sm uppercase text-white">
               <tr>
@@ -73,7 +72,9 @@ const TokenTable = ({
                   className="border-b border-neutral-600 bg-neutral bg-opacity-60 text-center text-white hover:bg-neutral-600 hover:bg-opacity-60"
                   onClick={() =>
                     router.push(
-                      `/portfolio/${walletAddress}?${searchParams}&tokenDetails=${token.id}`,
+                      `/portfolio/${walletAddress}?${searchParams.toString()}&tokenDetails=${
+                        token.id
+                      }`,
                     )
                   }
                 >
@@ -109,7 +110,7 @@ const TokenTable = ({
                   </td>
                   <td className="px-6 py-4">
                     $
-                    {token.token_info.price_info?.total_price.toFixed(2) ||
+                    {token.token_info.price_info?.total_price?.toFixed(2) ||
                       "N/A"}
                   </td>
                 </tr>
