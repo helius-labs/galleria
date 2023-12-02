@@ -18,7 +18,11 @@ const Overview = ({
   nonFungibleTokens: NonFungibleToken[];
   fungibleTokens: FungibleToken[];
 }) => {
-  const [chartData, setChartData] = useState({ datasets: [] });
+  let datasets: { data: number[]; backgroundColor: string[] }[] = [];
+  const [chartData, setChartData] = useState<{
+    labels: string[];
+    datasets: { data: number[]; backgroundColor: string[] }[];
+  }>({ labels: [], datasets: [] });
   const [totalValue, setTotalValue] = useState(0);
 
   useEffect(() => {
@@ -58,7 +62,7 @@ const Overview = ({
       },
       tooltip: {
         callbacks: {
-          label: function (context) {
+          label: function (context: any) {
             let label = "";
 
             if (context.parsed !== null) {
