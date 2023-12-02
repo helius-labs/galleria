@@ -16,6 +16,7 @@ export default async function PortfolioPage({
   searchParams: { view: string; details: string; tokenDetails: string };
   params: { walletAddress: string };
 }) {
+  console.log("PARAMS:" + params.walletAddress);
   const fungibleTokenData: FungibleToken[] = await getFungibleData(
     params.walletAddress,
   );

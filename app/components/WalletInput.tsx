@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
-const WalletInput = () => {
+const WalletInput = ({ source }: { source: string }) => {
   const searchParams = useSearchParams();
   const [walletAddress, setWalletAddress] = useState("");
   const [isValid, setIsValid] = useState(true);
@@ -35,7 +35,7 @@ const WalletInput = () => {
 
     setIsLoading(true); // Start loading
 
-    const currentView = searchParams.get("view") || "nfts";
+    const currentView = searchParams.get("view") || "overview";
 
     try {
       await router.push(
@@ -52,17 +52,40 @@ const WalletInput = () => {
     <div className="h-full w-full">
       {!isLoading ? (
         <form onSubmit={handleSubmit} className="form-control">
-          <input
-            type="text"
-            placeholder="Wallet Address"
-            className={` focus:shadow-glow rounded-lg border-2 border-white bg-transparent p-2 placeholder:text-gray-400 ${
-              isValid
-                ? ""
-                : "border-4 border-red-500 focus:border-4 focus:border-red-500"
-            } text-center text-white focus:border-2  focus:outline-none`}
-            value={walletAddress}
-            onChange={handleInputChange}
-          />
+          <div className="flex w-full justify-center">
+            <input
+              type="text"
+              placeholder="Wallet Address"
+              className={` rounded-lg border-2 border-white bg-transparent p-2 placeholder:text-gray-400 focus:shadow-glow ${
+                isValid
+                  ? ""
+                  : "border-4 border-red-500 focus:border-4 focus:border-red-500"
+              } w-9/12 text-center text-white focus:border-2  focus:outline-none`}
+              value={walletAddress}
+              onChange={handleInputChange}
+            />
+            {source == "landingPage" && (
+              <button
+                type="submit"
+                className="mx-2 rounded-lg border-2 border-white bg-primary p-1 hover:bg-accent"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  className="h-8 w-10"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                  />
+                </svg>
+              </button>
+            )}
+          </div>
         </form>
       ) : (
         <div className="flex justify-center">

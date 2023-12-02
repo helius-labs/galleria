@@ -19,7 +19,7 @@ const NavBar = () => {
         </a>
       </div>
       <div className="mr-5 w-8/12 md:mr-10 md:w-3/12 md:flex-none">
-        <WalletInput />
+        <WalletInput source={"navBar"} />
       </div>
     </div>
   );
