@@ -14,7 +14,7 @@ const Logo = () => {
       href="/"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative inline-block"
+      className="relative inline-block w-10 sm:w-1/3 cursor-pointer"
     >
       <picture>
         {/* Mobile logo: shown on screens smaller than 768px */}
@@ -27,14 +27,14 @@ const Logo = () => {
         <img
           src="/helius-logos/desktop-logo.svg"
           alt="Helius Logo"
-          className={`your-img-styles transition-opacity duration-200 ${
+          className={`transition-opacity duration-200 ${
             isHovered ? "opacity-0" : "opacity-100"
           }`}
         />
         <img
           src="/helius-logos/desktop-logo-hover.svg"
           alt="Helius Hover Logo"
-          className={`your-img-styles absolute left-0 top-0 transition-opacity duration-200 ${
+          className={`absolute left-0 top-0 transition-opacity duration-200 ${
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         />
@@ -47,11 +47,11 @@ const HeliusForwardLink = ({ className }: { className: string; }) => {
   return (
     <div className="group">
       <a
-        href="https://helius.dev"
+        href="https://docs.helius.dev/compression-and-das-api/digital-asset-standard-das-api"
         target="_blank"
         rel="noopener noreferrer"
         className={classNames(
-          "hover:bg-black/25 bg-opacity-25 flex h-[30px] items-center rounded-full border border-white border-opacity-20 px-3 transition-all duration-200 ease-in-out group-hover:border-opacity-60 group-hover:bg-opacity-75",
+          "flex h-[30px] items-center rounded-full border border-white border-opacity-20 bg-opacity-25 px-3 transition-all duration-200 ease-in-out hover:bg-black/25 group-hover:border-opacity-60 group-hover:bg-opacity-75",
           className,
         )}
       >
@@ -61,7 +61,7 @@ const HeliusForwardLink = ({ className }: { className: string; }) => {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="ease-in-out h-4 w-4 opacity-70 transition-all duration-200 group-hover:opacity-100"
+          className="h-4 w-4 opacity-70 transition-all duration-200 ease-in-out group-hover:opacity-100"
         >
           <path
             strokeLinecap="round"
@@ -70,8 +70,8 @@ const HeliusForwardLink = ({ className }: { className: string; }) => {
           />
         </svg>
 
-        <span className="transition-all duration-200 ease-in-out ml-2 text-sm font-light text-white opacity-70 group-hover:opacity-100">
-          Powered by Helius
+        <span className="ml-2 text-sm font-light text-white opacity-70 transition-all duration-200 ease-in-out group-hover:opacity-100">
+          Powered by Helius DAS API
         </span>
       </a>
     </div>
