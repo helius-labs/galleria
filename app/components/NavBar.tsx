@@ -1,12 +1,21 @@
-import React, { Fragment } from "react";
+"use client";
+
+import React, { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 
 import WalletInput from "./WalletInput";
 import { classNames } from "./Utils";
 
 const Logo = () => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
-    <a href="/">
+    <a
+      href="/"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative inline-block"
+    >
       <picture>
         {/* Mobile logo: shown on screens smaller than 768px */}
         <source
@@ -17,8 +26,17 @@ const Logo = () => {
         {/* Default logo: shown on larger screens */}
         <img
           src="/helius-logos/desktop-logo.svg"
-          alt="Logo"
-          className="h-auto w-10 md:h-auto md:w-48"
+          alt="Helius Logo"
+          className={`your-img-styles transition-opacity duration-200 ${
+            isHovered ? "opacity-0" : "opacity-100"
+          }`}
+        />
+        <img
+          src="/helius-logos/desktop-logo-hover.svg"
+          alt="Helius Hover Logo"
+          className={`your-img-styles absolute left-0 top-0 transition-opacity duration-200 ${
+            isHovered ? "opacity-100" : "opacity-0"
+          }`}
         />
       </picture>
     </a>
