@@ -49,10 +49,11 @@ const WalletInput = ({ source }: { source: string }) => {
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false); // Stop loading regardless of the result
-      setWalletAddress("");
+      setWalletAddress(""); // Reset state of input field
     }
   };
 
+  // New useEffect to validate the wallet address on every change to the input field
   useEffect(() => {
     setIsValid(validateSolanaPublicKey(walletAddress));
     console.log("isValid state is now:", isValid);
@@ -80,7 +81,7 @@ const WalletInput = ({ source }: { source: string }) => {
       <Button
         type="submit"
         isLoading={isLoading}
-        disabled={!isValid || isLoading}
+        disabled={!isValid || isLoading} // Disable the button if the input is invalid or if the form is loading
         arrow
       >
         Submit
