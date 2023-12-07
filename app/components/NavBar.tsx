@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
 
 import WalletInput from "./WalletInput";
 import { classNames } from "./Utils";
@@ -8,10 +9,14 @@ const Logo = () => {
     <a href="/">
       <picture>
         {/* Mobile logo: shown on screens smaller than 768px */}
-        <source media="(max-width: 767px)" srcSet="/smallLogo.svg" />
+        <source
+          media="(max-width: 767px)"
+          srcSet="/helius-logos/mobile-logo.svg"
+        />
+
         {/* Default logo: shown on larger screens */}
         <img
-          src="/fullLogo.svg"
+          src="/helius-logos/desktop-logo.svg"
           alt="Logo"
           className="h-auto w-10 md:h-auto md:w-48"
         />
@@ -28,7 +33,7 @@ const HeliusForwardLink = ({ className }: { className: string; }) => {
         target="_blank"
         rel="noopener noreferrer"
         className={classNames(
-          "flex h-[30px] items-center rounded-full border border-white border-opacity-20 px-2 transition-all duration-200 ease-in-out group-hover:border-opacity-60 group-hover:bg-opacity-75",
+          "hover:bg-black/25 bg-opacity-25 flex h-[30px] items-center rounded-full border border-white border-opacity-20 px-3 transition-all duration-200 ease-in-out group-hover:border-opacity-60 group-hover:bg-opacity-75",
           className,
         )}
       >
@@ -55,14 +60,84 @@ const HeliusForwardLink = ({ className }: { className: string; }) => {
   );
 };
 
+// const MenuDropdown = () => {
+//   return (
+//     <Menu as="div" className="relative ml-3">
+//       <div>
+//         <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+//           <span className="absolute -inset-1.5" />
+//           <span className="sr-only">Open user menu</span>
+//           <img
+//             className="h-8 w-8 rounded-full"
+//             src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+//             alt=""
+//           />
+//         </Menu.Button>
+//       </div>
+//       <Transition
+//         as={Fragment}
+//         enter="transition ease-out duration-100"
+//         enterFrom="transform opacity-0 scale-95"
+//         enterTo="transform opacity-100 scale-100"
+//         leave="transition ease-in duration-75"
+//         leaveFrom="transform opacity-100 scale-100"
+//         leaveTo="transform opacity-0 scale-95"
+//       >
+//         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+//           <Menu.Item>
+//             {({ active }) => (
+//               <a
+//                 href="#"
+//                 className={classNames(
+//                   active ? "bg-gray-100" : "",
+//                   "block px-4 py-2 text-sm text-gray-700",
+//                 )}
+//               >
+//                 Your Profile
+//               </a>
+//             )}
+//           </Menu.Item>
+//           <Menu.Item>
+//             {({ active }) => (
+//               <a
+//                 href="#"
+//                 className={classNames(
+//                   active ? "bg-gray-100" : "",
+//                   "block px-4 py-2 text-sm text-gray-700",
+//                 )}
+//               >
+//                 Settings
+//               </a>
+//             )}
+//           </Menu.Item>
+//           <Menu.Item>
+//             {({ active }) => (
+//               <a
+//                 href="#"
+//                 className={classNames(
+//                   active ? "bg-gray-100" : "",
+//                   "block px-4 py-2 text-sm text-gray-700",
+//                 )}
+//               >
+//                 Sign out
+//               </a>
+//             )}
+//           </Menu.Item>
+//         </Menu.Items>
+//       </Transition>
+//     </Menu>
+//   );
+// };
+
 const NavBar = () => {
   return (
     <>
-      <nav className="flex w-full items-center justify-between bg-black bg-opacity-50 px-4 py-2 sm:px-10 md:h-20">
+      <nav className="flex w-full items-center justify-between bg-black bg-opacity-50 px-4 py-4 sm:px-10 md:h-20">
         <div className="flex items-center">
           <Logo />
           <HeliusForwardLink className="ml-6" />
         </div>
+
         {/* <WalletInput source={"navBar"} /> */}
       </nav>
     </>
