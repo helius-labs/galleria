@@ -29,14 +29,14 @@ const WalletInput = ({ source }: { source: string }) => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setIsLoading(true); // Start loading
+
     if (!isValid) {
       console.log("Invalid Solana public key");
       toast.error("Invalid Solana public key");
       setWalletAddress(""); // Reset the input field to an empty string
       return;
     }
-
-    setIsLoading(true); // Start loading
 
     const currentView = searchParams.get("view") || "overview";
 
@@ -61,7 +61,7 @@ const WalletInput = ({ source }: { source: string }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 w-60 items-center pr-1.5 sm:w-80"
+      className="relative isolate flex h-12 items-center pr-1.5 w-80"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address

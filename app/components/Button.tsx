@@ -58,7 +58,7 @@ const ButtonArrow = ({ size = 18, disabled, className }: ButtonArrowProps) => {
 
 const ButtonLoadingState = ({ isLoading }: ButtonLoadingStateProps) => {
   return (
-    <div className={classNames("absolute ", isLoading ? "" : "opacity-0")}>
+    <div className={classNames("absolute ")}>
       <svg
         className="pointer-events-none h-5 w-5 animate-spin"
         viewBox="0 0 24 24"
@@ -89,7 +89,7 @@ const ButtonInner = ({
   children,
 }: ButtonInnerProps) => {
   return (
-    <div className="transition-all duration-200 ease-in-out">
+    <div className="h-full w-full w-22 transition-all duration-200 ease-in-out">
       <span
         className={`absolute inset-0 h-9 rounded-md bg-gradient-to-b from-white/50 to-white opacity-20 transition-opacity ${
           disabled ? "to-primary" : "to-white group-hover:opacity-5"
@@ -100,7 +100,7 @@ const ButtonInner = ({
           disabled ? "to-primary" : "group-hover:opacity-10"
         }`}
       />
-      <div className="flex h-full items-center justify-center">
+      <div className="w-22 flex h-full items-center justify-center">
         {isLoading ? (
           <ButtonLoadingState isLoading={isLoading} />
         ) : (
@@ -128,7 +128,7 @@ const Button = ({
     <button
       disabled={disabled}
       className={classNames(
-        "w-22 group link relative isolate flex h-9 flex-none items-center justify-center rounded-md py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out",
+        "w-[80px] group link relative isolate flex h-9 flex-none items-center justify-center rounded-md py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out",
         (isLoading || disabled) &&
           "disabled:cursor-not-allowed disabled:bg-opacity-50",
         arrow ? "pl-2.5 pr-[calc(9/16*1rem)]" : "px-2.5",
