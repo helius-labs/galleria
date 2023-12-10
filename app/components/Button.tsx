@@ -16,10 +16,6 @@ interface ButtonArrowProps {
   className?: string;
 }
 
-interface ButtonLoadingStateProps {
-  isLoading: boolean;
-}
-
 type ButtonProps = {
   className?: string;
   arrow?: boolean;
@@ -56,7 +52,7 @@ const ButtonArrow = ({ size = 18, disabled, className }: ButtonArrowProps) => {
   );
 };
 
-const ButtonLoadingState = ({ isLoading }: ButtonLoadingStateProps) => {
+const ButtonLoadingState = () => {
   return (
     <div className={classNames("absolute ")}>
       <svg
@@ -102,7 +98,7 @@ const ButtonInner = ({
       />
       <div className="w-22 flex h-full items-center justify-center">
         {isLoading ? (
-          <ButtonLoadingState isLoading={isLoading} />
+          <ButtonLoadingState />
         ) : (
           <p className={`flex items-center ${disabled && "opacity-50"}`}>
             {children}{" "}
@@ -149,4 +145,4 @@ const Button = ({
   );
 };
 
-export { Button };
+export default Button;

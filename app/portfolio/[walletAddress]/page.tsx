@@ -1,13 +1,15 @@
-import React, { Suspense, use } from "react";
-import NavBar from "../../components/NavBar";
-import Tabs from "../../components/Tabs";
-import Overview from "../../components/Overview";
-import { FungibleToken } from "../../types/fungibleToken";
-import NFTs from "@/app/components/NFTs";
-import Tokens from "@/app/components/Tokens";
-import { NonFungibleToken } from "@/app/types/nonFungibleToken";
-import NFTDetails from "@/app/components/NFTDetails";
-import TokenDetails from "@/app/components/TokenDetails";
+import React, { Suspense } from "react";
+
+import {
+  NavBar,
+  Tabs,
+  Overview,
+  NFTs,
+  Tokens,
+  NFTDetails,
+  TokenDetails,
+} from "@/app/components";
+import { FungibleToken, NonFungibleToken } from "@/app/types";
 
 export default async function PortfolioPage({
   searchParams,
@@ -24,7 +26,6 @@ export default async function PortfolioPage({
     params.walletAddress,
   );
 
-  //console.log(params.walletAddress);
   return (
     <div className="h-screen bg-radial-gradient">
       <div>
