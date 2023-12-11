@@ -2,39 +2,14 @@
 
 import React, { Suspense } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import { NonFungibleToken } from "@/app/types";
-
-interface NFTImageProps {
-  src: string;
-  width: number;
-  height: number;
-  alt: string;
-}
 
 interface NFTDetails {
   searchParams: string;
   walletAddress: string;
   nftData: NonFungibleToken[];
 }
-
-const NFTImage = ({ src, width, height, alt }: NFTImageProps) => {
-  const loader = () => src;
-
-  return (
-    <a href={src} target="_blank" rel="noopener noreferrer">
-      <Image
-        loader={loader}
-        src={src}
-        width={width}
-        height={height}
-        alt={alt}
-        className="rounded-xl"
-      />
-    </a>
-  );
-};
 
 const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
   const imageSrc = nftData[0]?.content?.links?.image || "/noImg.svg";
@@ -70,22 +45,13 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
         <div className="flex flex-col justify-evenly break-words sm:flex-row">
           <div className="w-full p-3 sm:w-1/2">
             <Suspense fallback={<div>Loading...</div>} key={searchParams}>
-              {/* <a href={imageSrc} target="_blank" rel="noopener noreferrer">
+              <a href={imageSrc} target="_blank" rel="noopener noreferrer">
                 <img
-                  // loader={loader}
                   src={imageSrc}
-                  // width="90"
-                  // height="90"
                   alt={title}
                   className={`rounded-xl`}
                 />
-              </a> */}
-              <NFTImage
-                src={imageSrc}
-                width={200}
-                height={200}
-                alt={title}
-              />
+              </a>
             </Suspense>
           </div>
           <div className="mx-2 w-full p-3 sm:w-1/2">
