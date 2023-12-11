@@ -43,8 +43,8 @@ const TokenTable = ({ source, tokens, walletAddress, perPage }: TokenTableProps)
   const totalPages = Math.ceil(sortedTokens.length / itemsPerPage);
 
   return (
-    <div className="">
-      <div className="">
+    <div className="border-2 border-red-500">
+      <div>
         <div className="relative mb-2 overflow-x-auto rounded-lg bg-opacity-60">
           <table className="min-w-full text-xs text-white sm:text-sm">
             <thead className=" border-b border-gray-500 bg-neutral bg-opacity-60 text-sm uppercase text-white">
@@ -120,7 +120,7 @@ const TokenTable = ({ source, tokens, walletAddress, perPage }: TokenTableProps)
           </table>
         </div>
       </div>
-      <div className="flex justify-center pb-2 sm:pb-4">
+      <div className="border-2 border-blue-500 flex justify-center pb-2 sm:pb-4">
         <div className="join">
           <button
             onClick={() => paginate(currentPage - 1)}

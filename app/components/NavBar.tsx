@@ -53,7 +53,7 @@ const DASHyperLink = ({ className }: { className: string; }) => {
           target="_blank"
           rel="noopener noreferrer"
           className={classNames(
-            "flex h-[30px] items-center rounded-full border border-white border-opacity-20 bg-opacity-25 px-3 transition-all duration-200 ease-in-out hover:bg-black/25 group-hover:border-opacity-60 group-hover:bg-opacity-75",
+            "flex h-[30px] items-center rounded-full border border-white border-opacity-20 bg-opacity-25 px-2 transition-all duration-200 ease-in-out hover:bg-black/25 group-hover:border-opacity-60 group-hover:bg-opacity-75",
             className,
           )}
         >
@@ -75,6 +75,21 @@ const DASHyperLink = ({ className }: { className: string; }) => {
           <span className="ml-2 text-sm font-light text-white opacity-70 transition-all duration-200 ease-in-out group-hover:opacity-100">
             Powered by DAS API
           </span>
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="ml-1 h-3 w-3 opacity-70 transition-all duration-200 ease-in-out group-hover:opacity-100"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
         </a>
       </div>
     </>
