@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 
-import { classNames } from "./Utils";
+import { classNames } from "@/app/utils";
 
 interface ButtonInnerProps {
   arrow?: boolean;

@@ -1,7 +1,8 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
 
-import { FungibleToken, MintExtensions } from "../types/fungibleToken";
+import { FungibleToken, MintExtensions } from "@/app/types";
+
 type MintExtensionValue = string | number | boolean | NestedMintExtensionObject;
 
 interface NestedMintExtensionObject {

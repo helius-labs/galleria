@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { NonFungibleToken } from "../types/nonFungibleToken";
+
+import { NonFungibleToken } from "@/app/types";
 
 const NFTCard = ({
   walletAddress,

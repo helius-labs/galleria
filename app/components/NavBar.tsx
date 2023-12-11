@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 
 import { WalletInput } from "@/app/components";
-import { classNames } from "./Utils";
+import { classNames } from "@/app/utils";
 
 const Logo = () => {
   const [isHovered, setIsHovered] = useState(false);

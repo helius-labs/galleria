@@ -1,9 +1,10 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
-import { usePathname, useSearchParams } from "next/navigation";
-import NFTCard from "./NFTCard";
-import { NonFungibleToken } from "../types/nonFungibleToken";
-import { useRouter } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
+
+import { NonFungibleToken } from "@/app/types";
+import { NFTCard } from "@/app/components";
 
 const NFTTable = ({
   walletAddress,

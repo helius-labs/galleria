@@ -1,7 +1,7 @@
 import React from "react";
-import { NonFungibleToken } from "../types/nonFungibleToken";
-import NFTTable from "./NFTTable";
-import NFTFilters from "./NFTFilters";
+
+import { NonFungibleToken } from "@/app/types";
+import { NFTTable, NFTFilters } from "@/app/components";
 
 const NFTs = ({
   searchParams,

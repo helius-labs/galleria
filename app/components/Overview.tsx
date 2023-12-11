@@ -1,11 +1,12 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
+
 import "chart.js/auto";
-import { FungibleToken } from "../types/fungibleToken";
-import { NonFungibleToken } from "../types/nonFungibleToken";
-import NFTTable from "./NFTTable";
-import TokenTable from "./TokenTable";
+
+import { FungibleToken, NonFungibleToken } from "@/app/types";
+import { NFTTable, TokenTable } from "@/app/components";
 
 const Overview = ({
   searchParams,

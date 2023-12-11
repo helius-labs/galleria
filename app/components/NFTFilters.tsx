@@ -1,8 +1,9 @@
 "use client";
+
 import React, { useState, useEffect, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { usePathname, useSearchParams } from "next/navigation";
-import { Grouping, NonFungibleToken } from "../types/nonFungibleToken";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
+
+import { Grouping, NonFungibleToken } from "@/app/types";
 
 const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
   const router = useRouter();
