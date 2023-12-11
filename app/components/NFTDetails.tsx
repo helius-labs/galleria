@@ -1,6 +1,10 @@
+// "use server";
+
 import React, { Suspense } from "react";
-import { NonFungibleToken } from "../types/nonFungibleToken";
 import Link from "next/link";
+import Image from "next/image";
+
+import { NonFungibleToken } from "@/app/types";
 
 const NFTDetails = ({
   searchParams,
@@ -11,13 +15,17 @@ const NFTDetails = ({
   walletAddress: string;
   nftData: NonFungibleToken[];
 }) => {
-  console.log(nftData);
   const imageSrc = nftData[0]?.content?.links?.image || "/noImg.svg";
   const title = nftData[0].content.metadata.name;
   const description = nftData[0].content.metadata.description;
   const mint = nftData[0].id;
   const ownerAddress = nftData[0].ownership.owner;
   const royaltyPercentage = nftData[0].royalty.percent;
+
+  const loader = ({ src }: { src: any }) => {
+    src = imageSrc;
+    return src;
+  }
 
   return (
     <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
@@ -46,7 +54,14 @@ const NFTDetails = ({
           <div className="w-full p-3 sm:w-1/2">
             <Suspense fallback={<div>Loading...</div>} key={searchParams}>
               <a href={imageSrc} target="_blank" rel="noopener noreferrer">
-                <img src={imageSrc} alt={title} className={`rounded-xl`} />
+                <img
+                  // loader={loader}
+                  src={imageSrc}
+                  // width="90"
+                  // height="90"
+                  alt={title}
+                  className={`rounded-xl`}
+                />
               </a>
             </Suspense>
           </div>
@@ -111,9 +126,32 @@ const NFTDetails = ({
                 <hr className="my-2 border-gray-600" />
                 {nftData[0].creators.map((creator, index) => (
                   <div key={index} className="rounded-lg bg-neutral-700 p-4">
-                    <p className="text-base">
+                    <p className="text-base flex items-center">
                       <span className="font-bold">Address:</span>
-                      <span className="ml-2">{creator.address}</span>
+                      <a
+                        href={`https://xray.helius.xyz/token/${creator.address}?network=mainnet`}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        className="ml-2 transition-colors duration-200 ease-in-out hover:text-primary"
+                      >
+                        <div className="flex items-center">
+                          <span className="mr-1">{creator.address}</span>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="h-4 w-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+                            />
+                          </svg>
+                        </div>
+                      </a>
                     </p>
                     <p className="text-base">
                       <span className="font-bold">Share:</span>

@@ -1,9 +1,9 @@
 "use client";
 
 import React, { Fragment, useState } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { MagnifyingGlassIcon } from '@heroicons/react/solid'
-import { DocumentPlusIcon, FolderPlusIcon, FolderIcon, HashtagIcon, TagIcon } from '@heroicons/react/outline'
+import { Menu, Transition } from "@headlessui/react";
+// import { MagnifyingGlassIcon } from '@heroicons/react/outline'
+import { DocumentIcon, FolderIcon, HashtagIcon, TagIcon } from '@heroicons/react/outline'
 
 import WalletInput from "./WalletInput";
 import { classNames } from "./Utils";
@@ -14,8 +14,8 @@ const projects = [
 ];
 const recent = [projects[0]];
 const quickActions = [
-  { name: "Add new file...", icon: DocumentPlusIcon, shortcut: "N", url: "#" },
-  { name: "Add new folder...", icon: FolderPlusIcon, shortcut: "F", url: "#" },
+  { name: "Add new file...", icon: DocumentIcon, shortcut: "N", url: "#" },
+  { name: "Add new folder...", icon: FolderIcon, shortcut: "F", url: "#" },
   { name: "Add hashtag...", icon: HashtagIcon, shortcut: "H", url: "#" },
   { name: "Add label...", icon: TagIcon, shortcut: "L", url: "#" },
 ];
@@ -222,10 +222,26 @@ const SearchModal = () => {
             <Dialog.Panel className="mx-auto max-w-2xl transform divide-y divide-gray-500 divide-opacity-10 overflow-hidden rounded-xl bg-white bg-opacity-80 shadow-2xl ring-1 ring-black ring-opacity-5 backdrop-blur backdrop-filter transition-all">
               <Combobox onChange={(item: any) => (window.location = item.url)}>
                 <div className="relative">
-                  <MagnifyingGlassIcon
+                  {/* <MagnifyingGlassIcon
                     className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-900 text-opacity-40"
                     aria-hidden="true"
-                  />
+                  /> */}
+                  
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                    />
+                  </svg>
+
                   <Combobox.Input
                     className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-gray-900 focus:ring-0 sm:text-sm"
                     placeholder="Search..."
@@ -254,7 +270,7 @@ const SearchModal = () => {
                                 classNames(
                                   "flex cursor-default select-none items-center rounded-md px-3 py-2",
                                   active &&
-                                  "bg-gray-900 bg-opacity-5 text-gray-900",
+                                    "bg-gray-900 bg-opacity-5 text-gray-900",
                                 )
                               }
                             >
@@ -294,7 +310,7 @@ const SearchModal = () => {
                                 classNames(
                                   "flex cursor-default select-none items-center rounded-md px-3 py-2",
                                   active &&
-                                  "bg-gray-900 bg-opacity-5 text-gray-900",
+                                    "bg-gray-900 bg-opacity-5 text-gray-900",
                                 )
                               }
                             >
@@ -333,8 +349,8 @@ const SearchModal = () => {
                       aria-hidden="true"
                     />
                     <p className="mt-4 text-sm text-gray-900">
-                      We couldn&apos;t find any projects with that term. Please try
-                      again.
+                      We couldn&apos;t find any projects with that term. Please
+                      try again.
                     </p>
                   </div>
                 )}
