@@ -11,6 +11,7 @@ import Tabs from './Tabs';
 import TokenDetails from './TokenDetails';
 import Tokens from './Tokens';
 import TokenTable from './TokenTable';
+import WalletInput from './WalletInput';
 
 export {
     Button,
@@ -26,4 +27,5 @@ export {
     TokenDetails,
     Tokens,
     TokenTable,
+    WalletInput,
 };

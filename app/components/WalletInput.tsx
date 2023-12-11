@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 
 import { toast } from "react-toastify";
 
-import { Button } from "../components/Button";
+import { Button } from "@/app/components";
 
 const WalletInput = ({ source }: { source: string }) => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -62,7 +62,7 @@ const WalletInput = ({ source }: { source: string }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 items-center pr-1.5 w-80"
+      className="relative isolate flex h-12 items-center pr-1.5 w-60 sm:w-80"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address
