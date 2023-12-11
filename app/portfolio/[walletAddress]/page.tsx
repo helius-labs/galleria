@@ -133,17 +133,11 @@ async function getFungibleData(walletAddress: string) {
     throw new Error(`Failed to fetch data`);
   }
   const data = await response.json();
-  // console.log(JSON.stringify(data.result, null, 2));
 
   const tokens: FungibleToken[] = data.result.items;
 
   // Calculate SOL balance from lamports
-  // console.log(data.result.nativeBalance);
   const solBalance = data.result.nativeBalance.lamports;
-  // const solPrice = data.result.nativeBalace.price_per_sol;
-  // const totalPrice = data.result.nativeBalace.total_price;
-
-  // console.log("SOLAMIS:" + solBalance.lamports);
 
   // Create SOL token object
   const solToken = {
