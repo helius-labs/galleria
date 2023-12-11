@@ -1,6 +1,7 @@
 import React from "react";
-import { FungibleToken } from "../types/fungibleToken";
-import TokenTable from "./TokenTable";
+
+import { FungibleToken } from "@/app/types";
+import { TokenTable } from "@/app/components";
 
 const Tokens = ({
   searchParams,

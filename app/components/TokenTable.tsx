@@ -1,7 +1,9 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
-import { FungibleToken } from "../types/fungibleToken";
 import { useRouter, useSearchParams } from "next/navigation";
+
+import { FungibleToken } from "@/app/types";
 
 const TokenTable = ({
   tokens,

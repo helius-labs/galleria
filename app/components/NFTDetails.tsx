@@ -1,4 +1,4 @@
-// "use server";
+"use server";
 
 import React, { Suspense } from "react";
 import Link from "next/link";
@@ -6,26 +6,43 @@ import Image from "next/image";
 
 import { NonFungibleToken } from "@/app/types";
 
-const NFTDetails = ({
-  searchParams,
-  walletAddress,
-  nftData,
-}: {
+interface NFTImageProps {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+}
+
+interface NFTDetails {
   searchParams: string;
   walletAddress: string;
   nftData: NonFungibleToken[];
-}) => {
+}
+
+const NFTImage = ({ src, width, height, alt }: NFTImageProps) => {
+  const loader = () => src;
+
+  return (
+    <a href={src} target="_blank" rel="noopener noreferrer">
+      <Image
+        loader={loader}
+        src={src}
+        width={width}
+        height={height}
+        alt={alt}
+        className="rounded-xl"
+      />
+    </a>
+  );
+};
+
+const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
   const imageSrc = nftData[0]?.content?.links?.image || "/noImg.svg";
   const title = nftData[0].content.metadata.name;
   const description = nftData[0].content.metadata.description;
   const mint = nftData[0].id;
   const ownerAddress = nftData[0].ownership.owner;
   const royaltyPercentage = nftData[0].royalty.percent;
-
-  const loader = ({ src }: { src: any }) => {
-    src = imageSrc;
-    return src;
-  }
 
   return (
     <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
@@ -53,7 +70,7 @@ const NFTDetails = ({
         <div className="flex flex-col justify-evenly break-words sm:flex-row">
           <div className="w-full p-3 sm:w-1/2">
             <Suspense fallback={<div>Loading...</div>} key={searchParams}>
-              <a href={imageSrc} target="_blank" rel="noopener noreferrer">
+              {/* <a href={imageSrc} target="_blank" rel="noopener noreferrer">
                 <img
                   // loader={loader}
                   src={imageSrc}
@@ -62,7 +79,13 @@ const NFTDetails = ({
                   alt={title}
                   className={`rounded-xl`}
                 />
-              </a>
+              </a> */}
+              <NFTImage
+                src={imageSrc}
+                width={200}
+                height={200}
+                alt={title}
+              />
             </Suspense>
           </div>
           <div className="mx-2 w-full p-3 sm:w-1/2">
@@ -126,7 +149,7 @@ const NFTDetails = ({
                 <hr className="my-2 border-gray-600" />
                 {nftData[0].creators.map((creator, index) => (
                   <div key={index} className="rounded-lg bg-neutral-700 p-4">
-                    <p className="text-base flex items-center">
+                    <p className="flex items-center text-base">
                       <span className="font-bold">Address:</span>
                       <a
                         href={`https://xray.helius.xyz/token/${creator.address}?network=mainnet`}
