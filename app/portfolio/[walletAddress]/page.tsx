@@ -11,14 +11,12 @@ import {
 } from "@/app/components";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
 
-export default async function PortfolioPage({
-  searchParams,
-  params,
-}: {
+interface PortfolioPageProps {
   searchParams: { view: string; details: string; tokenDetails: string };
   params: { walletAddress: string };
-}) {
-  console.log("PARAMS:" + params.walletAddress);
+}
+
+const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
   const fungibleTokenData: FungibleToken[] = await getFungibleData(
     params.walletAddress,
   );
@@ -59,13 +57,11 @@ export default async function PortfolioPage({
         )}
       </div>
       <div
-        className={`${
-          searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
-        }${
-          searchParams.tokenDetails
+        className={`${searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
+          }${searchParams.tokenDetails
             ? "flex h-screen flex-col overflow-hidden"
             : ""
-        }`}
+          }`}
       >
         <div className="mb-8">
           <NavBar />
@@ -105,9 +101,9 @@ export default async function PortfolioPage({
       </div>
     </div>
   );
-}
+};
 
-async function getFungibleData(walletAddress: string) {
+const getFungibleData = async (walletAddress: string) => {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
@@ -129,9 +125,11 @@ async function getFungibleData(walletAddress: string) {
       },
     }),
   });
+
   if (!response.ok) {
     throw new Error(`Failed to fetch data`);
   }
+
   const data = await response.json();
 
   const tokens: FungibleToken[] = data.result.items;
@@ -217,8 +215,9 @@ async function getFungibleData(walletAddress: string) {
   }
 
   return tokens;
-}
-async function getNonFungibleData(walletAddress: string) {
+};
+
+const getNonFungibleData = async (walletAddress: string) => { 
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
@@ -241,12 +240,15 @@ async function getNonFungibleData(walletAddress: string) {
       },
     }),
   });
+
   if (!response.ok) {
     throw new Error(`Failed to fetch data`);
   }
+
   const data = await response.json();
-  // console.log(JSON.stringify(data.result, null, 2));
   const tokens: NonFungibleToken[] = data.result.items;
-  // console.log(JSON.stringify(tokens, null, 2));
+
   return tokens;
-}
+};
+
+export default PortfolioPage;

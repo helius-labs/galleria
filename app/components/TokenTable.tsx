@@ -6,12 +6,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { FungibleToken } from "@/app/types";
 
 interface TokenTableProps {
+  source: string;
   tokens: FungibleToken[];
   walletAddress: string;
   perPage: number;
 }
 
-const TokenTable = ({ tokens, walletAddress, perPage }: TokenTableProps) => {
+const TokenTable = ({ source, tokens, walletAddress, perPage }: TokenTableProps) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortedTokens, setSortedTokens] = useState<FungibleToken[]>([]);
   const itemsPerPage = perPage || 8; // Adjust the number of items per page as needed

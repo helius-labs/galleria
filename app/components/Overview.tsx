@@ -9,12 +9,14 @@ import { FungibleToken, NonFungibleToken } from "@/app/types";
 import { NFTTable, TokenTable } from "@/app/components";
 
 interface OverviewProps {
+  searchParams: string;
   walletAddress: string;
   nonFungibleTokens: NonFungibleToken[];
   fungibleTokens: FungibleToken[];
 }
 
 const Overview = ({
+  searchParams,
   walletAddress,
   nonFungibleTokens,
   fungibleTokens,
