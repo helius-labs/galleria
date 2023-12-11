@@ -6,13 +6,15 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { NonFungibleToken } from "@/app/types";
 import { NFTCard } from "@/app/components";
 
+interface NFTTableProps {
+  walletAddress: string;
+  nftDataArray: NonFungibleToken[];
+}
+
 const NFTTable = ({
   walletAddress,
   nftDataArray,
-}: {
-  walletAddress: string;
-  nftDataArray: NonFungibleToken[];
-}) => {
+}: NFTTableProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();

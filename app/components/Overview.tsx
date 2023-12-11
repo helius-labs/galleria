@@ -8,17 +8,17 @@ import "chart.js/auto";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
 import { NFTTable, TokenTable } from "@/app/components";
 
-const Overview = ({
-  searchParams,
-  walletAddress,
-  nonFungibleTokens,
-  fungibleTokens,
-}: {
-  searchParams: string;
+interface OverviewProps {
   walletAddress: string;
   nonFungibleTokens: NonFungibleToken[];
   fungibleTokens: FungibleToken[];
-}) => {
+}
+
+const Overview = ({
+  walletAddress,
+  nonFungibleTokens,
+  fungibleTokens,
+}: OverviewProps) => {
   let datasets: { data: number[]; backgroundColor: string[] }[] = [];
   const [chartData, setChartData] = useState<{
     labels: string[];

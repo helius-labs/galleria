@@ -4,15 +4,13 @@ import React, { useState } from "react";
 
 import { NonFungibleToken } from "@/app/types";
 
-const NFTCard = ({
-  walletAddress,
-  nftData,
-  searchParams,
-}: {
+interface NFTCardProps {
   walletAddress: string;
   nftData: NonFungibleToken;
   searchParams: string;
-}) => {
+}
+
+const NFTCard = ({ walletAddress, nftData, searchParams }: NFTCardProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   const imageSrc = nftData.content.links.image;

@@ -9,15 +9,17 @@ interface NestedMintExtensionObject {
   [key: string]: MintExtensionValue;
 }
 
+interface TokenDetailsProps {
+  searchParams: { view: string; details: string };
+  walletAddress: string;
+  tokenData: FungibleToken[];
+}
+
 const TokenDetails = ({
   searchParams,
   walletAddress,
   tokenData,
-}: {
-  searchParams: { view: string; details: string };
-  walletAddress: string;
-  tokenData: FungibleToken[];
-}) => {
+}: TokenDetailsProps) => {
   //   console.log("T DATA" + tokenData[0]);
   const imageSrc = tokenData[0]?.content?.links?.image || "/noImg.svg";
   const title = tokenData[0]?.content?.metadata.name;

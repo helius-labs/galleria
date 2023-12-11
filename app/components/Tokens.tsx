@@ -3,15 +3,12 @@ import React from "react";
 import { FungibleToken } from "@/app/types";
 import { TokenTable } from "@/app/components";
 
-const Tokens = ({
-  searchParams,
-  walletAddress,
-  tokens,
-}: {
-  searchParams: string;
+interface TokensProps {
   walletAddress: string;
   tokens: FungibleToken[];
-}) => {
+}
+
+const Tokens = ({ walletAddress, tokens }: TokensProps) => {
   if (!tokens) {
     return <div>Loading...</div>;
   }

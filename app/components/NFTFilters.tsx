@@ -5,7 +5,11 @@ import { useRouter, usePathname, useSearchParams } from "next/navigation";
 
 import { Grouping, NonFungibleToken } from "@/app/types";
 
-const NFTFilters = ({ nftDataArray }: { nftDataArray: NonFungibleToken[] }) => {
+interface NFTFiltersProps {
+  nftDataArray: NonFungibleToken[];
+}
+
+const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
