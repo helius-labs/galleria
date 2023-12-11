@@ -20,7 +20,6 @@ const TokenDetails = ({
   walletAddress,
   tokenData,
 }: TokenDetailsProps) => {
-  //   console.log("T DATA" + tokenData[0]);
   const imageSrc = tokenData[0]?.content?.links?.image || "/noImg.svg";
   const title = tokenData[0]?.content?.metadata.name;
   const description = tokenData[0]?.content?.metadata.description;
