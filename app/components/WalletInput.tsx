@@ -24,12 +24,8 @@ const WalletInput = ({ source }: { source: string }) => {
     const match = url.match(addressRegex);
     const publicKey = match ? match[1] : null;
 
-    console.log("EXTRACTED PUBKEY", publicKey);
-    console.log("INPUT VALUE", address);
-
     // if publickey is already in the search params, return it
     if (publicKey && publicKey === address) {
-      console.log("MATCHED");
       setIsLoading(false); // Re-enable the button
       setInputValue(""); // Reset the input field to an empty string
       return publicKey;
