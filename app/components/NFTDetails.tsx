@@ -46,11 +46,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
           <div className="w-full p-3 sm:w-1/2">
             <Suspense fallback={<div>Loading...</div>} key={searchParams}>
               <a href={imageSrc} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={imageSrc}
-                  alt={title}
-                  className={`rounded-xl`}
-                />
+                <img src={imageSrc} alt={title} className={`rounded-xl`} />
               </a>
             </Suspense>
           </div>
@@ -72,12 +68,26 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                   href={"https://xray.helius.xyz/token/" + mint}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center"
+                  className="flex items-center text-blue-500"
                 >
-                  <p className="text-base">{`${ownerAddress.slice(
+                  <p className="mr-1 text-base ">{`${ownerAddress.slice(
                     0,
                     3,
                   )}...${ownerAddress.slice(-4)}`}</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+                    />
+                  </svg>
                 </a>
               </div>
 
@@ -92,10 +102,24 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                   className="flex items-center text-blue-500"
                 >
                   {/* JavaScript slice method to show only the first 3 and last 4 characters of the mint */}
-                  <p className="font-normal text-blue-500">{` ${mint.slice(
+                  <p className="mr-1 font-normal text-blue-500">{` ${mint.slice(
                     0,
                     3,
                   )}...${mint.slice(-4)}`}</p>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-4 w-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
+                    />
+                  </svg>
                 </a>
               </div>
               <div className="my-1 flex items-center justify-between">
@@ -115,16 +139,19 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                 <hr className="my-2 border-gray-600" />
                 {nftData[0].creators.map((creator, index) => (
                   <div key={index} className="rounded-lg bg-neutral-700 p-4">
-                    <p className="flex items-center text-base">
+                    <div className="flex items-center text-base">
                       <span className="font-bold">Address:</span>
                       <a
-                        href={`https://xray.helius.xyz/token/${creator.address}?network=mainnet`}
+                        href={`https://xray.helius.xyz/account/${creator.address}?network=mainnet`}
                         rel="noopener noreferrer"
                         target="_blank"
                         className="ml-2 transition-colors duration-200 ease-in-out hover:text-primary"
                       >
-                        <div className="flex items-center">
-                          <span className="mr-1">{creator.address}</span>
+                        <div className="flex items-center  text-blue-500">
+                          <p className="mr-1 text-base ">{`${creator.address.slice(
+                            0,
+                            3,
+                          )}...${creator.address.slice(-4)}`}</p>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -141,7 +168,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                           </svg>
                         </div>
                       </a>
-                    </p>
+                    </div>
                     <p className="text-base">
                       <span className="font-bold">Share:</span>
                       <span className="ml-2">{creator.share}</span>
@@ -168,11 +195,11 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                         key={index}
                         className="flex flex-col items-center rounded-lg bg-neutral-700 p-4"
                       >
-                        <p className="break-words text-sm font-semibold">
+                        <p className="break-words text-sm font-semibold text-gray-300">
                           {attribute.trait_type}
                         </p>
                         <div className=" w-full overflow-x-auto break-words">
-                          <p className="break-words text-center text-lg">
+                          <p className="break-words  text-center text-base font-bold text-white">
                             {attribute.value}
                           </p>
                         </div>
