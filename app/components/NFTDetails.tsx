@@ -217,35 +217,39 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
             </div>
 
             {nftData[0].compression.compressed && (
-              <div className="my-3 break-words overflow-x-scroll">
+              <div className="my-3 overflow-x-scroll break-words">
                 <p className="text-xl font-bold">Compression Details:</p>
                 <hr className="my-2  border-gray-600" />
-                {Object.entries(nftData[0].compression).map(
-                  ([key, value]) => {
-                    if (value !== null && value !== undefined && value !== "") {
-                      return (
-                        <div key={key} className="py-2 flex items-center">
-                          <p className="flex px-3 py-2 items-center justify-center rounded-md bg-gray-700/20 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
-                            {key}
-                          </p>
-                          <p className="ml-2">
-                            {value}
-                          </p>
-                        </div>
-                      )
-                    }
-                  },
-                )}
+                {Object.entries(nftData[0].compression).map(([key, value]) => {
+                  if (value !== null && value !== undefined && value !== "") {
+                    return (
+                      <div key={key} className="flex items-center py-2">
+                        <p className="flex items-center justify-center rounded-md bg-gray-700/20 px-3 py-2 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+                          {key}
+                        </p>
+                        <p className="ml-2">{value}</p>
+                      </div>
+                    );
+                  }
+                })}
               </div>
             )}
             {nftData[0].spl20 && (
               <div className="my-3 break-words">
                 <p className="text-xl font-bold">SPL20 Details:</p>
                 <hr className="my-2 border-gray-600" />
-                <p>SPL-20: {nftData[0].spl20.p}</p>
-                <p>Operation: {nftData[0].spl20.op}</p>
-                <p>Ticker: {nftData[0].spl20.tick}</p>
-                <p>Amount: {nftData[0].spl20.amt}</p>
+                {Object.entries(nftData[0].spl20).map(([key, value]) => {
+                  if (value !== null && value !== undefined && value !== "") {
+                    return (
+                      <div key={key} className="flex items-center py-2">
+                        <p className="flex items-center justify-center rounded-md bg-gray-700/20 px-3 py-2 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+                          {key}
+                        </p>
+                        <p className="ml-2">{value}</p>
+                      </div>
+                    );
+                  }
+                })}
               </div>
             )}
 
@@ -253,15 +257,18 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
               <div className="my-3 break-words">
                 <p className="text-xl font-bold">Inscription Details:</p>
                 <hr className="my-2 border-gray-600" />
-                <p>Order: {nftData[0].inscription.order}</p>
-                <p>Size: {nftData[0].inscription.size}</p>
-                <p>Content Type: {nftData[0].inscription.contentType}</p>
-                <p>Encoding: {nftData[0].inscription.encoding}</p>
-                <p>Validation Hash: {nftData[0].inscription.validationHash}</p>
-                <p>
-                  Inscription Data Account:{" "}
-                  {nftData[0].inscription.inscriptionDataAccount}
-                </p>
+                {Object.entries(nftData[0].inscription).map(([key, value]) => {
+                  if (value !== null && value !== undefined && value !== "") {
+                    return (
+                      <div key={key} className="flex items-center py-2">
+                        <p className="flex items-center justify-center rounded-md bg-gray-700/20 px-3 py-2 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+                          {key}
+                        </p>
+                        <p className="ml-2">{value}</p>
+                      </div>
+                    );
+                  }
+                })}
               </div>
             )}
           </div>
