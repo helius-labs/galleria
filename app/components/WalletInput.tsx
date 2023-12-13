@@ -62,6 +62,8 @@ const WalletInput = ({ source }: { source: string }) => {
       console.log(error);
       toast.error("Something went wrong");
     } finally {
+      setIsLoading(false); // Re-enable the button
+      setInputValue(""); // Reset the input field to an empty string
     }
   };
 
