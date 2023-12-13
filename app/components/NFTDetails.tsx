@@ -65,7 +65,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                 <p className="text-lg font-bold">Owner:</p>
                 {/* JavaScript slice method to show only the first 3 and last 4 characters of the ownerAddress */}
                 <a
-                  href={"https://xray.helius.xyz/token/" + mint}
+                  href={"https://xray.helius.xyz/account/" + ownerAddress}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center text-blue-500"

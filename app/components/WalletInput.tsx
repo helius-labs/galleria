@@ -7,55 +7,63 @@ import { toast } from "react-toastify";
 import { Button } from "@/app/components";
 
 const WalletInput = ({ source }: { source: string }) => {
-  const [walletAddress, setWalletAddress] = useState<string>("");
-  const [isValid, setIsValid] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // New loading state
+  const [inputValue, setInputValue] = useState<string>(""); // State for the input field value
+  const [resolvedAddress, setResolvedAddress] = useState<string>(""); // New state for the resolved address
+  const [isValid, setIsValid] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   let id = useId();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const validateSolanaPublicKey = (address: string): boolean => {
-    return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
+  const validateSolanaPublicKey = async (
+    address: string,
+  ): Promise<string | null> => {
+    if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
+      return address;
+    } else {
+      const response = await fetch(
+        `https://sns-sdk-proxy.bonfida.workers.dev/resolve/${address?.toLowerCase()}`,
+      );
+      const data = await response.json();
+      if (data.s == "ok") {
+        return data.result;
+      }
+      return null;
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWalletAddress(e.target.value);
-    setIsValid(true);
+    setInputValue(e.target.value); // Update the inputValue state
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    setIsLoading(true); // Start loading
-
-    if (!isValid) {
+    const resolvedAddr = await validateSolanaPublicKey(inputValue);
+    if (!resolvedAddr) {
       console.log("Invalid Solana public key");
       toast.error("Invalid Solana public key");
-      setWalletAddress(""); // Reset the input field to an empty string
+      setInputValue(""); // Reset the input field to an empty string
+      setIsLoading(false);
+
       return;
     }
 
+    setIsValid(true); // Assuming the address is valid if it's resolved
     const currentView = searchParams.get("view") || "tokens";
 
     try {
       await router.push(
-        `/portfolio/${encodeURIComponent(walletAddress)}?view=${currentView}`,
+        `/portfolio/${encodeURIComponent(resolvedAddr)}?view=${currentView}`,
       );
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
     } finally {
-      setIsLoading(false); // Stop loading regardless of the result
-      setWalletAddress(""); // Reset state of input field
     }
   };
-
-  // New useEffect to validate the wallet address on every change to the input field
-  useEffect(() => {
-    setIsValid(validateSolanaPublicKey(walletAddress));
-    console.log("isValid state is now:", isValid);
-  }, [isValid, walletAddress]);
 
   return (
     <form
@@ -73,7 +81,7 @@ const WalletInput = ({ source }: { source: string }) => {
         id={id}
         placeholder="Solana Wallet Address"
         className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-[0.8125rem]/6"
-        value={walletAddress}
+        value={inputValue}
         onChange={handleInputChange}
       />
       <Button
