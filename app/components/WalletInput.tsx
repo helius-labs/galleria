@@ -4,7 +4,6 @@ import React, { useState, useEffect, useId } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
-
 import { Button } from "@/app/components";
 
 const WalletInput = ({ source }: { source: string }) => {
@@ -47,6 +46,7 @@ const WalletInput = ({ source }: { source: string }) => {
       console.log("Invalid Solana public key");
       toast.error("Invalid Solana public key");
       setInputValue(""); // Reset the input field to an empty string
+      setIsLoading(false);
 
       return;
     }

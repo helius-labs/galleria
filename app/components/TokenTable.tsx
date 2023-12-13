@@ -103,7 +103,7 @@ const TokenTable = ({
               const tokenBalance = (
                 token.token_info.balance /
                 Math.pow(10, token.token_info.decimals)
-              ).toFixed(2);
+              ).toFixed(5);
               const tokenPrice =
                 token.token_info.price_info?.price_per_token || "N/A";
               const tokenValue =
