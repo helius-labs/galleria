@@ -53,10 +53,10 @@ const TokenDetails = ({
               className="mt-4 w-full  border-gray-600"
               style={{ paddingLeft: `${indent * 20}px` }}
             >
-              <p className="text-gray-300 w-40 rounded-md bg-gray-700/20 px-3 py-1.5 text-sm font-medium ring-1 ring-inset ring-white/30">
+              <p className="w-40 rounded-md bg-gray-700/20 px-3 py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
                 {key}:
               </p>
-              <div className="border-l border-dashed border-gray-600 mt-2">
+              <div className="mt-2 border-l border-dashed border-gray-600">
                 {Object.entries(value).map(([innerKey, innerValue]) =>
                   renderValue(innerValue, innerKey, indent + 1),
                 )}
@@ -67,7 +67,7 @@ const TokenDetails = ({
       } else {
         return (
           <p
-            className="w-full py-1 leading-7 flex items-center overflow-scroll"
+            className="flex w-full items-center overflow-scroll py-1 leading-7"
             style={{ paddingLeft: `${indent * 20}px` }}
           >
             <svg
@@ -76,7 +76,7 @@ const TokenDetails = ({
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="h-3 w-3 mr-1"
+              className="mr-1 h-3 w-3"
             >
               <path
                 strokeLinecap="round"
@@ -85,7 +85,7 @@ const TokenDetails = ({
               />
             </svg>
             <span className="font-base text-sm text-gray-400">{key}</span>:
-            <span className="font-normal text-sm ml-1">{` ${value}`}</span>
+            <span className="ml-1 text-sm font-normal">{` ${value}`}</span>
           </p>
         );
       }
@@ -98,7 +98,6 @@ const TokenDetails = ({
 
   return (
     <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
-
       {/* Header */}
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=${searchParams.view}`}>
@@ -140,7 +139,7 @@ const TokenDetails = ({
 
               {/* Flex container for each detail item with content justified between */}
               <div className="my-1 flex items-center justify-between">
-                <p className="text-xl font-bold">Owner:</p>
+                <p className="text-lg font-bold">Owner:</p>
                 {/* JavaScript slice method to show only the first 3 and last 4 characters of the ownerAddress */}
                 <a
                   href={"https://xray.helius.xyz/token/" + mint}
@@ -157,7 +156,7 @@ const TokenDetails = ({
 
               {/* Flex container for each detail item with content justified between */}
               <div className="my-1 flex items-center justify-between">
-                <p className="text-xl font-bold">Mint:</p>
+                <p className=" text-lg font-bold">Mint:</p>
                 {/* Anchor tag is kept within the flex container for layout purposes */}
                 <a
                   href={"https://xray.helius.xyz/token/" + mint}

@@ -3,9 +3,7 @@
 import React, { useState, useEffect, useId } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-
 import { toast } from "react-toastify";
-
 import { Button } from "@/app/components";
 
 const WalletInput = ({ source }: { source: string }) => {
@@ -38,7 +36,7 @@ const WalletInput = ({ source }: { source: string }) => {
       return;
     }
 
-    const currentView = searchParams.get("view") || "overview";
+    const currentView = searchParams.get("view") || "tokens";
 
     try {
       await router.push(
@@ -62,7 +60,7 @@ const WalletInput = ({ source }: { source: string }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 items-center pr-1.5 w-60 sm:w-80"
+      className="relative isolate flex h-12 w-60 items-center pr-1.5 sm:w-80"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address
