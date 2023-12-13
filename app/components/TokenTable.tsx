@@ -65,14 +65,11 @@ const TokenTable = ({
             <tr>
               <th
                 scope="col"
-                className="py-2 pl-4 pr-8 font-semibold sm:pl-6 lg:pl-8"
+                className=" py-2 pl-4 pr-8 font-semibold  sm:pl-6 lg:pl-8"
               >
                 ICON
               </th>
-              <th
-                scope="col"
-                className="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell"
-              >
+              <th scope="col" className=" py-2 pl-0 pr-8 font-semibold ">
                 SYMBOL
               </th>
               <th
@@ -83,13 +80,13 @@ const TokenTable = ({
               </th>
               <th
                 scope="col"
-                className="hidden py-2 pl-0 pr-8 font-semibold md:table-cell lg:pr-20"
+                className=" py-2 pl-0 pr-8 font-semibold  lg:pr-20"
               >
                 PRICE
               </th>
               <th
                 scope="col"
-                className="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8"
+                className=" py-2 pl-0 pr-4 text-right font-semibold  sm:pr-6 lg:pr-8"
               >
                 VALUE
               </th>
@@ -125,7 +122,7 @@ const TokenTable = ({
                   className="group hover:cursor-pointer"
                 >
                   {/* ICON */}
-                  <td className="py-4 pl-4 sm:pl-6 lg:pl-7">
+                  <td className="  py-4 pl-4  sm:pl-6 lg:pl-7">
                     <div className="flex items-center gap-x-4">
                       {tokenImage ? (
                         <img
@@ -140,7 +137,7 @@ const TokenTable = ({
                   </td>
 
                   {/* SYMBOL */}
-                  <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+                  <td className=" py-4 pl-0 pr-4  sm:pr-8">
                     <div className="flex gap-x-3">
                       <div className="rounded-md bg-gray-700/40 px-3 py-1.5 text-sm font-medium text-gray-400 ring-1 ring-inset ring-white/10 transition-all duration-200 ease-in-out group-hover:bg-gray-700/60 group-hover:text-white">
                         {tokenSymbol}
@@ -158,12 +155,14 @@ const TokenTable = ({
                   </td>
 
                   {/* PRICE */}
-                  <td className="hidden py-4 pl-0 pr-8 text-sm leading-6 text-gray-400 transition-all duration-200 ease-in-out group-hover:text-white md:table-cell lg:pr-20">
-                    {tokenPrice}
+                  <td className=" py-4 pl-0 pr-8 text-sm leading-6 text-gray-400 transition-all duration-200 ease-in-out group-hover:text-white  lg:pr-20">
+                    {typeof tokenPrice === "number"
+                      ? `$${tokenPrice}`
+                      : tokenPrice}
                   </td>
 
                   {/* VALUE */}
-                  <td className="hidden py-4 pl-0 pr-4 text-right text-sm leading-6 text-gray-400 transition-all duration-200 ease-in-out group-hover:text-white sm:table-cell sm:pr-6 lg:pr-8">
+                  <td className=" py-4 pl-0 pr-4 text-right text-sm leading-6 text-gray-400 transition-all duration-200 ease-in-out group-hover:text-white  sm:pr-6 lg:pr-8">
                     {tokenValue}
                   </td>
                 </tr>
