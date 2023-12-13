@@ -10,26 +10,36 @@ import Button from "../components/Button";
 
 const WalletInput = ({ source }: { source: string }) => {
   const [walletAddress, setWalletAddress] = useState<string>("");
-  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false); // New loading state
 
   let id = useId();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const validateSolanaPublicKey = (address: string): boolean => {
-    return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
-  };
+  const validateSolanaPublicKey = async (address: string): Promise<boolean> => {
+    if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
+      return true;
+    } else {
+      const response = await fetch(
+        `https://sns-sdk-proxy.bonfida.workers.dev/resolve/${address?.toLowerCase()}`,
+      );
+      const data = await response.json();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWalletAddress(e.target.value);
-    // setIsValid(true);
+      if (data.s === "ok") {
+        console.log("Wallet:", data.result);
+        setWalletAddress(data.result);
+        return true;
+      }
+      return false;
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setIsLoading(true); // Start loading
+    setIsValid(await validateSolanaPublicKey(walletAddress));
 
     if (!isValid) {
       console.log("Invalid Solana public key");
@@ -38,7 +48,7 @@ const WalletInput = ({ source }: { source: string }) => {
       return;
     }
 
-    const currentView = searchParams.get("view") || "tokens";
+    const currentView = searchParams.get("view") || "overview";
 
     try {
       await router.push(
@@ -53,11 +63,6 @@ const WalletInput = ({ source }: { source: string }) => {
     }
   };
 
-  useEffect(() => {
-    setIsValid(validateSolanaPublicKey(walletAddress));
-    console.log("isValid state is now:", isValid);
-  }, [isValid, walletAddress]);
-
   return (
     <form
       onSubmit={handleSubmit}
@@ -68,14 +73,14 @@ const WalletInput = ({ source }: { source: string }) => {
       </label>
       <input
         required
-        type="walletAddress"
-        autoComplete="walletAddress"
+        type="text"
+        autoComplete="off"
         name="walletAddress"
         id={id}
         placeholder="Solana Wallet Address"
         className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-[0.8125rem]/6"
-        value={walletAddress}
-        onChange={handleInputChange}
+        value={walletAddress} // set the value to the state
+        onChange={(e) => setWalletAddress(e.target.value)} // update the state when the input changes
       />
       <Button
         type="submit"
