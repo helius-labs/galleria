@@ -3,8 +3,10 @@
 import React, { useState, useEffect, useId } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
+
 import { toast } from "react-toastify";
-import { Button } from "@/app/components";
+
+import Button from "../components/Button";
 
 const WalletInput = ({ source }: { source: string }) => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -21,7 +23,7 @@ const WalletInput = ({ source }: { source: string }) => {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setWalletAddress(e.target.value);
-    setIsValid(true);
+    // setIsValid(true);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -47,11 +49,10 @@ const WalletInput = ({ source }: { source: string }) => {
       toast.error("Something went wrong");
     } finally {
       setIsLoading(false); // Stop loading regardless of the result
-      setWalletAddress(""); // Reset state of input field
+      setWalletAddress("");
     }
   };
 
-  // New useEffect to validate the wallet address on every change to the input field
   useEffect(() => {
     setIsValid(validateSolanaPublicKey(walletAddress));
     console.log("isValid state is now:", isValid);
@@ -60,7 +61,7 @@ const WalletInput = ({ source }: { source: string }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 w-60 items-center pr-1.5 sm:w-80"
+      className="relative isolate flex h-12 w-80 items-center pr-1.5"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address
@@ -79,7 +80,7 @@ const WalletInput = ({ source }: { source: string }) => {
       <Button
         type="submit"
         isLoading={isLoading}
-        disabled={!isValid || isLoading} // Disable the button if the input is invalid or if the form is loading
+        disabled={!isValid || isLoading}
         arrow
       >
         Submit

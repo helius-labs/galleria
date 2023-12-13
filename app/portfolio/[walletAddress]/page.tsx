@@ -3,7 +3,6 @@ import React, { Suspense } from "react";
 import {
   NavBar,
   Tabs,
-  Overview,
   NFTs,
   Tokens,
   NFTDetails,
@@ -57,11 +56,13 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
         )}
       </div>
       <div
-        className={`${searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
-          }${searchParams.tokenDetails
+        className={`${
+          searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
+        }${
+          searchParams.tokenDetails
             ? "flex h-screen flex-col overflow-hidden"
             : ""
-          }`}
+        }`}
       >
         <div className="mb-8">
           <NavBar />
@@ -74,14 +75,14 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
         </div>
         <Suspense fallback={<div>Loading...</div>} key={searchParams.view}>
           <div className={`mx-10 my-4 pb-4 `}>
-            {searchParams.view === "overview" && (
+            {/* {searchParams.view === "overview" && (
               <Overview
                 nonFungibleTokens={nonFungibleTokenData}
                 fungibleTokens={fungibleTokenData}
                 searchParams={searchParams.toString()}
                 walletAddress={params.walletAddress}
               />
-            )}
+            )} */}
             {searchParams.view === "tokens" && (
               <Tokens
                 tokens={fungibleTokenData}
@@ -217,7 +218,7 @@ const getFungibleData = async (walletAddress: string) => {
   return tokens;
 };
 
-const getNonFungibleData = async (walletAddress: string) => { 
+const getNonFungibleData = async (walletAddress: string) => {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {

@@ -11,10 +11,7 @@ interface NFTTableProps {
   nftDataArray: NonFungibleToken[];
 }
 
-const NFTTable = ({
-  walletAddress,
-  nftDataArray,
-}: NFTTableProps) => {
+const NFTTable = ({ walletAddress, nftDataArray }: NFTTableProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
