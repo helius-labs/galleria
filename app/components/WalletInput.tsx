@@ -3,89 +3,91 @@
 import React, { useState, useEffect, useId } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-
 import { toast } from "react-toastify";
 
-import Button from "../components/Button";
+import { Button } from "@/app/components";
 
 const WalletInput = ({ source }: { source: string }) => {
-  const [walletAddress, setWalletAddress] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>(""); // State for the input field value
+  const [resolvedAddress, setResolvedAddress] = useState<string>(""); // New state for the resolved address
   const [isValid, setIsValid] = useState<boolean>(true);
-  const [isLoading, setIsLoading] = useState<boolean>(false); // New loading state
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   let id = useId();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const validateSolanaPublicKey = async (address: string): Promise<boolean> => {
+  const validateSolanaPublicKey = async (
+    address: string,
+  ): Promise<string | null> => {
     if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
-      return true;
+      return address;
     } else {
       const response = await fetch(
         `https://sns-sdk-proxy.bonfida.workers.dev/resolve/${address?.toLowerCase()}`,
       );
       const data = await response.json();
-
-      if (data.s === "ok") {
-        console.log("Wallet:", data.result);
-        setWalletAddress(data.result);
-        return true;
+      if (data.s == "ok") {
+        return data.result;
       }
-      return false;
+      return null;
     }
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value); // Update the inputValue state
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true);
 
-    setIsLoading(true); // Start loading
-    setIsValid(await validateSolanaPublicKey(walletAddress));
-
-    if (!isValid) {
+    const resolvedAddr = await validateSolanaPublicKey(inputValue);
+    if (!resolvedAddr) {
       console.log("Invalid Solana public key");
       toast.error("Invalid Solana public key");
-      setWalletAddress(""); // Reset the input field to an empty string
+      setInputValue(""); // Reset the input field to an empty string
+
       return;
     }
 
-    const currentView = searchParams.get("view") || "overview";
+    setIsValid(true); // Assuming the address is valid if it's resolved
+    const currentView = searchParams.get("view") || "tokens";
 
     try {
       await router.push(
-        `/portfolio/${encodeURIComponent(walletAddress)}?view=${currentView}`,
+        `/portfolio/${encodeURIComponent(resolvedAddr)}?view=${currentView}`,
       );
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
     } finally {
-      setIsLoading(false); // Stop loading regardless of the result
-      setWalletAddress("");
     }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 w-80 items-center pr-1.5"
+      className="relative isolate flex h-12 w-60 items-center pr-1.5 sm:w-80"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address
       </label>
       <input
         required
-        type="text"
-        autoComplete="off"
+        type="walletAddress"
+        autoComplete="walletAddress"
         name="walletAddress"
         id={id}
         placeholder="Solana Wallet Address"
         className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-[0.8125rem]/6"
-        value={walletAddress} // set the value to the state
-        onChange={(e) => setWalletAddress(e.target.value)} // update the state when the input changes
+        value={inputValue}
+        onChange={handleInputChange}
       />
       <Button
         type="submit"
         isLoading={isLoading}
-        disabled={!isValid || isLoading}
+        disabled={!isValid || isLoading} // Disable the button if the input is invalid or if the form is loading
         arrow
       >
         Submit
