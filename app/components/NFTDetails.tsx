@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import React, { Suspense } from "react";
 import Link from "next/link";
@@ -18,6 +18,10 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
   const mint = nftData[0].id;
   const ownerAddress = nftData[0].ownership.owner;
   const royaltyPercentage = nftData[0].royalty.percent;
+
+  React.useEffect(() => {
+    console.log(nftData[0].compression);
+  }, []);
 
   return (
     <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
@@ -213,15 +217,25 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
             </div>
 
             {nftData[0].compression.compressed && (
-              <div className="my-3 break-words">
+              <div className="my-3 break-words overflow-x-scroll">
                 <p className="text-xl font-bold">Compression Details:</p>
                 <hr className="my-2  border-gray-600" />
-                <p>Data Hash: {nftData[0].compression.data_hash}</p>
-                <p>Creator Hash: {nftData[0].compression.creator_hash}</p>
-                <p>Asset Hash: {nftData[0].compression.asset_hash}</p>
-                <p>Tree: {nftData[0].compression.tree}</p>
-                <p>Seq: {nftData[0].compression.seq}</p>
-                <p>Leaf ID: {nftData[0].compression.leaf_id}</p>
+                {Object.entries(nftData[0].compression).map(
+                  ([key, value]) => {
+                    if (value !== null && value !== undefined && value !== "") {
+                      return (
+                        <div key={key} className="py-2 flex items-center">
+                          <p className="flex px-3 py-2 items-center justify-center rounded-md bg-gray-700/20 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+                            {key}
+                          </p>
+                          <p className="ml-2">
+                            {value}
+                          </p>
+                        </div>
+                      )
+                    }
+                  },
+                )}
               </div>
             )}
             {nftData[0].spl20 && (
