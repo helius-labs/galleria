@@ -1,14 +1,14 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-const Tabs = ({
-  searchParams,
-  walletAddress,
-}: {
+interface TabsProps {
   searchParams: { view: string };
   walletAddress: string;
-}) => {
+}
+
+const Tabs = ({ searchParams, walletAddress }: TabsProps) => {
   const router = useRouter();
 
   return (

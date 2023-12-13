@@ -1,18 +1,21 @@
 "use client";
-import React, { useState, useEffect } from "react";
+
+import React, { useState, useEffect, useId } from "react";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 
-const WalletInput = ({ source }: { source: string }) => {
-  const searchParams = useSearchParams();
-  const [walletAddress, setWalletAddress] = useState("");
-  const [isValid, setIsValid] = useState(true);
-  const [isLoading, setIsLoading] = useState(false); // New loading state
-  const router = useRouter();
+import { toast } from "react-toastify";
 
-  useEffect(() => {
-    console.log("isLoading state is now:", isLoading);
-  }, [isLoading]); // This effect will run whenever isLoading changes
+import { Button } from "@/app/components";
+
+const WalletInput = ({ source }: { source: string }) => {
+  const [walletAddress, setWalletAddress] = useState<string>("");
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false); // New loading state
+
+  let id = useId();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
   const validateSolanaPublicKey = (address: string): boolean => {
     return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address);
@@ -25,15 +28,15 @@ const WalletInput = ({ source }: { source: string }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const isValidAddress = validateSolanaPublicKey(walletAddress);
-    setIsValid(isValidAddress);
-
-    if (!isValidAddress) {
-      console.log("Invalid Solana public key");
-      return;
-    }
 
     setIsLoading(true); // Start loading
+
+    if (!isValid) {
+      console.log("Invalid Solana public key");
+      toast.error("Invalid Solana public key");
+      setWalletAddress(""); // Reset the input field to an empty string
+      return;
+    }
 
     const currentView = searchParams.get("view") || "overview";
 
@@ -41,58 +44,51 @@ const WalletInput = ({ source }: { source: string }) => {
       await router.push(
         `/portfolio/${encodeURIComponent(walletAddress)}?view=${currentView}`,
       );
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
     } finally {
-      //setIsLoading(false); // Stop loading regardless of the result
+      setIsLoading(false); // Stop loading regardless of the result
+      setWalletAddress(""); // Reset state of input field
     }
-
-    setWalletAddress("");
   };
 
+  // New useEffect to validate the wallet address on every change to the input field
+  useEffect(() => {
+    setIsValid(validateSolanaPublicKey(walletAddress));
+    console.log("isValid state is now:", isValid);
+  }, [isValid, walletAddress]);
+
   return (
-    <div className="h-full w-full">
-      {!isLoading ? (
-        <form onSubmit={handleSubmit} className="form-control">
-          <div className="flex w-full justify-center">
-            <input
-              type="text"
-              placeholder="Wallet Address"
-              className={` rounded-lg border-2 border-white bg-transparent p-2 placeholder:text-gray-400 focus:shadow-glow ${
-                isValid
-                  ? ""
-                  : "border-4 border-red-500 focus:border-4 focus:border-red-500"
-              } w-9/12 text-center text-white focus:border-2  focus:outline-none`}
-              value={walletAddress}
-              onChange={handleInputChange}
-            />
-            {source == "landingPage" && (
-              <button
-                type="submit"
-                className="mx-2 rounded-lg border-2 border-white bg-primary p-1 hover:bg-accent"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  className="h-8 w-10"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                  />
-                </svg>
-              </button>
-            )}
-          </div>
-        </form>
-      ) : (
-        <div className="flex justify-center">
-          <span className="loading loading-dots loading-lg"></span>
-        </div>
-      )}
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="relative isolate flex h-12 items-center pr-1.5 w-60 sm:w-80"
+    >
+      <label htmlFor={id} className="sr-only">
+        Solana Wallet Address
+      </label>
+      <input
+        required
+        type="walletAddress"
+        autoComplete="walletAddress"
+        name="walletAddress"
+        id={id}
+        placeholder="Solana Wallet Address"
+        className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-[0.8125rem]/6"
+        value={walletAddress}
+        onChange={handleInputChange}
+      />
+      <Button
+        type="submit"
+        isLoading={isLoading}
+        disabled={!isValid || isLoading} // Disable the button if the input is invalid or if the form is loading
+        arrow
+      >
+        Submit
+      </Button>
+      <div className="absolute inset-0 -z-10 rounded-lg transition peer-focus:ring-4 peer-focus:ring-secondary" />
+      <div className="bg-white/2.5 absolute inset-0 -z-10 rounded-lg ring-1 ring-white/50 transition peer-focus:ring-accent" />
+    </form>
   );
 };
 

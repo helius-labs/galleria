@@ -1,9 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   html {
-      @apply  bg-[#222222];
+    @apply bg-[#222222];
   }
 }
 
@@ -15,5 +16,18 @@
 
 body {
   color: rgb(var(--foreground-rgb));
- 
+}
+
+.btn .arrow-symbol path:last-child,
+.link .arrow-symbol path:last-child {
+  stroke-dasharray: 10;
+  stroke-dashoffset: 10;
+  transition: stroke-dashoffset .2s;
+}
+
+.btn:focus .arrow-symbol path:last-child,
+.btn:hover .arrow-symbol path:last-child,
+.link:focus .arrow-symbol path:last-child,
+.link:hover .arrow-symbol path:last-child {
+  stroke-dashoffset: 20;
 }

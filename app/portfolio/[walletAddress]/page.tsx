@@ -1,22 +1,22 @@
-import React, { Suspense, use } from "react";
-import NavBar from "../../components/NavBar";
-import Tabs from "../../components/Tabs";
-import Overview from "../../components/Overview";
-import { FungibleToken } from "../../types/fungibleToken";
-import NFTs from "@/app/components/NFTs";
-import Tokens from "@/app/components/Tokens";
-import { NonFungibleToken } from "@/app/types/nonFungibleToken";
-import NFTDetails from "@/app/components/NFTDetails";
-import TokenDetails from "@/app/components/TokenDetails";
+import React, { Suspense } from "react";
 
-export default async function PortfolioPage({
-  searchParams,
-  params,
-}: {
+import {
+  NavBar,
+  Tabs,
+  Overview,
+  NFTs,
+  Tokens,
+  NFTDetails,
+  TokenDetails,
+} from "@/app/components";
+import { FungibleToken, NonFungibleToken } from "@/app/types";
+
+interface PortfolioPageProps {
   searchParams: { view: string; details: string; tokenDetails: string };
   params: { walletAddress: string };
-}) {
-  console.log("PARAMS:" + params.walletAddress);
+}
+
+const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
   const fungibleTokenData: FungibleToken[] = await getFungibleData(
     params.walletAddress,
   );
@@ -24,7 +24,6 @@ export default async function PortfolioPage({
     params.walletAddress,
   );
 
-  //console.log(params.walletAddress);
   return (
     <div className="h-screen bg-radial-gradient">
       <div>
@@ -58,13 +57,11 @@ export default async function PortfolioPage({
         )}
       </div>
       <div
-        className={`${
-          searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
-        }${
-          searchParams.tokenDetails
+        className={`${searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
+          }${searchParams.tokenDetails
             ? "flex h-screen flex-col overflow-hidden"
             : ""
-        }`}
+          }`}
       >
         <div className="mb-8">
           <NavBar />
@@ -104,9 +101,9 @@ export default async function PortfolioPage({
       </div>
     </div>
   );
-}
+};
 
-async function getFungibleData(walletAddress: string) {
+const getFungibleData = async (walletAddress: string) => {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
@@ -128,21 +125,17 @@ async function getFungibleData(walletAddress: string) {
       },
     }),
   });
+
   if (!response.ok) {
     throw new Error(`Failed to fetch data`);
   }
+
   const data = await response.json();
-  // console.log(JSON.stringify(data.result, null, 2));
 
   const tokens: FungibleToken[] = data.result.items;
 
   // Calculate SOL balance from lamports
-  // console.log(data.result.nativeBalance);
   const solBalance = data.result.nativeBalance.lamports;
-  // const solPrice = data.result.nativeBalace.price_per_sol;
-  // const totalPrice = data.result.nativeBalace.total_price;
-
-  // console.log("SOLAMIS:" + solBalance.lamports);
 
   // Create SOL token object
   const solToken = {
@@ -222,8 +215,9 @@ async function getFungibleData(walletAddress: string) {
   }
 
   return tokens;
-}
-async function getNonFungibleData(walletAddress: string) {
+};
+
+const getNonFungibleData = async (walletAddress: string) => { 
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
@@ -246,12 +240,15 @@ async function getNonFungibleData(walletAddress: string) {
       },
     }),
   });
+
   if (!response.ok) {
     throw new Error(`Failed to fetch data`);
   }
+
   const data = await response.json();
-  // console.log(JSON.stringify(data.result, null, 2));
   const tokens: NonFungibleToken[] = data.result.items;
-  // console.log(JSON.stringify(tokens, null, 2));
+
   return tokens;
-}
+};
+
+export default PortfolioPage;

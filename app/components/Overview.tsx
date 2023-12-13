@@ -1,23 +1,26 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { Pie } from "react-chartjs-2";
+
 import "chart.js/auto";
-import { FungibleToken } from "../types/fungibleToken";
-import { NonFungibleToken } from "../types/nonFungibleToken";
-import NFTTable from "./NFTTable";
-import TokenTable from "./TokenTable";
+
+import { FungibleToken, NonFungibleToken } from "@/app/types";
+import { NFTTable, TokenTable } from "@/app/components";
+
+interface OverviewProps {
+  searchParams: string;
+  walletAddress: string;
+  nonFungibleTokens: NonFungibleToken[];
+  fungibleTokens: FungibleToken[];
+}
 
 const Overview = ({
   searchParams,
   walletAddress,
   nonFungibleTokens,
   fungibleTokens,
-}: {
-  searchParams: string;
-  walletAddress: string;
-  nonFungibleTokens: NonFungibleToken[];
-  fungibleTokens: FungibleToken[];
-}) => {
+}: OverviewProps) => {
   let datasets: { data: number[]; backgroundColor: string[] }[] = [];
   const [chartData, setChartData] = useState<{
     labels: string[];
