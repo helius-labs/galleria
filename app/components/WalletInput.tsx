@@ -16,9 +16,22 @@ const WalletInput = ({ source }: { source: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const validateSolanaPublicKey = async (
-    address: string,
-  ): Promise<string | null> => {
+  const validateSolanaPublicKey = async (address: string): Promise<string | null> => {
+    // check if the address is already in the search params
+
+    const url = window.location.href;
+    const addressRegex = /portfolio\/([^\/?]+)/;
+    const match = url.match(addressRegex);
+    const publicKey = match ? match[1] : null;
+
+    // if publickey is already in the search params, return it
+    if (publicKey) {
+      console.log("MATCHED");
+      setIsLoading(false); // Re-enable the button
+      setInputValue(""); // Reset the input field to an empty string
+      return publicKey;
+    }
+
     if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
       return address;
     } else {
@@ -61,9 +74,6 @@ const WalletInput = ({ source }: { source: string }) => {
     } catch (error) {
       console.log(error);
       toast.error("Something went wrong");
-    } finally {
-      setIsLoading(false); // Re-enable the button
-      setInputValue(""); // Reset the input field to an empty string
     }
   };
 
