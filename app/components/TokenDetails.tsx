@@ -37,7 +37,7 @@ const TokenDetails = ({
         if (indent === 0) {
           return (
             <div className="w-full border-gray-600">
-              <p className="w-40 flex justify-center rounded-md bg-gray-700/60 px-3 py-1.5 text-sm font-medium ring-1 ring-inset ring-white/10">
+              <p className="bg-gray-700/20px-3 flex w-40 justify-center rounded-md py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
                 {key}
               </p>
               <div className="mt-2 border-l border-dashed border-gray-600">
@@ -84,7 +84,7 @@ const TokenDetails = ({
                 d="M8.25 4.5l7.5 7.5-7.5 7.5"
               />
             </svg>
-            <span className="font-base text-sm text-gray-400">{key}</span>
+            <span className="font-base text-sm text-gray-400">{key}:</span>
             <span className="ml-1 text-sm font-normal">{` ${value}`}</span>
           </p>
         );
