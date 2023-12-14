@@ -37,8 +37,8 @@ const TokenDetails = ({
         if (indent === 0) {
           return (
             <div className="w-full border-gray-600">
-              <p className="w-40 rounded-md bg-gray-700/60 px-3 py-1.5 text-sm font-medium ring-1 ring-inset ring-white/10">
-                {key}:
+              <p className="w-40 flex justify-center rounded-md bg-gray-700/60 px-3 py-1.5 text-sm font-medium ring-1 ring-inset ring-white/10">
+                {key}
               </p>
               <div className="mt-2 border-l border-dashed border-gray-600">
                 {Object.entries(value).map(([innerKey, innerValue]) =>
@@ -53,7 +53,7 @@ const TokenDetails = ({
               className="mt-4 w-full  border-gray-600"
               style={{ paddingLeft: `${indent * 20}px` }}
             >
-              <p className="w-40 rounded-md bg-gray-700/20px-3 py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+              <p className="w-40 flex justify-center rounded-md bg-gray-700/20px-3 py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
                 {key}
               </p>
               <div className="mt-2 border-l border-dashed border-gray-600">
