@@ -1,5 +1,7 @@
-import WalletInput from "./components/WalletInput";
-import Hero from "./components/Hero";
+import {
+  Hero,
+  WalletInput
+} from "@/app/components";
 
 const Home = () => {
   return (
