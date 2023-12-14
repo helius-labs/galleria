@@ -241,7 +241,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
               <div className="my-3 break-words">
                 <p className="text-xl font-bold">SPL20 Details:</p>
                 <hr className="my-2 border-gray-600" />
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {Object.entries(nftData[0].spl20).map(([key, value]) => {
                     if (value !== null && value !== undefined && value !== "") {
                       return (
@@ -267,7 +267,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
               <div className="my-3 break-words">
                 <p className="text-xl font-bold">Inscription Details:</p>
                 <hr className="my-2 border-gray-600" />
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {Object.entries(nftData[0].inscription).map(
                     ([key, value]) => {
                       if (
