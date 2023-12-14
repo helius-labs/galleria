@@ -1,10 +1,13 @@
 "use client";
 
 import React, { useState, useEffect, useId } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
-import { Button } from "@/app/components";
+
+// dynamically load button component for speed optimization
+const DynamicButton = dynamic(() => import("@/app/components/Button"));
 
 const WalletInput = ({ source }: { source: string }) => {
   const [inputValue, setInputValue] = useState<string>(""); // State for the input field value
@@ -84,14 +87,14 @@ const WalletInput = ({ source }: { source: string }) => {
         value={inputValue}
         onChange={handleInputChange}
       />
-      <Button
+      <DynamicButton
         type="submit"
         isLoading={isLoading}
         disabled={!isValid || isLoading} // Disable the button if the input is invalid or if the form is loading
         arrow
       >
         Submit
-      </Button>
+      </DynamicButton>
       <div className="absolute inset-0 -z-10 rounded-lg transition peer-focus:ring-4 peer-focus:ring-secondary" />
       <div className="bg-white/2.5 absolute inset-0 -z-10 rounded-lg ring-1 ring-white/50 transition peer-focus:ring-accent" />
     </form>
