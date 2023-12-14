@@ -16,10 +16,8 @@ interface PortfolioPageProps {
 }
 
 const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
-  const fungibleTokenData: FungibleToken[] = await getFungibleData(
-    params.walletAddress,
-  );
-  const nonFungibleTokenData: NonFungibleToken[] = await getNonFungibleData(
+  // Fetch both fungible and non-fungible token data
+  const { fungibleTokens, nonFungibleTokens } = await getAllAssets(
     params.walletAddress,
   );
 
@@ -30,7 +28,7 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
             <div className="h-4/5 w-10/12 sm:w-2/3">
               <NFTDetails
-                nftData={nonFungibleTokenData.filter(
+                nftData={nonFungibleTokens.filter(
                   (item) => item.id === searchParams.details,
                 )}
                 searchParams={"view=" + searchParams.view}
@@ -45,7 +43,7 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
             <div className="h-4/5 w-10/12 sm:w-2/3">
               <TokenDetails
-                tokenData={fungibleTokenData.filter(
+                tokenData={fungibleTokens.filter(
                   (item) => item.id === searchParams.tokenDetails,
                 )}
                 searchParams={searchParams}
@@ -85,14 +83,14 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
             )} */}
             {searchParams.view === "tokens" && (
               <Tokens
-                tokens={fungibleTokenData}
+                tokens={fungibleTokens}
                 searchParams={searchParams.toString()}
                 walletAddress={params.walletAddress}
               />
             )}
             {searchParams.view === "nfts" && (
               <NFTs
-                tokens={nonFungibleTokenData}
+                tokens={nonFungibleTokens}
                 searchParams={searchParams.toString()}
                 walletAddress={params.walletAddress}
               />
@@ -104,11 +102,11 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
   );
 };
 
-const getFungibleData = async (walletAddress: string) => {
+const getAllAssets = async (walletAddress: string) => {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
-    next: { revalidate: 30 },
+    next: { revalidate: 5 },
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -119,9 +117,11 @@ const getFungibleData = async (walletAddress: string) => {
       method: "searchAssets",
       params: {
         ownerAddress: walletAddress,
-        tokenType: "fungible",
+        tokenType: "all", // Changed to "all" to fetch both types
         displayOptions: {
           showNativeBalance: true,
+          showInscription: true,
+          showCollectionMetadata: true,
         },
       },
     }),
@@ -132,8 +132,17 @@ const getFungibleData = async (walletAddress: string) => {
   }
 
   const data = await response.json();
+  const items: (FungibleToken | NonFungibleToken)[] = data.result.items;
 
-  const tokens: FungibleToken[] = data.result.items;
+  // Split the items into fungible and non-fungible tokens
+  const fungibleTokens: FungibleToken[] = items.filter(
+    (item): item is FungibleToken =>
+      item.interface === "FungibleToken" || item.interface === "FungibleAsset",
+  );
+  const nonFungibleTokens: NonFungibleToken[] = items.filter(
+    (item): item is NonFungibleToken =>
+      !["FungibleToken", "FungibleAsset"].includes(item.interface),
+  );
 
   // Calculate SOL balance from lamports
   const solBalance = data.result.nativeBalance.lamports;
@@ -189,7 +198,7 @@ const getFungibleData = async (walletAddress: string) => {
       delegated: false,
       delegate: null,
       ownership_model: "token",
-      owner: tokens[0]?.ownership.owner,
+      owner: nonFungibleTokens[0]?.ownership.owner,
     },
     supply: null, // Assuming null for SOL
     mutable: true, // Assuming true for SOL
@@ -212,44 +221,10 @@ const getFungibleData = async (walletAddress: string) => {
 
   // Add SOL token to the tokens array
   if (solBalance > 0) {
-    tokens.push(solToken);
+    fungibleTokens.push(solToken);
   }
 
-  return tokens;
-};
-
-const getNonFungibleData = async (walletAddress: string) => {
-  const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
-
-  const response = await fetch(url, {
-    next: { revalidate: 30 },
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: "my-id",
-      method: "searchAssets",
-      params: {
-        ownerAddress: walletAddress,
-        tokenType: "nonFungible",
-        displayOptions: {
-          showInscription: true,
-          showCollectionMetadata: true,
-        },
-      },
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data`);
-  }
-
-  const data = await response.json();
-  const tokens: NonFungibleToken[] = data.result.items;
-
-  return tokens;
+  return { fungibleTokens, nonFungibleTokens };
 };
 
 export default PortfolioPage;
