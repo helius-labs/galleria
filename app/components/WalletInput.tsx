@@ -18,11 +18,21 @@ const WalletInput = ({ source }: { source: string }) => {
 
   const validateSolanaPublicKey = async (address: string): Promise<string | null> => {
     // check if the address is already in the search params
+    let publicKey;
+    if (typeof window !== "undefined") {
+      const url = window.location.href;
+      const addressRegex = /portfolio\/([^\/?]+)/;
+      const match = url.match(addressRegex);
+      publicKey = match ? match[1] : null;
 
-    const url = window.location.href;
-    const addressRegex = /portfolio\/([^\/?]+)/;
-    const match = url.match(addressRegex);
-    const publicKey = match ? match[1] : null;
+      // Now you can use publicKey as needed
+      console.log(publicKey);
+    } else {
+      // Handle the case where window is undefined (e.g., during server-side rendering)
+      console.warn(
+        "Window is undefined. This code may not work as expected during server-side rendering.",
+      );
+    }
 
     // if publickey is already in the search params, return it
     if (publicKey && publicKey === address) {
