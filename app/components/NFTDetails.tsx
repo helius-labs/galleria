@@ -137,10 +137,12 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
         </div>
         <div className="flex justify-center">
           <div className="mx-4 w-full p-3">
+            {/* Creators */}
             <div className="mt-5 break-words">
               <div className="mt-2 space-y-2">
                 <p className="text-lg font-bold">Creators:</p>
                 <hr className="my-2 border-gray-600" />
+
                 {nftData[0].creators.map((creator, index) => (
                   <div key={index} className="rounded-lg bg-neutral-700 p-4">
                     <div className="flex items-center text-base">
@@ -187,32 +189,29 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                 ))}
               </div>
             </div>
+
+            {/* Attributes */}
             <div className="my-3">
               <p className="text-xl font-bold">Attributes:</p>
               <hr className="my-2 border-gray-600" />
-              <div className="grid auto-rows-auto grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
-                {nftData[0].content.metadata?.attributes &&
-                nftData[0].content.metadata.attributes.length > 0 ? (
-                  nftData[0].content.metadata.attributes.map(
-                    (attribute, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-col items-center rounded-lg bg-neutral-700 p-4"
-                      >
-                        <p className="break-words text-sm font-semibold text-gray-300">
-                          {attribute.trait_type}
-                        </p>
-                        <div className=" w-full overflow-x-auto break-words">
-                          <p className="break-words  text-center text-base font-bold text-white">
-                            {attribute.value}
-                          </p>
+
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                {nftData[0].content.metadata?.attributes.map(({ trait_type, value }, index) => {
+                  if (value !== null && value !== undefined && value !== "") {
+                    return (
+                      <>
+                        <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
+                          <dt className="truncate text-sm font-semibold text-gray-300">
+                            {trait_type}
+                          </dt>
+                          <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                            {value}
+                          </dd>
                         </div>
-                      </div>
-                    ),
-                  )
-                ) : (
-                  <p>No attributes available.</p>
-                )}
+                      </>
+                    );
+                  }
+                })}
               </div>
             </div>
 
@@ -221,6 +220,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
               <div className="my-3 overflow-x-scroll break-words">
                 <p className="text-xl font-bold">Compression Details:</p>
                 <hr className="my-2  border-gray-600" />
+
                 {Object.entries(nftData[0].compression).map(([key, value]) => {
                   if (value !== null && value !== undefined && value !== "") {
                     return (
@@ -241,6 +241,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
               <div className="my-3 break-words">
                 <p className="text-xl font-bold">SPL20 Details:</p>
                 <hr className="my-2 border-gray-600" />
+
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {Object.entries(nftData[0].spl20).map(([key, value]) => {
                     if (value !== null && value !== undefined && value !== "") {
