@@ -143,50 +143,38 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                 <p className="text-lg font-bold">Creators:</p>
                 <hr className="my-2 border-gray-600" />
 
-                {nftData[0].creators.map((creator, index) => (
-                  <div key={index} className="rounded-lg bg-neutral-700 p-4">
-                    <div className="flex items-center text-base">
-                      <span className="font-bold">Address:</span>
-                      <a
-                        href={`https://xray.helius.xyz/account/${creator.address}?network=mainnet`}
-                        rel="noopener noreferrer"
-                        target="_blank"
-                        className="ml-2 transition-colors duration-200 ease-in-out hover:text-primary"
-                      >
-                        <div className="flex items-center  text-blue-500">
-                          <p className="mr-1 text-base ">{`${creator.address.slice(
-                            0,
-                            3,
-                          )}...${creator.address.slice(-4)}`}</p>
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="h-4 w-4"
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {nftData[0].creators.map((creator, index) => (
+                    // console.log("CREATOR", creator);
+                    <div
+                      key={index}
+                      className="rounded-lg bg-gray-700/5 ring-1 ring-inset ring-white/30 px-2"
+                    >
+                      {Object.entries(creator).map(([key, value]) => {
+                        return (
+                          <div
+                            key={key}
+                            className="col-span-1 my-2 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244"
-                            />
-                          </svg>
-                        </div>
-                      </a>
+                            <dt className="truncate text-sm font-semibold text-gray-300">
+                              {(typeof value === "string" && "Address") ||
+                                (typeof value === "number" && "Share") ||
+                                (typeof value === "boolean" && "Verified")}
+                            </dt>
+
+                            <dd>
+                              <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                                {value !== (null || undefined)
+                                  ? `${value}`
+                                  : `N/A`}
+                              </dd>
+                            </dd>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <p className="text-base">
-                      <span className="font-bold">Share:</span>
-                      <span className="ml-2">{creator.share}</span>
-                    </p>
-                    <p className="text-base">
-                      <span className="font-bold">Verified:</span>
-                      <span className="ml-2">
-                        {creator.verified ? "Yes" : "No"}
-                      </span>
-                    </p>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -196,8 +184,8 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
               <hr className="my-2 border-gray-600" />
 
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {nftData[0].content.metadata?.attributes.map(({ trait_type, value }, index) => {
-                  if (value !== null && value !== undefined && value !== "") {
+                {nftData[0].content.metadata?.attributes.map(
+                  ({ trait_type, value }, index) => {
                     return (
                       <>
                         <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
@@ -205,13 +193,15 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                             {trait_type}
                           </dt>
                           <dd className="font-base mt-2 text-xl tracking-tight text-white">
-                            {value}
+                            {value !== (null || undefined || "")
+                              ? `${value}`
+                              : `N/A`}
                           </dd>
                         </div>
                       </>
                     );
-                  }
-                })}
+                  },
+                )}
               </div>
             </div>
 
@@ -221,18 +211,26 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                 <p className="text-xl font-bold">Compression Details:</p>
                 <hr className="my-2  border-gray-600" />
 
-                {Object.entries(nftData[0].compression).map(([key, value]) => {
-                  if (value !== null && value !== undefined && value !== "") {
-                    return (
-                      <div key={key} className="flex items-center py-2">
-                        <p className="flex items-center justify-center rounded-md bg-gray-700/20 px-3 py-2 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
-                          {key}
-                        </p>
-                        <p className="ml-2">{value}</p>
-                      </div>
-                    );
-                  }
-                })}
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                  {Object.entries(nftData[0].compression).map(
+                    ([key, value]) => {
+                      return (
+                        <>
+                          <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
+                            <dt className="truncate text-sm font-semibold text-gray-300">
+                              {key}
+                            </dt>
+                            <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                              {value !== (null || undefined || "")
+                                ? `${value}`
+                                : `N/A`}
+                            </dd>
+                          </div>
+                        </>
+                      );
+                    },
+                  )}
+                </div>
               </div>
             )}
 
@@ -244,20 +242,20 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
 
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {Object.entries(nftData[0].spl20).map(([key, value]) => {
-                    if (value !== null && value !== undefined && value !== "") {
-                      return (
-                        <>
-                          <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
-                            <dt className="truncate text-sm font-semibold text-gray-300">
-                              {key}
-                            </dt>
-                            <dd className="font-base mt-2 text-xl tracking-tight text-white">
-                              {value}
-                            </dd>
-                          </div>
-                        </>
-                      );
-                    }
+                    return (
+                      <>
+                        <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
+                          <dt className="truncate text-sm font-semibold text-gray-300">
+                            {key}
+                          </dt>
+                          <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                            {value !== (null || undefined || "")
+                              ? `${value}`
+                              : `N/A`}
+                          </dd>
+                        </div>
+                      </>
+                    );
                   })}
                 </div>
               </div>
@@ -271,24 +269,20 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                   {Object.entries(nftData[0].inscription).map(
                     ([key, value]) => {
-                      if (
-                        value !== null &&
-                        value !== undefined &&
-                        value !== ""
-                      ) {
-                        return (
-                          <>
-                            <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
-                              <dt className="truncate text-sm font-semibold text-gray-300">
-                                {key}
-                              </dt>
-                              <dd className="font-base mt-2 text-xl tracking-tight text-white">
-                                {value}
-                              </dd>
-                            </div>
-                          </>
-                        );
-                      }
+                      return (
+                        <>
+                          <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
+                            <dt className="truncate text-sm font-semibold text-gray-300">
+                              {key}
+                            </dt>
+                            <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                              {value !== (null || undefined || "")
+                                ? `${value}`
+                                : `N/A`}
+                            </dd>
+                          </div>
+                        </>
+                      );
                     },
                   )}
                 </div>
