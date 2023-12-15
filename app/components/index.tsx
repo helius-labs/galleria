@@ -12,7 +12,8 @@ import TokenDetails from "./TokenDetails";
 import TokenTable from "./TokenTable";
 import Tokens from "./Tokens";
 import WalletInput from "./WalletInput";
-
+import DynamicTokenRow from "./TokenRow";
+  
 export {
   Button,
   Hero,
@@ -28,4 +29,5 @@ export {
   Tokens,
   TokenTable,
   WalletInput,
+  DynamicTokenRow,
 };
