@@ -22,7 +22,6 @@ const TokenDetails = ({
 }: TokenDetailsProps) => {
   const imageSrc = tokenData[0]?.content?.links?.image || "/noImg.svg";
   const title = tokenData[0]?.content?.metadata.name;
-  const description = tokenData[0]?.content?.metadata.description;
   const mint = tokenData[0].id;
   const ownerAddress = tokenData[0].ownership.owner;
 
