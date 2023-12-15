@@ -11,7 +11,6 @@ const DynamicButton = dynamic(() => import("@/app/components/Button"));
 
 const WalletInput = ({ source }: { source: string }) => {
   const [inputValue, setInputValue] = useState<string>(""); // State for the input field value
-  const [resolvedAddress, setResolvedAddress] = useState<string>(""); // New state for the resolved address
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
