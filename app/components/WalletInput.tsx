@@ -68,7 +68,7 @@ const WalletInput = ({ source }: { source: string }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 w-60 items-center pr-1.5 sm:w-80"
+      className="relative isolate flex h-12 w-[450px] items-center pr-1.5"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address
@@ -87,13 +87,11 @@ const WalletInput = ({ source }: { source: string }) => {
       <Button
         type="submit"
         isLoading={isLoading}
-        disabled={!isValid || isLoading} // Disable the button if the input is invalid or if the form is loading
+        disabled={!isValid}
         arrow
-      >
-        Submit
-      </Button>
-      <div className="absolute inset-0 -z-10 rounded-lg transition peer-focus:ring-4 peer-focus:ring-secondary" />
-      <div className="bg-white/2.5 absolute inset-0 -z-10 rounded-lg ring-1 ring-white/50 transition peer-focus:ring-accent" />
+      />
+      <div className="absolute inset-0 -z-10 rounded-full peer-focus:ring-1 peer-focus:ring-primary ring-offset-0 transition ease-in-out duration-200" />
+      <div className="bg-white/2.5 absolute inset-0 -z-10 rounded-full ring-1 ring-white/50" />
     </form>
   );
 };

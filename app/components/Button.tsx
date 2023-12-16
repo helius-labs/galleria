@@ -85,20 +85,20 @@ const ButtonInner = ({
   children,
 }: ButtonInnerProps) => {
   return (
-    <div className="h-full w-full w-22 transition-all duration-200 ease-in-out">
+    <div className="h-full w-full transition-all duration-200 ease-in-out flex items-center justify-center">
       <span
-        className={`absolute inset-0 h-9 rounded-md bg-gradient-to-b from-white/50 to-white opacity-20 transition-opacity ${
-          disabled ? "to-primary" : "to-white group-hover:opacity-5"
-        }`}
+        className={`absolute inset-0 h-10 rounded-full bg-gradient-to-b from-white/60 to-white opacity-20 transition-opacity ${disabled ? "to-primary" : "to-white group-hover:opacity-5"
+          }`}
       />
       <span
-        className={`opacity-7.5 absolute inset-0 rounded-md shadow-[inset_0_1px_1px_gray] transition-opacity ${
-          disabled ? "to-primary" : "group-hover:opacity-10"
-        }`}
+        className={`opacity-7.5 absolute inset-0 rounded-full shadow-[inset_0_1px_1px_gray] transition-opacity ${disabled ? "to-primary" : "group-hover:opacity-10"
+          }`}
       />
-      <div className="w-22 flex h-full items-center justify-center">
+      <div className="text-center w-10 mr-2 hover:mr-0 duration-75 ease-in-out transition">
         {isLoading ? (
-          <ButtonLoadingState />
+          <div className="flex items-center">
+            <ButtonLoadingState />
+          </div>
         ) : (
           <p className={`flex items-center ${disabled && "opacity-50"}`}>
             {children}{" "}
@@ -122,11 +122,9 @@ const Button = ({
 }: ButtonProps) => {
   return typeof props.href === "undefined" ? (
     <button
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={classNames(
-        "w-[80px] group link relative isolate flex h-9 flex-none items-center justify-center rounded-md py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out",
-        (isLoading || disabled) &&
-          "disabled:cursor-not-allowed disabled:bg-opacity-50",
+        "w-10 rounded-full group link relative isolate flex h-10 flex-none items-center justify-center py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out disabled:bg-opacity-50 disabled:cursor-not-allowed",
         arrow ? "pl-2.5 pr-[calc(9/16*1rem)]" : "px-2.5",
         className,
       )}
