@@ -68,7 +68,7 @@ const WalletInput = ({ source }: { source: string }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 w-[450px] items-center pr-1.5"
+      className="relative isolate flex h-12 w-[300px] md:w-[450px] items-center pr-1.5"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address
