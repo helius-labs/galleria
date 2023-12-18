@@ -1,5 +1,3 @@
-"use client";
-
 import React, { Suspense } from "react";
 import Link from "next/link";
 
@@ -18,10 +16,6 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
   const mint = nftData[0].id;
   const ownerAddress = nftData[0].ownership.owner;
   const royaltyPercentage = nftData[0].royalty.percent;
-
-  React.useEffect(() => {
-    console.log(nftData[0].compression);
-  }, []);
 
   return (
     <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
