@@ -36,8 +36,8 @@ const TokenDetails = ({
         if (indent === 0) {
           return (
             <div className="w-full border-gray-600">
-              <p className="w-40 rounded-md bg-gray-700/60 px-3 py-1.5 text-sm font-medium ring-1 ring-inset ring-white/10">
-                {key}:
+              <p className="bg-gray-700/20px-3 flex w-40 justify-center rounded-md py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+                {key}
               </p>
               <div className="mt-2 border-l border-dashed border-gray-600">
                 {Object.entries(value).map(([innerKey, innerValue]) =>
@@ -52,8 +52,8 @@ const TokenDetails = ({
               className="mt-4 w-full  border-gray-600"
               style={{ paddingLeft: `${indent * 20}px` }}
             >
-              <p className="w-40 rounded-md bg-gray-700/20 px-3 py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
-                {key}:
+              <p className="w-40 flex justify-center rounded-md bg-gray-700/20px-3 py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+                {key}
               </p>
               <div className="mt-2 border-l border-dashed border-gray-600">
                 {Object.entries(value).map(([innerKey, innerValue]) =>
@@ -83,7 +83,7 @@ const TokenDetails = ({
                 d="M8.25 4.5l7.5 7.5-7.5 7.5"
               />
             </svg>
-            <span className="font-base text-sm text-gray-400">{key}</span>:
+            <span className="font-base text-sm text-gray-400">{key}:</span>
             <span className="ml-1 text-sm font-normal">{` ${value}`}</span>
           </p>
         );
@@ -133,12 +133,12 @@ const TokenDetails = ({
           </div>
           <div className="w-full px-3 py-2 sm:w-1/2">
             <div className="mt-5 break-words">
-              <p className="py-2 text-2xl font-bold">Details:</p>
+              <p className="py-2 text-2xl font-bold">Details</p>
               <hr className="my-2 border-gray-600" />
 
               {/* Flex container for each detail item with content justified between */}
               <div className="my-1 flex items-center justify-between">
-                <p className="text-lg font-bold">Owner:</p>
+                <p className="text-lg font-bold">Owner</p>
                 {/* JavaScript slice method to show only the first 3 and last 4 characters of the ownerAddress */}
                 <a
                   href={"https://xray.helius.xyz/account/" + ownerAddress}
@@ -155,7 +155,7 @@ const TokenDetails = ({
 
               {/* Flex container for each detail item with content justified between */}
               <div className="my-1 flex items-center justify-between">
-                <p className=" text-lg font-bold">Mint:</p>
+                <p className=" text-lg font-bold">Mint</p>
                 {/* Anchor tag is kept within the flex container for layout purposes */}
                 <a
                   href={"https://xray.helius.xyz/token/" + mint}
@@ -179,7 +179,7 @@ const TokenDetails = ({
           <div className="mx-4 w-full p-3">
             {tokenData[0].mint_extensions && (
               <div className="my-3 break-words">
-                <p className="text-2xl font-bold">Token2022 Extensions:</p>
+                <p className="text-2xl font-bold">Token2022 Extensions</p>
                 <hr className="my-2 border-gray-600" />
                 {renderMintExtensionDetails(tokenData[0].mint_extensions)}
               </div>
