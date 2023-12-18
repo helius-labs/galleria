@@ -1,14 +1,16 @@
 "use client";
 
 import React, { useState, useEffect, useId } from "react";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
-import { Button } from "@/app/components";
+
+// dynamically load button component for speed optimization
+const DynamicButton = dynamic(() => import("@/app/components/Button"));
 
 const WalletInput = ({ source }: { source: string }) => {
   const [inputValue, setInputValue] = useState<string>(""); // State for the input field value
-  const [resolvedAddress, setResolvedAddress] = useState<string>(""); // New state for the resolved address
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -105,14 +107,17 @@ const WalletInput = ({ source }: { source: string }) => {
         value={inputValue}
         onChange={handleInputChange}
       />
-      <Button
+      <DynamicButton
         type="submit"
         isLoading={isLoading}
         disabled={!isValid}
         arrow
-      />
-      <div className="absolute inset-0 -z-10 rounded-full peer-focus:ring-1 peer-focus:ring-primary ring-offset-0 transition ease-in-out duration-200" />
-      <div className="bg-white/2.5 absolute inset-0 -z-10 rounded-full ring-1 ring-white/50" />
+      >
+        Submit
+      </DynamicButton>
+      <div className="absolute inset-0 -z-10 rounded-lg transition peer-focus:ring-4 peer-focus:ring-secondary" />
+      <div className="bg-white/2.5 absolute inset-0 -z-10 rounded-lg ring-1 ring-white/50 transition peer-focus:ring-accent" />
+
     </form>
   );
 };

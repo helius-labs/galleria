@@ -1,4 +1,9 @@
-import { Hero } from "@/app/components";
+
+import {
+  Hero,
+  WalletInput
+} from "@/app/components";
+
 
 const Home = () => {
   return (
