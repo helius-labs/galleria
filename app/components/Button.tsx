@@ -85,16 +85,18 @@ const ButtonInner = ({
   children,
 }: ButtonInnerProps) => {
   return (
-    <div className="h-full w-full transition-all duration-200 ease-in-out flex items-center justify-center">
+    <div className="flex h-full w-full items-center justify-center transition-all duration-200 ease-in-out">
       <span
-        className={`absolute inset-0 h-10 rounded-full bg-gradient-to-b from-white/60 to-white opacity-20 transition-opacity ${disabled ? "to-primary" : "to-white group-hover:opacity-5"
-          }`}
+        className={`absolute inset-0 h-10 rounded-full bg-gradient-to-b from-white/60 to-white opacity-20 transition-opacity ${
+          disabled ? "to-primary" : "to-white group-hover:opacity-5"
+        }`}
       />
       <span
-        className={`opacity-7.5 absolute inset-0 rounded-full shadow-[inset_0_1px_1px_gray] transition-opacity ${disabled ? "to-primary" : "group-hover:opacity-10"
-          }`}
+        className={`opacity-7.5 absolute inset-0 rounded-full shadow-[inset_0_1px_1px_gray] transition-opacity ${
+          disabled ? "to-primary" : "group-hover:opacity-10"
+        }`}
       />
-      <div className="text-center w-10 mr-2 hover:mr-0 duration-75 ease-in-out transition">
+      <div className="mr-2 w-10 text-center transition duration-75 ease-in-out hover:mr-0">
         {isLoading ? (
           <div className="flex items-center">
             <ButtonLoadingState />
@@ -124,7 +126,7 @@ const Button = ({
     <button
       disabled={disabled || isLoading}
       className={classNames(
-        "w-10 rounded-full group link relative isolate flex h-10 flex-none items-center justify-center py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out disabled:bg-opacity-50 disabled:cursor-not-allowed",
+        "group link relative isolate flex h-10 w-10 flex-none items-center justify-center rounded-full py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:bg-opacity-50",
         arrow ? "pl-2.5 pr-[calc(9/16*1rem)]" : "px-2.5",
         className,
       )}
