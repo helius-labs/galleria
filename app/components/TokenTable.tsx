@@ -48,7 +48,7 @@ const TokenTable = ({
   return (
     <div>
       {/* Token Table */}
-      <div className="overflow-x-auto rounded-lg bg-opacity-60">
+      <div className="overflow-x-auto rounded-lg bg-opacity-60 -m-3">
         <table className="w-full whitespace-nowrap text-left">
           {/* Table Body */}
           <colgroup>
@@ -105,7 +105,7 @@ const TokenTable = ({
       </div>
 
       {/* Pagination */}
-      <div className="mt-10 flex justify-center">
+      <div className="mt-16 flex justify-center">
         <div className="join flex items-center">
           <button
             onClick={() => paginate(currentPage - 1)}

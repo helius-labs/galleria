@@ -1,6 +1,7 @@
 "use client";
 
 import React, { Suspense, Fragment, useState, useEffect } from "react";
+import { Pie } from "react-chartjs-2";
 import {
   PhotoIcon,
   StopCircleIcon,
@@ -21,6 +22,26 @@ const navigation = [
   { name: "NFTs", href: "nfts", icon: PhotoIcon },
 ];
 
+const options = {
+  plugins: {
+    legend: {
+      display: false, // Hides the chart legends
+    },
+    tooltip: {
+      callbacks: {
+        label: function (context: any) {
+          let label = "";
+
+          if (context.parsed !== null) {
+            label += `$${context.parsed.toFixed(2)}`; // Adds '$' symbol
+          }
+          return label;
+        },
+      },
+    },
+  },
+};
+
 interface PortfolioPageProps {
   searchParams: { view: string; details: string; tokenDetails: string };
   params: { walletAddress: string };
@@ -31,6 +52,46 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
   const [nonFungibleTokenData, setNonFungibleTokenData] = useState<NonFungibleToken[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navState, setNavState] = useState("tokens");
+  
+  const [totalValue, setTotalValue] = useState(0);
+  const [totalTokens, setTotalTokens] = useState(0);
+  const [chartData, setChartData] = useState<{
+    labels: string[];
+    datasets: { data: number[]; backgroundColor: string[] }[];
+  }>({ labels: [], datasets: [] });
+
+  useEffect(() => {
+    if (fungibleTokenData) {
+      const data = fungibleTokenData.map(
+        (token) => token.token_info.price_info?.total_price,
+      );
+      const labels = fungibleTokenData.map(
+        (token) => token.content.metadata.symbol || "Unknown Token",
+      );
+      const backgroundColors = labels.map(
+        (_, index) => `hsl(${(index * 35) % 360}, 70%, 50%)`,
+      );
+
+      setChartData({
+        labels,
+        datasets: [
+          {
+            data,
+            backgroundColor: backgroundColors,
+          },
+        ],
+      });
+
+      const total = fungibleTokenData.reduce(
+        (acc, token) => acc + (token.token_info.price_info?.total_price || 0),
+        0,
+      );
+      const totalTokens = fungibleTokenData.length;
+
+      setTotalValue(total);
+      setTotalTokens(totalTokens);
+    }
+  }, [fungibleTokenData]);
 
   useEffect(() => {
     const fetchNonFungibleData = async () => {
@@ -74,7 +135,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                 <WalletInput source="navBar" />
               </div>
 
-              <div className="hidden sm:flex items-center gap-x-2 lg:gap-x-4">
+              <div className="hidden items-center gap-x-2 sm:flex lg:gap-x-4">
                 {/* Heluis.dev button */}
                 <a
                   className="rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-accent ring-1 ring-inset ring-accent/10 transition duration-200 ease-in-out hover:ring-accent/30"
@@ -109,6 +170,51 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
             <div className="px-6 py-6">
               {/* Tokens */}
               <div>
+                {/* Token Metrics */}
+                <div className="mb-6">
+                  <dl className="grid grid-cols-1 gap-5 shadow-sm sm:grid-cols-2">
+                    <div className="grid grid-rows-3 gap-y-5 shadow-sm">
+                      <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                        <dt className="truncate text-sm font-medium text-gray-300">
+                          Total Tokens
+                        </dt>
+                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                          {totalTokens}
+                        </dd>
+                      </div>
+
+                      <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                        <dt className="truncate text-sm font-medium text-gray-300">
+                          Total Value
+                        </dt>
+                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                          ${totalValue.toFixed(2)}
+                        </dd>
+                      </div>
+
+                      <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                        <dt className="truncate text-sm font-medium text-gray-300">
+                          Total Value
+                        </dt>
+                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                          ${totalValue.toFixed(2)}
+                        </dd>
+                      </div>
+                    </div>
+
+                    <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                      <dt className="truncate text-sm font-medium text-gray-300">
+                        Token Distribution
+                      </dt>
+                      <div className="flex justify-center">
+                        <dd className="mt-1 w-2/3">
+                          <Pie data={chartData} options={options} />
+                        </dd>
+                      </div>
+                    </div>
+                  </dl>
+                </div>
+
                 {searchParams.tokenDetails && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
                     <div className="h-4/5 w-10/12 sm:w-2/3">
@@ -140,7 +246,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                   </div>
                 )}
               </div>
-              
+
               <div
                 className={`${
                   searchParams.details

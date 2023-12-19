@@ -54,6 +54,7 @@ const Overview = ({
         (acc, token) => acc + (token.token_info.price_info?.total_price || 0),
         0,
       );
+      
       setTotalValue(total);
     }
   }, [fungibleTokens]);
