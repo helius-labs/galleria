@@ -13,6 +13,7 @@ import TokenTable from "./TokenTable";
 import Tokens from "./Tokens";
 import WalletInput from "./WalletInput";
 import DynamicTokenRow from "./TokenRow";
+import NavBarV2 from "./NavbarV2";
   
 export {
   Button,
@@ -30,4 +31,5 @@ export {
   TokenTable,
   WalletInput,
   DynamicTokenRow,
+  NavBarV2,
 };
