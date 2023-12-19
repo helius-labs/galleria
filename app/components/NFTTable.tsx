@@ -72,7 +72,7 @@ const NFTTable = ({ walletAddress, nftDataArray }: NFTTableProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center  px-4">
+    <div className="flex flex-col items-center justify-center">
       {currentItems.length > 0 ? (
         <>
           <div className="flex w-full flex-wrap justify-center gap-4">

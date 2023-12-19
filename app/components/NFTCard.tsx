@@ -21,9 +21,9 @@ const NFTCard = ({ walletAddress, nftData, searchParams }: NFTCardProps) => {
   const handleImageError = () => setIsLoaded(false); // Optional: handle image load error
 
   return (
-    <div className="w-full max-w-xs p-3">
+    <div className="group w-full max-w-xs rounded-lg bg-gray-800/10 bg-opacity-20 p-3 ring-1 ring-white/10 transition duration-200 ease-in-out hover:bg-gray-800/20 hover:ring-white/30">
       <a href={`/portfolio/${walletAddress}?${searchParams}&details=${mint}`}>
-        <div className="flex flex-col rounded-lg bg-neutral bg-opacity-50 p-2 hover:bg-neutral-500 hover:bg-opacity-60 ">
+        <div className="rounded-lg p-3">
           <div className="flex-grow">
             <div className="h-48 overflow-hidden rounded-lg sm:h-64">
               {!isLoaded && (
@@ -42,7 +42,7 @@ const NFTCard = ({ walletAddress, nftData, searchParams }: NFTCardProps) => {
             </div>
           </div>
           <figure className="mt-3 flex items-center justify-center">
-            <h2 className="truncate text-lg font-medium text-white sm:text-xl">
+            <h2 className="w-40 rounded-full bg-indigo-100/5 py-1 text-center text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out group-hover:ring-white/30">
               {title}
             </h2>
           </figure>

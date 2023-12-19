@@ -16,9 +16,9 @@ const NFTs = ({ searchParams, walletAddress, tokens }: NFTsProps) => {
   return (
     <div className="flex flex-col rounded-lg bg-black bg-opacity-50 lg:flex-row">
       {/* NFT Filter Component */}
-      <div className="mx-auto w-full  p-3 lg:w-3/12">
+      {/* <div className="mx-auto w-full  p-3 lg:w-3/12">
         <NFTFilters nftDataArray={tokens} />
-      </div>
+      </div> */}
 
       {/* NFT Table */}
       <div className=" sm:w-full">
