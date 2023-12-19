@@ -61,6 +61,10 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
     datasets: { data: number[]; backgroundColor: string[] }[];
   }>({ labels: [], datasets: [] });
 
+  const [totalNFTs, setTotalNFTs] = useState(0);
+  const [totalcNFTs, setTotalcNFTs] = useState(0);
+  const [totalpNFTs, setTotalpNFTs] = useState(0);
+
   useEffect(() => {
     if (fungibleTokenData) {
       const data = fungibleTokenData.map(
@@ -93,6 +97,22 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
       setTotalTokens(totalTokens);
     }
   }, [fungibleTokenData]);
+
+  useEffect(() => {
+    console.log("NFT stuff", nonFungibleTokenData);
+    const totalNFTs = nonFungibleTokenData.length;
+    const totalcNFTs = nonFungibleTokenData.filter(
+      (token) => token.compression.eligible === true,
+    ).length;
+    const totalpNFTs = nonFungibleTokenData.filter(
+      (token) => token.compression.eligible === false,
+    ).length;
+
+    setTotalNFTs(totalNFTs);
+    setTotalcNFTs(totalcNFTs);
+    setTotalpNFTs(totalpNFTs);
+
+  }, [nonFungibleTokenData]);
 
   useEffect(() => {
     const fetchNonFungibleData = async () => {
@@ -171,51 +191,6 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
             <div className="px-6 py-6">
               {/* Tokens */}
               <div>
-                {/* Token Metrics */}
-                <div className="mb-6">
-                  <dl className="grid grid-cols-1 gap-5 shadow-sm sm:grid-cols-2">
-                    <div className="grid grid-rows-3 gap-y-5 shadow-sm">
-                      <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
-                        <dt className="truncate text-sm font-medium text-gray-300">
-                          Total Tokens
-                        </dt>
-                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
-                          {totalTokens}
-                        </dd>
-                      </div>
-
-                      <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
-                        <dt className="truncate text-sm font-medium text-gray-300">
-                          Total Value
-                        </dt>
-                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
-                          ${totalValue.toFixed(2)}
-                        </dd>
-                      </div>
-
-                      <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
-                        <dt className="truncate text-sm font-medium text-gray-300">
-                          Average Value
-                        </dt>
-                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
-                          ${(totalValue / totalTokens).toFixed(2)}
-                        </dd>
-                      </div>
-                    </div>
-
-                    <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
-                      <dt className="truncate text-sm font-medium text-gray-300">
-                        Value Distribution
-                      </dt>
-                      <div className="flex justify-center items-center h-full w-full">
-                        <dd className="mt-1 w-40 sm:w-56 flex items-center justify-center">
-                          <Pie data={chartData} options={options} />
-                        </dd>
-                      </div>
-                    </div>
-                  </dl>
-                </div>
-
                 {searchParams.tokenDetails && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
                     <div className="h-4/5 w-10/12 sm:w-2/3">
@@ -249,15 +224,13 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
               </div>
 
               <div
-                className={`${
-                  searchParams.details
+                className={`${searchParams.details
                     ? "flex h-screen flex-col overflow-hidden"
                     : ""
-                }${
-                  searchParams.tokenDetails
+                  }${searchParams.tokenDetails
                     ? "flex h-screen flex-col overflow-hidden"
                     : ""
-                }`}
+                  }`}
               >
                 <Suspense
                   fallback={<div>Loading...</div>}
@@ -265,18 +238,99 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                 >
                   <div className={``}>
                     {searchParams.view === "tokens" && (
-                      <Tokens
-                        tokens={fungibleTokenData}
-                        searchParams={searchParams.toString()}
-                        walletAddress={params.walletAddress}
-                      />
+                      <>
+                        {/* Token Metrics */}
+                        <div className="mb-6">
+                          <dl className="grid grid-cols-1 gap-5 shadow-sm sm:grid-cols-2">
+                            <div className="grid grid-rows-3 gap-y-5 shadow-sm">
+                              <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                                <dt className="truncate text-sm font-medium text-gray-300">
+                                  Total Tokens
+                                </dt>
+                                <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                                  {totalTokens}
+                                </dd>
+                              </div>
+
+                              <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                                <dt className="truncate text-sm font-medium text-gray-300">
+                                  Total Value
+                                </dt>
+                                <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                                  ${totalValue.toFixed(2)}
+                                </dd>
+                              </div>
+
+                              <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                                <dt className="truncate text-sm font-medium text-gray-300">
+                                  Average Value
+                                </dt>
+                                <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                                  ${(totalValue / totalTokens).toFixed(2)}
+                                </dd>
+                              </div>
+                            </div>
+
+                            <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                              <dt className="truncate text-sm font-medium text-gray-300">
+                                Value Distribution
+                              </dt>
+                              <div className="flex h-full w-full items-center justify-center">
+                                <dd className="mt-1 flex w-40 items-center justify-center sm:w-56">
+                                  <Pie data={chartData} options={options} />
+                                </dd>
+                              </div>
+                            </div>
+                          </dl>
+                        </div>
+
+                        <Tokens
+                          tokens={fungibleTokenData}
+                          searchParams={searchParams.toString()}
+                          walletAddress={params.walletAddress}
+                        />
+                      </>
                     )}
                     {searchParams.view === "nfts" && (
-                      <NFTs
-                        tokens={nonFungibleTokenData}
-                        searchParams={searchParams.toString()}
-                        walletAddress={params.walletAddress}
-                      />
+                      <>
+                        {/* NFTs Metrics */}
+                        <div className="mb-6">
+                          <dl className="grid grid-cols-1 gap-5 shadow-sm sm:grid-cols-3">
+                            <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                              <dt className="truncate text-sm font-medium text-gray-300">
+                                Total NFTs
+                              </dt>
+                              <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                                {totalNFTs}
+                              </dd>
+                            </div>
+
+                            <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                              <dt className="truncate text-sm font-medium text-gray-300">
+                                Total cNFTs
+                              </dt>
+                              <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                                {totalcNFTs}
+                              </dd>
+                            </div>
+
+                            <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
+                              <dt className="truncate text-sm font-medium text-gray-300">
+                                Total pNFTs
+                              </dt>
+                              <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
+                                {totalpNFTs}
+                              </dd>
+                            </div>
+                          </dl>
+                        </div>
+
+                        <NFTs
+                          tokens={nonFungibleTokenData}
+                          searchParams={searchParams.toString()}
+                          walletAddress={params.walletAddress}
+                        />
+                      </>
                     )}
                   </div>
                 </Suspense>
