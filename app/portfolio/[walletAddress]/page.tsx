@@ -2,33 +2,23 @@
 
 import React, { Suspense, Fragment, useState, useEffect } from "react";
 import {
-  Bars3Icon,
   PhotoIcon,
   StopCircleIcon,
 } from "@heroicons/react/24/outline";
 
 import {
   NFTDetails,
-  NavBarV2,
   WalletInput,
   Logo,
   TokenDetails,
-  Overview,
   Tokens,
   NFTs,
 } from "@/app/components";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
-import { classNames } from "@/app/utils";
-import Link from "next/link";
 
 const navigation = [
   { name: "Tokens", href: "tokens", icon: StopCircleIcon },
   { name: "NFTs", href: "nfts", icon: PhotoIcon },
-];
-
-const userNavigation = [
-  { name: "Your profile", href: "#" },
-  { name: "Sign out", href: "#" },
 ];
 
 interface PortfolioPageProps {
@@ -71,72 +61,23 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
   return (
     <div className="h-screen bg-radial-gradient">
       <div>
-        <NavBarV2
-          sidebarOpen={sidebarOpen}
-          setSidebarOpen={setSidebarOpen}
-          navigation={navigation}
-          params={params}
-          navState={navState}
-          setNavState={setNavState}
-        />
-
-        {/* Static sidebar for desktop */}
-        <div className="hidden bg-black bg-opacity-40 lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto">
-          <div className="flex h-16 shrink-0 items-center justify-center">
-            <Logo />
-          </div>
-          <nav className="mt-8">
-            <ul role="list" className="flex flex-col items-center space-y-1">
-              {navigation.map((item) => (
-                <li key={item.name}>
-                  <Link
-                    href={`/portfolio/${params.walletAddress}?view=${item.href}`}
-                    onClick={() => setNavState(item.href)}
-                    className={classNames(
-                      navState === item.href
-                        ? "bg-black bg-opacity-50 text-white"
-                        : "bg-opacity-50 text-gray-400 hover:bg-black hover:bg-opacity-20 hover:text-white",
-                      "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-6",
-                    )}
-                  >
-                    <item.icon
-                      className="h-6 w-6 shrink-0"
-                      aria-hidden="true"
-                    />
-                    <span className="sr-only">{item.name}</span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </div>
-
         {/* Navbar */}
-        <div className="lg:pl-20">
+        <div className="">
           <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-black bg-opacity-40 px-4 shadow-sm backdrop-blur-md sm:gap-x-6 sm:px-6 lg:px-8">
-            <button
-              type="button"
-              className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
-              onClick={() => setSidebarOpen(true)}
-            >
-              <span className="sr-only">Open sidebar</span>
-              <Bars3Icon className="h-6 w-6 text-white" aria-hidden="true" />
-            </button>
-
-            {/* Separator */}
-            <div
-              className="h-6 w-px bg-gray-900/10 lg:hidden"
-              aria-hidden="true"
-            />
-
             <div className="flex w-full items-center justify-between self-stretch">
-              {/* Wallet Input */}
-              <WalletInput source="navBar" />
+              <div className="flex items-center">
+                <div className="mr-10">
+                  <Logo />
+                </div>
 
-              <div className="flex items-center gap-x-2 lg:gap-x-4">
+                {/* Wallet Input */}
+                <WalletInput source="navBar" />
+              </div>
+
+              <div className="hidden sm:flex items-center gap-x-2 lg:gap-x-4">
                 {/* Heluis.dev button */}
                 <a
-                  className="hidden rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-accent ring-1 ring-inset ring-accent/10 transition duration-200 ease-in-out hover:ring-accent/30 sm:block"
+                  className="rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-accent ring-1 ring-inset ring-accent/10 transition duration-200 ease-in-out hover:ring-accent/30"
                   href="https://helius.dev"
                   target="_blank"
                   rel="noreferrer noopener"
@@ -152,7 +93,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
                 {/* View docs button */}
                 <a
-                  className="hidden rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out hover:ring-white/30 sm:block"
+                  className="rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out hover:ring-white/30"
                   href="https://docs.helius.dev/compression-and-das-api/digital-asset-standard-das-api"
                   target="_blank"
                   rel="noreferrer noopener"
@@ -165,7 +106,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
           {/* Main area */}
           <main>
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-8">
+            <div className="px-6 py-6">
               {/* Tokens */}
               <div>
                 {searchParams.tokenDetails && (
@@ -199,6 +140,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                   </div>
                 )}
               </div>
+              
               <div
                 className={`${
                   searchParams.details
