@@ -23,7 +23,7 @@ const NFTCard = ({ walletAddress, nftData, searchParams }: NFTCardProps) => {
   return (
     <div className="group w-full max-w-xs rounded-lg bg-gray-800/10 bg-opacity-20 p-3 ring-1 ring-white/10 transition duration-200 ease-in-out hover:bg-gray-800/20 hover:ring-white/30">
       <a href={`/portfolio/${walletAddress}?${searchParams}&details=${mint}`}>
-        <div className="rounded-lg p-3">
+        <div className="rounded-lg p-3 pb-0 flex flex-col justify-between">
           <div className="flex-grow">
             <div className="h-48 overflow-hidden rounded-lg sm:h-64">
               {!isLoaded && (
@@ -33,7 +33,7 @@ const NFTCard = ({ walletAddress, nftData, searchParams }: NFTCardProps) => {
               <img
                 src={imageSrc}
                 alt={title}
-                className={`h-full w-full rounded-xl object-cover ${
+                className={`h-[270px] w-[270px] rounded-xl object-cover ${
                   !isLoaded ? "hidden" : ""
                 }`}
                 onLoad={handleImageLoaded}
@@ -41,8 +41,8 @@ const NFTCard = ({ walletAddress, nftData, searchParams }: NFTCardProps) => {
               />
             </div>
           </div>
-          <figure className="mt-3 flex items-center justify-center">
-            <h2 className="w-40 rounded-full bg-indigo-100/5 py-1 text-center text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out group-hover:ring-white/30">
+          <figure className="mt-6 flex items-center justify-center">
+            <h2 className="w-60 rounded-full bg-indigo-100/5 py-1 text-center text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out group-hover:ring-white/30">
               {title}
             </h2>
           </figure>
