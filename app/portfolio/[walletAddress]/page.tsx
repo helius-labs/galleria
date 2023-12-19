@@ -16,6 +16,7 @@ import {
   NFTs,
 } from "@/app/components";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
+import { Calistoga } from "next/font/google";
 
 const navigation = [
   { name: "Tokens", href: "tokens", icon: StopCircleIcon },
@@ -171,7 +172,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
               {/* Tokens */}
               <div>
                 {/* Token Metrics */}
-                {/* <div className="mb-6">
+                <div className="mb-6">
                   <dl className="grid grid-cols-1 gap-5 shadow-sm sm:grid-cols-2">
                     <div className="grid grid-rows-3 gap-y-5 shadow-sm">
                       <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
@@ -213,7 +214,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                       </div>
                     </div>
                   </dl>
-                </div> */}
+                </div>
 
                 {searchParams.tokenDetails && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">

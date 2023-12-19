@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useRouter, useSearchParams } from "next/navigation";
+
 import { FungibleToken } from "@/app/types";
-import Image from 'next/image';
 
 interface TokenRowProps {
     token: FungibleToken;
@@ -41,7 +41,7 @@ const TokenRow = ({ token, walletAddress }: TokenRowProps) => {
                             <img
                                 src={tokenImage}
                                 alt="Token Icon"
-                                className="h-12 w-12 rounded-full bg-gray-800 ring-1 ring-white ring-opacity-0 ring-offset-1 transition-all duration-200 ease-in-out group-hover:ring-opacity-100"
+                                className="h-12 w-12 rounded-full bg-gray-800 ring-1 ring-white ring-opacity-0  transition-all duration-200 ease-in-out group-hover:ring-opacity-100"
                             />
                         ) : (
                             <div className="skeleton h-12 w-12 shrink-0 rounded-full" />
