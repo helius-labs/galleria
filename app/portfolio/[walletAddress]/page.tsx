@@ -2,10 +2,7 @@
 
 import React, { Suspense, Fragment, useState, useEffect } from "react";
 import { Pie } from "react-chartjs-2";
-import {
-  PhotoIcon,
-  StopCircleIcon,
-} from "@heroicons/react/24/outline";
+import { PhotoIcon, StopCircleIcon } from "@heroicons/react/24/outline";
 
 import {
   NFTDetails,
@@ -49,11 +46,15 @@ interface PortfolioPageProps {
 }
 
 const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
-  const [fungibleTokenData, setFungibleTokenData] = useState<FungibleToken[]>([]);
-  const [nonFungibleTokenData, setNonFungibleTokenData] = useState<NonFungibleToken[]>([]);
+  const [fungibleTokenData, setFungibleTokenData] = useState<FungibleToken[]>(
+    [],
+  );
+  const [nonFungibleTokenData, setNonFungibleTokenData] = useState<
+    NonFungibleToken[]
+  >([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [navState, setNavState] = useState("tokens");
-  
+
   const [totalValue, setTotalValue] = useState(0);
   const [totalTokens, setTotalTokens] = useState(0);
   const [chartData, setChartData] = useState<{
@@ -111,33 +112,22 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
     setTotalNFTs(totalNFTs);
     setTotalcNFTs(totalcNFTs);
     setTotalpNFTs(totalpNFTs);
-
   }, [nonFungibleTokenData]);
 
   useEffect(() => {
-    const fetchNonFungibleData = async () => {
+    const fetchTokenData = async () => {
       try {
-        const data = await getNonFungibleData(params.walletAddress);
-        setNonFungibleTokenData(data);
+        const { fungibleTokens, nonFungibleTokens } = await getAllAssets(
+          params.walletAddress,
+        );
+        setNonFungibleTokenData(nonFungibleTokens);
+        setFungibleTokenData(fungibleTokens);
       } catch (error) {
-        console.error("Failed to fetch non-fungible token data:", error);
+        console.error("Failed to fetch token data:", error);
       }
     };
 
-    const fetchFungibleData = async () => {
-      try {
-        const data = await getFungibleData(params.walletAddress);
-        setFungibleTokenData(data);
-      } catch (error) {
-        console.error("Failed to fetch fungible token data:", error);
-      }
-    }
-
-    fetchNonFungibleData();
-    fetchFungibleData();
-
-    console.log("fungibleTokenData", fungibleTokenData);
-    console.log("nonFungibleTokenData", nonFungibleTokenData);
+    fetchTokenData();
   }, [params.walletAddress]);
 
   return (
@@ -224,13 +214,15 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
               </div>
 
               <div
-                className={`${searchParams.details
+                className={`${
+                  searchParams.details
                     ? "flex h-screen flex-col overflow-hidden"
                     : ""
-                  }${searchParams.tokenDetails
+                }${
+                  searchParams.tokenDetails
                     ? "flex h-screen flex-col overflow-hidden"
                     : ""
-                  }`}
+                }`}
               >
                 <Suspense
                   fallback={<div>Loading...</div>}
@@ -342,12 +334,11 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
     </div>
   );
 };
-
-const getFungibleData = async (walletAddress: string) => {
+const getAllAssets = async (walletAddress: string) => {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
 
   const response = await fetch(url, {
-    next: { revalidate: 30 },
+    next: { revalidate: 5 },
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -358,9 +349,11 @@ const getFungibleData = async (walletAddress: string) => {
       method: "searchAssets",
       params: {
         ownerAddress: walletAddress,
-        tokenType: "fungible",
+        tokenType: "all", // Changed to "all" to fetch both types
         displayOptions: {
           showNativeBalance: true,
+          showInscription: true,
+          showCollectionMetadata: true,
         },
       },
     }),
@@ -371,8 +364,17 @@ const getFungibleData = async (walletAddress: string) => {
   }
 
   const data = await response.json();
+  const items: (FungibleToken | NonFungibleToken)[] = data.result.items;
 
-  const tokens: FungibleToken[] = data.result.items;
+  // Split the items into fungible and non-fungible tokens
+  const fungibleTokens: FungibleToken[] = items.filter(
+    (item): item is FungibleToken =>
+      item.interface === "FungibleToken" || item.interface === "FungibleAsset",
+  );
+  const nonFungibleTokens: NonFungibleToken[] = items.filter(
+    (item): item is NonFungibleToken =>
+      !["FungibleToken", "FungibleAsset"].includes(item.interface),
+  );
 
   // Calculate SOL balance from lamports
   const solBalance = data.result.nativeBalance.lamports;
@@ -428,7 +430,7 @@ const getFungibleData = async (walletAddress: string) => {
       delegated: false,
       delegate: null,
       ownership_model: "token",
-      owner: tokens[0]?.ownership.owner,
+      owner: nonFungibleTokens[0]?.ownership.owner,
     },
     supply: null, // Assuming null for SOL
     mutable: true, // Assuming true for SOL
@@ -451,44 +453,9 @@ const getFungibleData = async (walletAddress: string) => {
 
   // Add SOL token to the tokens array
   if (solBalance > 0) {
-    tokens.push(solToken);
+    fungibleTokens.push(solToken);
   }
 
-  return tokens;
+  return { fungibleTokens, nonFungibleTokens };
 };
-
-const getNonFungibleData = async (walletAddress: string) => {
-  const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
-
-  const response = await fetch(url, {
-    next: { revalidate: 30 },
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      jsonrpc: "2.0",
-      id: "my-id",
-      method: "searchAssets",
-      params: {
-        ownerAddress: walletAddress,
-        tokenType: "nonFungible",
-        displayOptions: {
-          showInscription: true,
-          showCollectionMetadata: true,
-        },
-      },
-    }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data`);
-  }
-
-  const data = await response.json();
-  const tokens: NonFungibleToken[] = data.result.items;
-
-  return tokens;
-};
-
 export default PortfolioPage;
