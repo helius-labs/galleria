@@ -105,7 +105,7 @@ const TokenTable = ({
       </div>
 
       {/* Pagination */}
-      <div className="mt-16 flex justify-center">
+      <div className="mt-14 mb-4 flex justify-center">
         <div className="join flex items-center">
           <button
             onClick={() => paginate(currentPage - 1)}

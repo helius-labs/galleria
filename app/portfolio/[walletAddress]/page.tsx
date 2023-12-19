@@ -194,20 +194,20 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
                       <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
                         <dt className="truncate text-sm font-medium text-gray-300">
-                          Total Value
+                          Average Value
                         </dt>
                         <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
-                          ${totalValue.toFixed(2)}
+                          ${(totalValue / totalTokens).toFixed(2)}
                         </dd>
                       </div>
                     </div>
 
                     <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
                       <dt className="truncate text-sm font-medium text-gray-300">
-                        Token Distribution
+                        Value Distribution
                       </dt>
-                      <div className="flex justify-center">
-                        <dd className="mt-1 w-2/3">
+                      <div className="flex justify-center items-center h-full w-full">
+                        <dd className="mt-1 w-40 sm:w-56 flex items-center justify-center">
                           <Pie data={chartData} options={options} />
                         </dd>
                       </div>
