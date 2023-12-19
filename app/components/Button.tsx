@@ -87,7 +87,7 @@ const ButtonInner = ({
   return (
     <div className="flex h-full w-full items-center justify-center transition-all duration-200 ease-in-out">
       <span
-        className={`absolute inset-0 h-10 rounded-full bg-gradient-to-b from-white/60 to-white opacity-20 transition-opacity ${
+        className={`absolute inset-0 h-9 rounded-full bg-gradient-to-b from-white/60 to-white opacity-20 transition-opacity ${
           disabled ? "to-primary" : "to-white group-hover:opacity-5"
         }`}
       />
@@ -126,7 +126,7 @@ const Button = ({
     <button
       disabled={disabled || isLoading}
       className={classNames(
-        "group link relative isolate flex h-10 w-10 flex-none items-center justify-center rounded-full py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:bg-opacity-50",
+        "group link relative isolate flex h-9 w-9 flex-none items-center justify-center rounded-full py-1.5 text-[0.8125rem]/6 font-semibold text-white transition-all duration-200 ease-in-out disabled:cursor-not-allowed disabled:bg-opacity-50",
         arrow ? "pl-2.5 pr-[calc(9/16*1rem)]" : "px-2.5",
         className,
       )}

@@ -1,22 +1,11 @@
 "use client";
 
-import React, { Suspense, Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import React, { Suspense, Fragment, useState, useEffect } from "react";
 import {
   Bars3Icon,
-  BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
-  HomeIcon,
-  UsersIcon,
-  XMarkIcon,
+  PhotoIcon,
+  StopCircleIcon
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
 
 import {
   NavBar,
@@ -26,18 +15,15 @@ import {
   NFTDetails,
   TokenDetails,
   NavBarV2,
-  WalletInput
+  WalletInput,
+  Logo,
 } from "@/app/components";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
 import { classNames } from "@/app/utils";
 
 const navigation = [
-  { name: "Dashboard", href: "#", icon: HomeIcon, current: true },
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  { name: "Projects", href: "#", icon: FolderIcon, current: false },
-  { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
+  { name: "Tokens", href: "#", icon: PhotoIcon, current: true },
+  { name: "NFTs", href: "#", icon: StopCircleIcon, current: false },
 ];
 
 const userNavigation = [
@@ -50,16 +36,39 @@ interface PortfolioPageProps {
   params: { walletAddress: string };
 }
 
-const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
+// eslint-disable-next-line @next/next/no-async-client-component
+const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
   // const fungibleTokenData: FungibleToken[] = await getFungibleData(
   //   params.walletAddress,
   // );
-  // const nonFungibleTokenData: NonFungibleToken[] = await getNonFungibleData(
-  //   params.walletAddress,
-  // );
 
-
+  const [fungibleTokenData, setFungibleTokenData] = useState<FungibleToken[]>([]);
+  const [nonFungibleTokenData, setNonFungibleTokenData] = useState<NonFungibleToken[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [NFTData, setNFTData] = useState<NonFungibleToken[]>([]);
+
+  useEffect(() => {
+    const fetchNonFungibleData = async () => {
+      try {
+        const data = await getNonFungibleData(params.walletAddress);
+        setNonFungibleTokenData(data);
+      } catch (error) {
+        console.error("Failed to fetch non-fungible token data:", error);
+      }
+    };
+
+    const fetchFungibleData = async () => {
+      try {
+        const data = await getFungibleData(params.walletAddress);
+        setFungibleTokenData(data);
+      } catch (error) {
+        console.error("Failed to fetch fungible token data:", error);
+      }
+    }
+
+    fetchNonFungibleData();
+    fetchFungibleData();
+  }, [params.walletAddress]);
 
   return (
     <div className="h-screen bg-radial-gradient">
@@ -71,13 +80,9 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
         />
 
         {/* Static sidebar for desktop */}
-        <div className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:bg-gray-900 lg:pb-4">
+        <div className="hidden bg-black bg-opacity-40 lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:pb-4">
           <div className="flex h-16 shrink-0 items-center justify-center">
-            <img
-              className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-              alt="Your Company"
-            />
+            <Logo />
           </div>
           <nav className="mt-8">
             <ul role="list" className="flex flex-col items-center space-y-1">
@@ -87,8 +92,8 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
                     href={item.href}
                     className={classNames(
                       item.current
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:bg-gray-800 hover:text-white",
+                        ? "bg-black bg-opacity-50 text-white"
+                        : "bg-opacity-50 text-gray-400 hover:bg-black hover:bg-opacity-20 hover:text-white",
                       "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-6",
                     )}
                   >
@@ -104,6 +109,7 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
           </nav>
         </div>
 
+        {/* Navbar */}
         <div className="lg:pl-20">
           <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-black bg-opacity-40 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
             <button
@@ -121,7 +127,6 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
               aria-hidden="true"
             />
 
-            {/* Navbar */}
             <div className="flex w-full items-center justify-between self-stretch">
               {/* Wallet Input */}
               <WalletInput source="navBar" />
@@ -129,7 +134,7 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
               <div className="flex items-center gap-x-2 lg:gap-x-4">
                 {/* Heluis.dev button */}
                 <a
-                  className="hidden sm:block rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-accent ring-1 ring-inset ring-accent/10 transition duration-200 ease-in-out hover:ring-accent/30"
+                  className="hidden rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-accent ring-1 ring-inset ring-accent/10 transition duration-200 ease-in-out hover:ring-accent/30 sm:block"
                   href="https://helius.dev"
                   target="_blank"
                   rel="noreferrer noopener"
@@ -145,7 +150,7 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
 
                 {/* View docs button */}
                 <a
-                  className="hidden sm:block rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out hover:ring-white/30"
+                  className="hidden rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out hover:ring-white/30 sm:block"
                   href="https://docs.helius.dev/compression-and-das-api/digital-asset-standard-das-api"
                   target="_blank"
                   rel="noreferrer noopener"
@@ -156,16 +161,26 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
             </div>
           </div>
 
-          <main className="xl:pl-96">
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
-              {/* Main area */}
+          {/* Main area */}
+          <main>
+            <div className="border border-red-500 px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+              {/* Content goes here */}
+              {searchParams.details && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
+                  <div className="h-4/5 w-10/12 sm:w-2/3">
+                    <NFTDetails
+                      nftData={NFTData.filter(
+                        (item) => item.id === searchParams.details,
+                      )}
+                      searchParams={"view=" + searchParams.view}
+                      walletAddress={params.walletAddress}
+                    />
+                  </div>
+                </div>
+              )}
             </div>
           </main>
         </div>
-
-        <aside className="fixed bottom-0 left-20 top-16 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
-          {/* Secondary column (hidden on smaller screens) */}
-        </aside>
       </div>
     </div>
   );

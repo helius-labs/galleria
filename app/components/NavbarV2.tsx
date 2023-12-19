@@ -1,20 +1,8 @@
-import React, { Suspense, Fragment, useState } from "react";
-import { Dialog, Menu, Transition } from "@headlessui/react";
+import React, { Fragment } from "react";
+import { Dialog, Transition } from "@headlessui/react";
 import {
-  Bars3Icon,
-  BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
-  HomeIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
 
 import { classNames } from "@/app/utils";
 
