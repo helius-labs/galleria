@@ -98,7 +98,7 @@ const ButtonInner = ({
       />
       <div className="mr-2 w-10 text-center transition duration-75 ease-in-out hover:mr-0">
         {isLoading ? (
-          <div className="flex items-center">
+          <div className="flex items-center pr-3">
             <ButtonLoadingState />
           </div>
         ) : (

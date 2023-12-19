@@ -37,7 +37,6 @@ const WalletInput = ({ source }: { source: string }) => {
     if (publicKey && publicKey === address) {
       setIsLoading(false); // Re-enable the button
       setInputValue(""); // Reset the input field to an empty string
-      return null;
     }
 
     if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
@@ -66,8 +65,7 @@ const WalletInput = ({ source }: { source: string }) => {
     const resolvedAddr = await validateSolanaPublicKey(inputValue);
 
     if (!resolvedAddr) {
-      console.log("Invalid Solana public key");
-      toast.error("Invalid Solana public key");
+      toast.error("Something went wrong");
       setInputValue(""); // Reset the input field to an empty string
       setIsLoading(false);
       return;

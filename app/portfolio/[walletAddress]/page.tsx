@@ -68,6 +68,9 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
     fetchNonFungibleData();
     fetchFungibleData();
+
+    console.log("fungibleTokenData", fungibleTokenData);
+    console.log("nonFungibleTokenData", nonFungibleTokenData);
   }, [params.walletAddress]);
 
   return (
