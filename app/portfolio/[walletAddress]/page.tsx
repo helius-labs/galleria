@@ -4,19 +4,18 @@ import React, { Suspense, Fragment, useState, useEffect } from "react";
 import {
   Bars3Icon,
   PhotoIcon,
-  StopCircleIcon
+  StopCircleIcon,
 } from "@heroicons/react/24/outline";
 
 import {
-  NavBar,
-  Tabs,
-  NFTs,
-  Tokens,
   NFTDetails,
-  TokenDetails,
   NavBarV2,
   WalletInput,
   Logo,
+  TokenDetails,
+  Overview,
+  Tokens,
+  NFTs,
 } from "@/app/components";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
 import { classNames } from "@/app/utils";
@@ -36,7 +35,6 @@ interface PortfolioPageProps {
   params: { walletAddress: string };
 }
 
-// eslint-disable-next-line @next/next/no-async-client-component
 const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
   // const fungibleTokenData: FungibleToken[] = await getFungibleData(
   //   params.walletAddress,
@@ -114,7 +112,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
         {/* Navbar */}
         <div className="lg:pl-20">
-          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-black bg-opacity-40 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-black backdrop-blur-md bg-opacity-40 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
             <button
               type="button"
               className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -166,21 +164,89 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
           {/* Main area */}
           <main>
-            <div className="border border-red-500 px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
+            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
               {/* Content goes here */}
-              {searchParams.details && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
-                  <div className="h-4/5 w-10/12 sm:w-2/3">
-                    <NFTDetails
-                      nftData={NFTData.filter(
-                        (item) => item.id === searchParams.details,
-                      )}
-                      searchParams={"view=" + searchParams.view}
-                      walletAddress={params.walletAddress}
-                    />
+
+              <div>
+                {searchParams.details && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
+                    <div className="h-4/5 w-10/12 sm:w-2/3">
+                      <NFTDetails
+                        nftData={nonFungibleTokenData.filter(
+                          (item) => item.id === searchParams.details,
+                        )}
+                        searchParams={"view=" + searchParams.view}
+                        walletAddress={params.walletAddress}
+                      />
+                    </div>
                   </div>
+                )}
+              </div>
+              <div>
+                {searchParams.tokenDetails && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
+                    <div className="h-4/5 w-10/12 sm:w-2/3">
+                      <TokenDetails
+                        tokenData={fungibleTokenData.filter(
+                          (item) => item.id === searchParams.tokenDetails,
+                        )}
+                        searchParams={searchParams}
+                        walletAddress={params.walletAddress}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+              <div
+                className={`${
+                  searchParams.details
+                    ? "flex h-screen flex-col overflow-hidden"
+                    : ""
+                }${
+                  searchParams.tokenDetails
+                    ? "flex h-screen flex-col overflow-hidden"
+                    : ""
+                }`}
+              >
+                {/* <div className="mb-8">
+                  <NavBar />
                 </div>
-              )}
+                <div className="mx-10 my-4">
+                  <Tabs
+                    searchParams={searchParams}
+                    walletAddress={params.walletAddress}
+                  />
+                </div> */}
+                <Suspense
+                  fallback={<div>Loading...</div>}
+                  key={searchParams.view}
+                >
+                  <div className={`mx-10 my-4 pb-4 `}>
+                    {searchParams.view === "overview" && (
+                      <Overview
+                        nonFungibleTokens={nonFungibleTokenData}
+                        fungibleTokens={fungibleTokenData}
+                        searchParams={searchParams.toString()}
+                        walletAddress={params.walletAddress}
+                      />
+                    )}
+                    {searchParams.view === "tokens" && (
+                      <Tokens
+                        tokens={fungibleTokenData}
+                        searchParams={searchParams.toString()}
+                        walletAddress={params.walletAddress}
+                      />
+                    )}
+                    {searchParams.view === "nfts" && (
+                      <NFTs
+                        tokens={nonFungibleTokenData}
+                        searchParams={searchParams.toString()}
+                        walletAddress={params.walletAddress}
+                      />
+                    )}
+                  </div>
+                </Suspense>
+              </div>
             </div>
           </main>
         </div>
@@ -188,82 +254,6 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
     </div>
   );
 };
-
-{/* <div>
-        {searchParams.details && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
-            <div className="h-4/5 w-10/12 sm:w-2/3">
-              <NFTDetails
-                nftData={nonFungibleTokenData.filter(
-                  (item) => item.id === searchParams.details,
-                )}
-                searchParams={"view=" + searchParams.view}
-                walletAddress={params.walletAddress}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-      <div>
-        {searchParams.tokenDetails && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
-            <div className="h-4/5 w-10/12 sm:w-2/3">
-              <TokenDetails
-                tokenData={fungibleTokenData.filter(
-                  (item) => item.id === searchParams.tokenDetails,
-                )}
-                searchParams={searchParams}
-                walletAddress={params.walletAddress}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-      <div
-        className={`${
-          searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
-        }${
-          searchParams.tokenDetails
-            ? "flex h-screen flex-col overflow-hidden"
-            : ""
-        }`}
-      >
-        <div className="mb-8">
-          <NavBar />
-        </div>
-        <div className="mx-10 my-4">
-          <Tabs
-            searchParams={searchParams}
-            walletAddress={params.walletAddress}
-          />
-        </div>
-        <Suspense fallback={<div>Loading...</div>} key={searchParams.view}>
-          <div className={`mx-10 my-4 pb-4 `}>
-            {/* {searchParams.view === "overview" && (
-              <Overview
-                nonFungibleTokens={nonFungibleTokenData}
-                fungibleTokens={fungibleTokenData}
-                searchParams={searchParams.toString()}
-                walletAddress={params.walletAddress}
-              />
-            )} */}
-        //     {searchParams.view === "tokens" && (
-        //       <Tokens
-        //         tokens={fungibleTokenData}
-        //         searchParams={searchParams.toString()}
-        //         walletAddress={params.walletAddress}
-        //       />
-        //     )}
-        //     {searchParams.view === "nfts" && (
-        //       <NFTs
-        //         tokens={nonFungibleTokenData}
-        //         searchParams={searchParams.toString()}
-        //         walletAddress={params.walletAddress}
-        //       />
-        //     )}
-        //   </div>
-        // </Suspense>
-      // </div> */}
 
 const getFungibleData = async (walletAddress: string) => {
   const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
