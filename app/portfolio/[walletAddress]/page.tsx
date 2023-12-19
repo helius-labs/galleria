@@ -19,10 +19,11 @@ import {
 } from "@/app/components";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
 import { classNames } from "@/app/utils";
+import Link from "next/link";
 
 const navigation = [
-  { name: "Tokens", href: "#", icon: PhotoIcon, current: true },
-  { name: "NFTs", href: "#", icon: StopCircleIcon, current: false },
+  { name: "Tokens", href: "tokens", icon: StopCircleIcon },
+  { name: "NFTs", href: "nfts", icon: PhotoIcon },
 ];
 
 const userNavigation = [
@@ -36,14 +37,10 @@ interface PortfolioPageProps {
 }
 
 const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
-  // const fungibleTokenData: FungibleToken[] = await getFungibleData(
-  //   params.walletAddress,
-  // );
-
   const [fungibleTokenData, setFungibleTokenData] = useState<FungibleToken[]>([]);
   const [nonFungibleTokenData, setNonFungibleTokenData] = useState<NonFungibleToken[]>([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [NFTData, setNFTData] = useState<NonFungibleToken[]>([]);
+  const [navState, setNavState] = useState("tokens");
 
   useEffect(() => {
     const fetchNonFungibleData = async () => {
@@ -78,10 +75,13 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
           sidebarOpen={sidebarOpen}
           setSidebarOpen={setSidebarOpen}
           navigation={navigation}
+          params={params}
+          navState={navState}
+          setNavState={setNavState}
         />
 
         {/* Static sidebar for desktop */}
-        <div className="hidden bg-black bg-opacity-40 lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto lg:pb-4">
+        <div className="hidden bg-black bg-opacity-40 lg:fixed lg:inset-y-0 lg:left-0 lg:z-50 lg:block lg:w-20 lg:overflow-y-auto">
           <div className="flex h-16 shrink-0 items-center justify-center">
             <Logo />
           </div>
@@ -89,10 +89,11 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
             <ul role="list" className="flex flex-col items-center space-y-1">
               {navigation.map((item) => (
                 <li key={item.name}>
-                  <a
-                    href={item.href}
+                  <Link
+                    href={`/portfolio/${params.walletAddress}?view=${item.href}`}
+                    onClick={() => setNavState(item.href)}
                     className={classNames(
-                      item.current
+                      navState === item.href
                         ? "bg-black bg-opacity-50 text-white"
                         : "bg-opacity-50 text-gray-400 hover:bg-black hover:bg-opacity-20 hover:text-white",
                       "group flex gap-x-3 rounded-md p-3 text-sm font-semibold leading-6",
@@ -103,7 +104,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                       aria-hidden="true"
                     />
                     <span className="sr-only">{item.name}</span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -112,7 +113,7 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
         {/* Navbar */}
         <div className="lg:pl-20">
-          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-black backdrop-blur-md bg-opacity-40 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 bg-black bg-opacity-40 px-4 shadow-sm backdrop-blur-md sm:gap-x-6 sm:px-6 lg:px-8">
             <button
               type="button"
               className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -164,24 +165,8 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
 
           {/* Main area */}
           <main>
-            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
-              {/* Content goes here */}
-
-              <div>
-                {searchParams.details && (
-                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
-                    <div className="h-4/5 w-10/12 sm:w-2/3">
-                      <NFTDetails
-                        nftData={nonFungibleTokenData.filter(
-                          (item) => item.id === searchParams.details,
-                        )}
-                        searchParams={"view=" + searchParams.view}
-                        walletAddress={params.walletAddress}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
+            <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-8">
+              {/* Tokens */}
               <div>
                 {searchParams.tokenDetails && (
                   <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
@@ -191,6 +176,23 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                           (item) => item.id === searchParams.tokenDetails,
                         )}
                         searchParams={searchParams}
+                        walletAddress={params.walletAddress}
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* NFTS */}
+              <div>
+                {searchParams.details && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
+                    <div className="h-4/5 w-10/12 sm:w-2/3">
+                      <NFTDetails
+                        nftData={nonFungibleTokenData.filter(
+                          (item) => item.id === searchParams.details,
+                        )}
+                        searchParams={"view=" + searchParams.view}
                         walletAddress={params.walletAddress}
                       />
                     </div>
@@ -208,28 +210,11 @@ const PortfolioPage = ({ searchParams, params }: PortfolioPageProps) => {
                     : ""
                 }`}
               >
-                {/* <div className="mb-8">
-                  <NavBar />
-                </div>
-                <div className="mx-10 my-4">
-                  <Tabs
-                    searchParams={searchParams}
-                    walletAddress={params.walletAddress}
-                  />
-                </div> */}
                 <Suspense
                   fallback={<div>Loading...</div>}
                   key={searchParams.view}
                 >
-                  <div className={`mx-10 my-4 pb-4 `}>
-                    {searchParams.view === "overview" && (
-                      <Overview
-                        nonFungibleTokens={nonFungibleTokenData}
-                        fungibleTokens={fungibleTokenData}
-                        searchParams={searchParams.toString()}
-                        walletAddress={params.walletAddress}
-                      />
-                    )}
+                  <div className={``}>
                     {searchParams.view === "tokens" && (
                       <Tokens
                         tokens={fungibleTokenData}
