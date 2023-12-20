@@ -3,13 +3,13 @@ import React from "react";
 import { NonFungibleToken } from "@/app/types";
 import { NFTTable, NFTFilters } from "@/app/components";
 
-interface NFTsProps {
+interface NFTListProps {
   searchParams: string;
   walletAddress: string;
   tokens: NonFungibleToken[];
 }
 
-const NFTs = ({ searchParams, walletAddress, tokens }: NFTsProps) => {
+const NFTList = ({ searchParams, walletAddress, tokens }: NFTListProps) => {
   if (!tokens) {
     return <div>Loading...</div>;
   }
@@ -30,4 +30,4 @@ const NFTs = ({ searchParams, walletAddress, tokens }: NFTsProps) => {
   );
 };
 
-export default NFTs;
+export default NFTList;
