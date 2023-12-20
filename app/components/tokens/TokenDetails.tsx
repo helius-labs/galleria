@@ -96,8 +96,7 @@ const TokenDetails = ({
   };
 
   return (
-    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-900 p-2 text-white shadow-glow sm:p-2">
-      {/* <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"> */}
+    <div className="border border-red-500 h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/80 backdrop-blur-md p-2 text-white shadow-xl sm:p-2">
       {/* Header */}
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=${searchParams.view}`}>
@@ -120,15 +119,15 @@ const TokenDetails = ({
       </div>
 
       {/* Body */}
-      <div>
-        <div className="flex flex-col justify-evenly break-words sm:flex-row">
-          <div className="w-full p-3 sm:w-1/2">
+      <div className="border border-blue-500">
+        <div className="flex flex-col justify-evenly break-words sm:flex-row border border-green-500">
+          <div className="p-3 sm:w-1/2">
             <Suspense
               fallback={<div>Loading...</div>}
               key={searchParams.details}
             >
               <a href={imageSrc} target="_blank" rel="noopener noreferrer">
-                <img src={imageSrc} alt={title} className={`rounded-xl`} />
+                <img src={imageSrc} alt={title} className={`rounded-xl border border-purple-500`} />
               </a>
             </Suspense>
           </div>
@@ -176,7 +175,7 @@ const TokenDetails = ({
         </div>
 
         {/* Token 22 Details */}
-        <div className="flex justify-center">
+        <div className="flex justify-center border border-yellow-500">
           <div className="mx-4 w-full p-3">
             {tokenData[0].mint_extensions && (
               <div className="my-3 break-words">
