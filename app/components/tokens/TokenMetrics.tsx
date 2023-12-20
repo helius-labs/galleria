@@ -110,7 +110,7 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
                         </dt>
                         <div className="flex h-full w-full items-center justify-center">
                             <dd className="mt-1 flex w-40 items-center justify-center sm:w-56">
-                                {/* <Pie data={chartData} options={options} /> */}
+                                <Pie data={chartData} options={options} />
                             </dd>
                         </div>
                     </div>
