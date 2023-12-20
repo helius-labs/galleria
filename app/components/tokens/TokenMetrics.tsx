@@ -29,7 +29,8 @@ const options = {
   },
 };
 
-const TokenMetrics = ({ fungibleTokenData }: TokenMetricsProps) => {
+const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
+    
     const [totalTokens, setTotalTokens] = useState(0);
     const [totalValue, setTotalValue] = useState(0);
     const [chartData, setChartData] = useState<{
@@ -38,11 +39,11 @@ const TokenMetrics = ({ fungibleTokenData }: TokenMetricsProps) => {
     }>({ labels: [], datasets: [] });
 
     useEffect(() => {
-        if (fungibleTokenData) {
-            const data = fungibleTokenData.map(
+        if (fungibleTokens) {
+            const data = fungibleTokens.map(
                 (token) => token.token_info.price_info?.total_price,
             );
-            const labels = fungibleTokenData.map(
+            const labels = fungibleTokens.map(
                 (token) => token.content.metadata.symbol || "Unknown Token",
             );
             const backgroundColors = labels.map(
@@ -59,16 +60,16 @@ const TokenMetrics = ({ fungibleTokenData }: TokenMetricsProps) => {
                 ],
             });
 
-            const total = fungibleTokenData.reduce(
+            const total = fungibleTokens.reduce(
                 (acc, token) => acc + (token.token_info.price_info?.total_price || 0),
                 0,
             );
-            const totalTokens = fungibleTokenData.length;
+            const totalTokens = fungibleTokens.length;
 
             setTotalValue(total);
             setTotalTokens(totalTokens);
         }
-    }, [fungibleTokenData]);
+    }, [fungibleTokens]);
 
     return (
         <>
@@ -109,7 +110,7 @@ const TokenMetrics = ({ fungibleTokenData }: TokenMetricsProps) => {
                         </dt>
                         <div className="flex h-full w-full items-center justify-center">
                             <dd className="mt-1 flex w-40 items-center justify-center sm:w-56">
-                                <Pie data={chartData} options={options} />
+                                {/* <Pie data={chartData} options={options} /> */}
                             </dd>
                         </div>
                     </div>

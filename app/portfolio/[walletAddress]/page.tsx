@@ -80,7 +80,7 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
                 fallback={<div>Loading...</div>}
                 key={searchParams.view}
               >
-                <div className={``}>
+                <div>
                   {searchParams.view === "tokens" && (
                     <>
                       {/* Token Metrics */}

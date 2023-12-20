@@ -42,7 +42,7 @@ const NFTCard = ({ walletAddress, nftData, searchParams }: NFTCardProps) => {
             </div>
           </div>
           <figure className="mt-6 flex items-center justify-center">
-            <h2 className="w-60 rounded-full bg-indigo-100/5 py-1 text-center text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out group-hover:ring-white/30">
+            <h2 className="w-60 rounded-lg bg-indigo-100/5 py-1 text-center text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out group-hover:ring-white/30">
               {title}
             </h2>
           </figure>
