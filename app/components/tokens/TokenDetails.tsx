@@ -102,7 +102,7 @@ const TokenDetails = ({
   ];
 
   return (
-    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/70 p-2 text-white shadow-xl backdrop-blur-sm sm:p-2">
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/70 p-2 text-white shadow-xl backdrop-blur-md sm:p-2">
       {/* Header */}
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=${searchParams.view}`}>
@@ -126,24 +126,22 @@ const TokenDetails = ({
 
       {/* Body */}
       <section>
-        <div className="flex flex-col justify-evenly break-words sm:flex-row">
-          <div className="p-3 sm:w-1/2">
+        <div className="mx-4 flex flex-col justify-evenly gap-x-4 break-words sm:flex-row">
+          <div className="sm:w-1/2">
             <Suspense
               fallback={<div>Loading...</div>}
               key={searchParams.details}
             >
               <a href={imageSrc} target="_blank" rel="noopener noreferrer">
-                <img
-                  src={imageSrc}
-                  alt={title}
-                  className={`rounded-xl`}
-                />
+                <img src={imageSrc} alt={title} className={`rounded-xl`} />
               </a>
             </Suspense>
           </div>
-          <div className="w-full px-3 py-2 sm:w-1/2">
-            <div className="mt-5 break-words">
-              <p className="py-1 text-2xl font-bold border-b border-white/50 mb-4">Details</p>
+          <div className="w-full sm:w-1/2">
+            <div className="break-words">
+              <p className="mb-4 border-b border-white/50 pb-1 text-2xl font-bold">
+                Details
+              </p>
               <ul>
                 {/* Flex container for each detail item with content justified between */}
                 {tokenDetails.map((detail) => (
@@ -154,16 +152,31 @@ const TokenDetails = ({
                     <p className="text-lg font-bold">{detail.type}</p>
                     {/* JavaScript slice method to show only the first 3 and last 4 characters of the ownerAddress */}
                     <a
-                      href={`https://xray.helius.xyz/${detail.type === "Mint" ? "token" : "account"}/${detail.value}`}
+                      href={`https://xray.helius.xyz/${
+                        detail.type === "Mint" ? "token" : "account"
+                      }/${detail.value}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center text-primary hover:text-white transition-colors duration-200 ease-in-out"
+                      className="flex items-center text-primary transition-colors duration-200 ease-in-out hover:text-white"
                     >
-                      {`${detail.value.slice(
-                        0,
-                        3,
-                      )}...${detail.value.slice(-4)}`}
-                      <LinkIcon />
+                      {`${detail.value.slice(0, 3)}...${detail.value.slice(
+                        -4,
+                      )}`}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        dataSlot="icon"
+                        className="ml-1 w-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+                        />
+                      </svg>
                     </a>
                   </li>
                 ))}
