@@ -168,7 +168,6 @@ const TokenDetails = ({
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        dataSlot="icon"
                         className="ml-1 w-4"
                       >
                         <path
