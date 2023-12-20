@@ -1,5 +1,3 @@
-import React from "react";
-
 import { NonFungibleToken } from "@/app/types";
 import { NFTTable, NFTFilters } from "@/app/components";
 

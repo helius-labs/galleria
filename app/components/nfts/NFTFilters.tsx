@@ -1,12 +1,9 @@
 "use client";
 
-import React, { Fragment, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { Grouping, NonFungibleToken } from "@/app/types";
-import { classNames } from "@/app/utils";
 
 interface NFTFiltersProps {
   nftDataArray: NonFungibleToken[];
