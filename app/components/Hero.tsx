@@ -54,7 +54,7 @@ const Hero = () => {
             href="https://docs.helius.dev/compression-and-das-api/digital-asset-standard-das-api"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-x-3 rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-accent ring-1 ring-inset ring-accent/10 transition duration-200 ease-in-out group-hover:ring-accent/30"
+            className="group inline-flex items-center gap-x-3 rounded-full bg-indigo-100/5 px-3 py-1 text-sm font-semibold leading-6 text-accent ring-1 ring-inset ring-accent/10 transition duration-200 ease-in-out hover:ring-accent/30"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
