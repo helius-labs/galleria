@@ -94,7 +94,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          dataSlot="icon"
+                          //dataslot="icon"
                           className="ml-1 w-4"
                         >
                           <path
@@ -160,7 +160,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                                       viewBox="0 0 24 24"
                                       strokeWidth={1.5}
                                       stroke="currentColor"
-                                      dataSlot="icon"
+                                      //dataSlot="icon"
                                       className="ml-1 w-4"
                                     >
                                       <path
