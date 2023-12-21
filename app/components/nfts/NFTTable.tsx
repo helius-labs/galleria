@@ -26,6 +26,7 @@ const NFTTable = ({ walletAddress, nftDataArray }: NFTTableProps) => {
     if (nft.compression && nft.compression.compressed) return "CompressedNFT";
     if (nft.inscription) return "Inscription";
     if (nft.spl20) return "SPL20";
+    if (nft.interface === "ProgrammableNFT") return "ProgrammableNFT";
     return "StandardNFT";
   };
 

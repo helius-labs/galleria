@@ -102,7 +102,7 @@ const TokenDetails = ({
   ];
 
   return (
-    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/70 p-2 text-white shadow-xl backdrop-blur-md sm:p-2">
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/90 p-2 text-white shadow-xl backdrop-blur-md sm:p-2">
       {/* Header */}
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=${searchParams.view}`}>

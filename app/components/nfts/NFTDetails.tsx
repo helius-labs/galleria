@@ -24,7 +24,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
   ];
 
   return (
-    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/70 p-2 text-white shadow-xl backdrop-blur-md sm:p-2">
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/90 p-2 text-white shadow-xl backdrop-blur-md sm:p-2">
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?${searchParams.toString()}`}>
           <svg
@@ -296,39 +296,42 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                                 {key}
                               </dt>
                               <dd className="font-base mt-2 text-xl tracking-tight text-white">
-                              {value !== (null || undefined) ? (
-                                (key === "authority" || key == "inscriptionDataAccount") ? (
-                                  <a
-                                    href={`https://xray.helius.xyz/acount/${value}`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="flex items-center text-primary transition-colors duration-200 ease-in-out hover:text-white"
-                                  >
-                                    {`${value.toString().slice(0, 3)}...${value
-                                      .toString()
-                                      .slice(-4)}`}
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      strokeWidth={1.5}
-                                      stroke="currentColor"
-                                      className="ml-1 w-4"
+                                {value !== (null || undefined) ? (
+                                  key === "authority" ||
+                                  key == "inscriptionDataAccount" ? (
+                                    <a
+                                      href={`https://xray.helius.xyz/acount/${value}`}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center text-primary transition-colors duration-200 ease-in-out hover:text-white"
                                     >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
-                                      />
-                                    </svg>
-                                  </a>
+                                      {`${value
+                                        .toString()
+                                        .slice(0, 3)}...${value
+                                        .toString()
+                                        .slice(-4)}`}
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth={1.5}
+                                        stroke="currentColor"
+                                        className="ml-1 w-4"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+                                        />
+                                      </svg>
+                                    </a>
+                                  ) : (
+                                    <span>{value.toString()}</span>
+                                  )
                                 ) : (
-                                  <span>{value.toString()}</span>
-                                )
-                              ) : (
-                                `N/A`
-                              )}
-                            </dd>
+                                  `N/A`
+                                )}
+                              </dd>
                             </div>
                           )}
                         </>

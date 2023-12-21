@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { NonFungibleToken } from "@/app/types";
 
 interface NFTMetricsProps {
-    nonFungibleTokens: NonFungibleToken[];
+  nonFungibleTokens: NonFungibleToken[];
 }
 
 const NFTMetrics = ({ nonFungibleTokens }: NFTMetricsProps) => {
@@ -16,10 +16,10 @@ const NFTMetrics = ({ nonFungibleTokens }: NFTMetricsProps) => {
   useEffect(() => {
     const totalNFTs = nonFungibleTokens.length;
     const totalcNFTs = nonFungibleTokens.filter(
-      (token) => token.compression.eligible === true,
+      (token) => token.compression.compressed === true,
     ).length;
     const totalpNFTs = nonFungibleTokens.filter(
-      (token) => token.compression.eligible === false,
+      (token) => token.interface === "ProgrammableNFT",
     ).length;
 
     setTotalNFTs(totalNFTs);
