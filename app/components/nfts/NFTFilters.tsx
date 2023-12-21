@@ -1,12 +1,9 @@
 "use client";
 
-import React, { Fragment, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
-import { Menu, Transition } from "@headlessui/react";
-import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { Grouping, NonFungibleToken } from "@/app/types";
-import { classNames } from "@/app/utils";
 
 interface NFTFiltersProps {
   nftDataArray: NonFungibleToken[];
@@ -147,16 +144,27 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               <li
                 key={"Compressed NFT"}
                 onClick={() => handleTypeFilter("CompressedNFT")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 font-medium ${
+                className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
                   typeFilter === "CompressedNFT" ? "text-primary" : "text-white"
                 }`}
               >
                 <a className="block px-4 py-2 text-sm">{"Compressed NFTs"}</a>
               </li>
               <li
+                key={"Programmable NFT"}
+                onClick={() => handleTypeFilter("ProgrammableNFT")}
+                className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
+                  typeFilter === "ProgrammableNFT"
+                    ? "text-primary"
+                    : "text-white"
+                }`}
+              >
+                <a className="block px-4 py-2 text-sm">{"Programmable NFTs"}</a>
+              </li>
+              <li
                 key={"Inscriptions"}
                 onClick={() => handleTypeFilter("Inscriptions")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 font-medium ${
+                className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
                   typeFilter === "Inscriptions" ? "text-primary" : "text-white"
                 }`}
               >
@@ -165,7 +173,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               <li
                 key={"SPL20"}
                 onClick={() => handleTypeFilter("SPL20")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 font-medium ${
+                className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
                   typeFilter === "SPL20" ? "text-primary" : "text-white"
                 }`}
               >

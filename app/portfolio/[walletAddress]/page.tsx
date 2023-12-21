@@ -161,6 +161,7 @@ const getAllAssets = async (walletAddress: string) => {
 
   // Calculate SOL balance from lamports
   const solBalance = data.result.nativeBalance.lamports;
+  //console.log(data.result);
 
   // Create SOL token object
   const solToken = {

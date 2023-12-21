@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
 import Link from "next/link";
+import { LinkIcon } from "@heroicons/react/24/outline";
 
 import { FungibleToken, MintExtensions } from "@/app/types";
 
@@ -95,9 +96,13 @@ const TokenDetails = ({
     );
   };
 
+  const tokenDetails = [
+    { type: "Mint", value: mint },
+    { type: "Owner", value: ownerAddress },
+  ];
+
   return (
-    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-900 p-2 text-white shadow-glow sm:p-2">
-      {/* <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"> */}
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-xl bg-black/90 p-2 text-white shadow-xl backdrop-blur-md sm:p-2">
       {/* Header */}
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=${searchParams.view}`}>
@@ -120,9 +125,9 @@ const TokenDetails = ({
       </div>
 
       {/* Body */}
-      <div>
-        <div className="flex flex-col justify-evenly break-words sm:flex-row">
-          <div className="w-full p-3 sm:w-1/2">
+      <section>
+        <div className="mx-4 flex flex-col justify-evenly gap-x-4 break-words sm:flex-row">
+          <div className="sm:w-1/2">
             <Suspense
               fallback={<div>Loading...</div>}
               key={searchParams.details}
@@ -132,45 +137,49 @@ const TokenDetails = ({
               </a>
             </Suspense>
           </div>
-          <div className="w-full px-3 py-2 sm:w-1/2">
-            <div className="mt-5 break-words">
-              <p className="py-2 text-2xl font-bold">Details</p>
-              <hr className="my-2 border-gray-600" />
-
-              {/* Flex container for each detail item with content justified between */}
-              <div className="my-1 flex items-center justify-between">
-                <p className="text-lg font-bold">Owner</p>
-                {/* JavaScript slice method to show only the first 3 and last 4 characters of the ownerAddress */}
-                <a
-                  href={"https://xray.helius.xyz/account/" + ownerAddress}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                >
-                  <p className="text-base text-blue-500">{`${ownerAddress.slice(
-                    0,
-                    3,
-                  )}...${ownerAddress.slice(-4)}`}</p>
-                </a>
-              </div>
-
-              {/* Flex container for each detail item with content justified between */}
-              <div className="my-1 flex items-center justify-between">
-                <p className=" text-lg font-bold">Mint</p>
-                {/* Anchor tag is kept within the flex container for layout purposes */}
-                <a
-                  href={"https://xray.helius.xyz/token/" + mint}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center"
-                >
-                  {/* JavaScript slice method to show only the first 3 and last 4 characters of the mint */}
-                  <p className="font-normal text-blue-500">{` ${mint.slice(
-                    0,
-                    3,
-                  )}...${mint.slice(-4)}`}</p>
-                </a>
-              </div>
+          <div className="w-full sm:w-1/2">
+            <div className="break-words">
+              <p className="mb-4 border-b border-white/50 pb-1 text-2xl font-bold">
+                Details
+              </p>
+              <ul>
+                {/* Flex container for each detail item with content justified between */}
+                {tokenDetails.map((detail) => (
+                  <li
+                    key={detail.type}
+                    className="my-1 flex items-center justify-between"
+                  >
+                    <p className="text-lg font-bold">{detail.type}</p>
+                    {/* JavaScript slice method to show only the first 3 and last 4 characters of the ownerAddress */}
+                    <a
+                      href={`https://xray.helius.xyz/${
+                        detail.type === "Mint" ? "token" : "account"
+                      }/${detail.value}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center text-primary transition-colors duration-200 ease-in-out hover:text-white"
+                    >
+                      {`${detail.value.slice(0, 3)}...${detail.value.slice(
+                        -4,
+                      )}`}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="ml-1 w-4"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244"
+                        />
+                      </svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
@@ -187,7 +196,7 @@ const TokenDetails = ({
             )}
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

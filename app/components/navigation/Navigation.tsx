@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import { PhotoIcon, StopCircleIcon } from "@heroicons/react/24/outline";
 
-import { HeaderNavigation, MobileNavigation, SidebarNavigation } from "..";
+import HeaderNavigation from "./HeaderNavigation";
+import MobileNavigation from "./MobileNavigation";
+import SidebarNavigation from "./SidebarNavigation";
 
 interface NavigationProps {
   searchParams: {
