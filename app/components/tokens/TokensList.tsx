@@ -9,7 +9,7 @@ interface TokensProps {
   tokens: FungibleToken[];
 }
 
-const Tokens = ({ searchParams, walletAddress, tokens }: TokensProps) => {
+const TokensList = ({ searchParams, walletAddress, tokens }: TokensProps) => {
   if (!tokens) {
     return <div>Loading...</div>;
   }
@@ -27,4 +27,4 @@ const Tokens = ({ searchParams, walletAddress, tokens }: TokensProps) => {
   );
 };
 
-export default Tokens;
+export default TokensList;

@@ -3,25 +3,25 @@ import React from "react";
 import { NonFungibleToken } from "@/app/types";
 import { NFTTable, NFTFilters } from "@/app/components";
 
-interface NFTsProps {
+interface NFTListProps {
   searchParams: string;
   walletAddress: string;
   tokens: NonFungibleToken[];
 }
 
-const NFTs = ({ searchParams, walletAddress, tokens }: NFTsProps) => {
+const NFTList = ({ searchParams, walletAddress, tokens }: NFTListProps) => {
   if (!tokens) {
     return <div>Loading...</div>;
   }
   return (
     <div className="flex flex-col rounded-lg bg-black bg-opacity-50 lg:flex-row">
       {/* NFT Filter Component */}
-      <div className="mx-auto w-full  p-3 lg:w-3/12">
+      <div className="mx-auto w-full p-3 lg:w-[400px]">
         <NFTFilters nftDataArray={tokens} />
       </div>
 
       {/* NFT Table */}
-      <div className=" sm:w-full">
+      <div className="sm:w-full">
         <div className="flex-grow py-5">
           <NFTTable nftDataArray={tokens} walletAddress={walletAddress} />
         </div>
@@ -30,4 +30,4 @@ const NFTs = ({ searchParams, walletAddress, tokens }: NFTsProps) => {
   );
 };
 
-export default NFTs;
+export default NFTList;

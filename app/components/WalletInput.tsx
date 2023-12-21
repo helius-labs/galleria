@@ -8,7 +8,6 @@ import { Button } from "@/app/components";
 
 const WalletInput = ({ source }: { source: string }) => {
   const [inputValue, setInputValue] = useState<string>(""); // State for the input field value
-  const [resolvedAddress, setResolvedAddress] = useState<string>(""); // New state for the resolved address
   const [isValid, setIsValid] = useState<boolean>(true);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -16,12 +15,34 @@ const WalletInput = ({ source }: { source: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const validateSolanaPublicKey = async (
-    address: string,
-  ): Promise<string | null> => {
+  const validateSolanaPublicKey = async (address: string): Promise<string | null> => {
+    // check if the address is already in the search params
+    let publicKey;
+    if (typeof window !== "undefined") {
+      const url = window.location.href;
+      const addressRegex = /portfolio\/([^\/?]+)/;
+      const match = url.match(addressRegex);
+      publicKey = match ? match[1] : null;
+
+      // Now you can use publicKey as needed
+      console.log(publicKey);
+    } else {
+      // Handle the case where window is undefined (e.g., during server-side rendering)
+      console.warn(
+        "Window is undefined. This code may not work as expected during server-side rendering.",
+      );
+    }
+
+    // if publickey is already in the search params, return it
+    if (publicKey && publicKey === address) {
+      setIsLoading(false); // Re-enable the button
+      setInputValue(""); // Reset the input field to an empty string
+    }
+
     if (/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)) {
       return address;
-    } else {
+    }
+    else {
       const response = await fetch(
         `https://sns-sdk-proxy.bonfida.workers.dev/resolve/${address?.toLowerCase()}`,
       );
@@ -42,12 +63,11 @@ const WalletInput = ({ source }: { source: string }) => {
     setIsLoading(true);
 
     const resolvedAddr = await validateSolanaPublicKey(inputValue);
+
     if (!resolvedAddr) {
-      console.log("Invalid Solana public key");
-      toast.error("Invalid Solana public key");
+      toast.error("Something went wrong");
       setInputValue(""); // Reset the input field to an empty string
       setIsLoading(false);
-
       return;
     }
 
@@ -59,16 +79,15 @@ const WalletInput = ({ source }: { source: string }) => {
         `/portfolio/${encodeURIComponent(resolvedAddr)}?view=${currentView}`,
       );
     } catch (error) {
-      console.log(error);
+      console.log("Error", error);
       toast.error("Something went wrong");
-    } finally {
     }
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="relative isolate flex h-12 w-[300px] items-center pr-1.5 md:w-[450px]"
+      className="relative isolate flex h-11 w-[300px] items-center pr-1.5 md:w-[450px]"
     >
       <label htmlFor={id} className="sr-only">
         Solana Wallet Address
@@ -80,7 +99,7 @@ const WalletInput = ({ source }: { source: string }) => {
         name="walletAddress"
         id={id}
         placeholder="Solana Wallet Address"
-        className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-base text-white placeholder:text-gray-500 focus:outline-none sm:text-[0.8125rem]/6"
+        className="peer w-0 flex-auto bg-transparent px-4 py-2.5 text-base text-white placeholder:text-gray-400 focus:outline-none sm:text-[0.8125rem]/6"
         value={inputValue}
         onChange={handleInputChange}
       />

@@ -1,9 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
 import { Grouping, NonFungibleToken } from "@/app/types";
+import { classNames } from "@/app/utils";
 
 interface NFTFiltersProps {
   nftDataArray: NonFungibleToken[];
@@ -71,8 +74,10 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
 
   return (
     <div className="flex w-full flex-col px-2 py-2">
-      <h1 className="p-1 text-lg font-bold">Filters</h1>
-      <ul className="menu my-1 w-full rounded-box bg-neutral bg-opacity-50">
+      <h1 className="text-2xl font-bold">Filters</h1>
+
+      {/* Collection */}
+      <ul className="menu mt-6 w-full rounded-md bg-gray-500/20">
         <li>
           <details>
             <summary className="text-base font-bold">Collection</summary>
@@ -81,7 +86,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               {/* No Filter Option */}
               <li
                 onClick={() => handleNoFilter("collection")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
                   !collectionFilter ? "text-primary" : "text-white"
                 }`}
               >
@@ -95,7 +100,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
                     onClick={() =>
                       handleCollectionFilter(collection.group_value)
                     }
-                    className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                    className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
                       collectionFilter === collection.group_value
                         ? "text-primary"
                         : "text-white"
@@ -111,7 +116,9 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
           </details>
         </li>
       </ul>
-      <ul className="menu my-1 w-full rounded-box bg-neutral bg-opacity-50">
+
+      {/* NFT Type */}
+      <ul className="menu mt-2 w-full rounded-md bg-gray-500/20">
         <li>
           <details>
             <summary className="text-base font-bold">NFT Type</summary>
@@ -120,7 +127,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               {/* No Filter Option */}
               <li
                 onClick={() => handleNoFilter("type")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
                   !typeFilter ? "text-primary" : "text-white"
                 }`}
               >
@@ -131,7 +138,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               <li
                 key={"Standard NFT"}
                 onClick={() => handleTypeFilter("StandardNFT")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                className={`w-full font-medium hover:bg-neutral-700 hover:bg-opacity-60 ${
                   typeFilter === "StandardNFT" ? "text-primary" : "text-white"
                 }`}
               >
@@ -140,7 +147,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               <li
                 key={"Compressed NFT"}
                 onClick={() => handleTypeFilter("CompressedNFT")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 font-medium ${
                   typeFilter === "CompressedNFT" ? "text-primary" : "text-white"
                 }`}
               >
@@ -149,7 +156,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               <li
                 key={"Inscriptions"}
                 onClick={() => handleTypeFilter("Inscriptions")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 font-medium ${
                   typeFilter === "Inscriptions" ? "text-primary" : "text-white"
                 }`}
               >
@@ -158,7 +165,7 @@ const NFTFilters = ({ nftDataArray }: NFTFiltersProps) => {
               <li
                 key={"SPL20"}
                 onClick={() => handleTypeFilter("SPL20")}
-                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 ${
+                className={`w-full hover:bg-neutral-700 hover:bg-opacity-60 font-medium ${
                   typeFilter === "SPL20" ? "text-primary" : "text-white"
                 }`}
               >

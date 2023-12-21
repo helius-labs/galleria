@@ -48,7 +48,7 @@ const TokenTable = ({
   return (
     <div>
       {/* Token Table */}
-      <div className="overflow-x-auto rounded-lg bg-opacity-60">
+      <div className="overflow-x-auto rounded-lg bg-opacity-60 -m-3">
         <table className="w-full whitespace-nowrap text-left">
           {/* Table Body */}
           <colgroup>
@@ -105,23 +105,23 @@ const TokenTable = ({
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center">
-        <div className="join">
+      <div className="mt-14 mb-4 flex justify-center">
+        <div className="join flex items-center">
           <button
             onClick={() => paginate(currentPage - 1)}
-            className="btn join-item btn-neutral text-white opacity-60 disabled:cursor-not-allowed disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
+            className="h-8 w-8 rounded-full bg-indigo-100/5 text-white bg-opacity-50 ring-1 ring-inset ring-white/10 disabled:cursor-not-allowed disabled:bg-neutral"
             disabled={currentPage === 1}
           >
             «
           </button>
 
-          <span className="flex items-center justify-center bg-neutral bg-opacity-60 px-2 text-white">
+          <span className="mx-6 flex h-8 w-20 items-center justify-center rounded-full bg-indigo-100/5 text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out">
             Page {currentPage}
           </span>
 
           <button
             onClick={() => paginate(currentPage + 1)}
-            className="btn join-item  btn-neutral text-white opacity-60 disabled:cursor-not-allowed disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
+            className="h-8 w-8 rounded-full bg-indigo-100/5 text-white bg-opacity-50 ring-1 ring-inset ring-white/10 disabled:cursor-not-allowed disabled:bg-neutral"
             disabled={currentPage === totalPages}
           >
             »

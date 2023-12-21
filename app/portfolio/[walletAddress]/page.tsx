@@ -1,12 +1,13 @@
 import React, { Suspense } from "react";
 
 import {
-  NavBar,
-  Tabs,
-  NFTs,
-  Tokens,
   NFTDetails,
   TokenDetails,
+  TokensList,
+  NFTList,
+  TokenMetrics,
+  NFTMetrics,
+  Navigation,
 } from "@/app/components";
 import { FungibleToken, NonFungibleToken } from "@/app/types";
 
@@ -23,80 +24,94 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
 
   return (
     <div className="h-screen bg-radial-gradient">
-      <div>
-        {searchParams.details && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
-            <div className="h-4/5 w-10/12 sm:w-2/3">
-              <NFTDetails
-                nftData={nonFungibleTokens.filter(
-                  (item) => item.id === searchParams.details,
-                )}
-                searchParams={"view=" + searchParams.view}
-                walletAddress={params.walletAddress}
-              />
+      <div className="lg:pl-20">
+        {/* Navigation (Mobile / Side / Primary) */}
+        <Navigation searchParams={searchParams} params={params} />
+
+        {/* Main area */}
+        <main>
+          <div className="px-6 py-6">
+            {/* Tokens */}
+            <div>
+              {searchParams.tokenDetails && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
+                  <div className="h-4/5 w-10/12 sm:w-2/3">
+                    <TokenDetails
+                      tokenData={fungibleTokens.filter(
+                        (item) => item.id === searchParams.tokenDetails,
+                      )}
+                      searchParams={searchParams}
+                      walletAddress={params.walletAddress}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* NFTS */}
+            <div>
+              {searchParams.details && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
+                  <div className="h-4/5 w-10/12 sm:w-2/3">
+                    <NFTDetails
+                      nftData={nonFungibleTokens.filter(
+                        (item) => item.id === searchParams.details,
+                      )}
+                      searchParams={"view=" + searchParams.view}
+                      walletAddress={params.walletAddress}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div
+              className={`${
+                searchParams.details
+                  ? "flex h-screen flex-col overflow-hidden"
+                  : ""
+              }${
+                searchParams.tokenDetails
+                  ? "flex h-screen flex-col overflow-hidden"
+                  : ""
+              }`}
+            >
+              <Suspense
+                fallback={<div>Loading...</div>}
+                key={searchParams.view}
+              >
+                <div>
+                  {searchParams.view === "tokens" && (
+                    <>
+                      {/* Token Metrics */}
+                      <TokenMetrics fungibleTokens={fungibleTokens} />
+
+                      {/* Tokens List */}
+                      <TokensList
+                        tokens={fungibleTokens}
+                        searchParams={searchParams.toString()}
+                        walletAddress={params.walletAddress}
+                      />
+                    </>
+                  )}
+                  {searchParams.view === "nfts" && (
+                    <>
+                      {/* NFTs Metrics */}
+                      <NFTMetrics nonFungibleTokens={nonFungibleTokens} />
+
+                      {/* NFTs List */}
+                      <NFTList
+                        tokens={nonFungibleTokens}
+                        searchParams={searchParams.toString()}
+                        walletAddress={params.walletAddress}
+                      />
+                    </>
+                  )}
+                </div>
+              </Suspense>
             </div>
           </div>
-        )}
-      </div>
-      <div>
-        {searchParams.tokenDetails && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-700 bg-opacity-70">
-            <div className="h-4/5 w-10/12 sm:w-2/3">
-              <TokenDetails
-                tokenData={fungibleTokens.filter(
-                  (item) => item.id === searchParams.tokenDetails,
-                )}
-                searchParams={searchParams}
-                walletAddress={params.walletAddress}
-              />
-            </div>
-          </div>
-        )}
-      </div>
-      <div
-        className={`${
-          searchParams.details ? "flex h-screen flex-col overflow-hidden" : ""
-        }${
-          searchParams.tokenDetails
-            ? "flex h-screen flex-col overflow-hidden"
-            : ""
-        }`}
-      >
-        <div className="mb-8">
-          <NavBar />
-        </div>
-        <div className="mx-10 my-4">
-          <Tabs
-            searchParams={searchParams}
-            walletAddress={params.walletAddress}
-          />
-        </div>
-        <Suspense fallback={<div>Loading...</div>} key={searchParams.view}>
-          <div className={`mx-10 my-4 pb-4 `}>
-            {/* {searchParams.view === "overview" && (
-              <Overview
-                nonFungibleTokens={nonFungibleTokenData}
-                fungibleTokens={fungibleTokenData}
-                searchParams={searchParams.toString()}
-                walletAddress={params.walletAddress}
-              />
-            )} */}
-            {searchParams.view === "tokens" && (
-              <Tokens
-                tokens={fungibleTokens}
-                searchParams={searchParams.toString()}
-                walletAddress={params.walletAddress}
-              />
-            )}
-            {searchParams.view === "nfts" && (
-              <NFTs
-                tokens={nonFungibleTokens}
-                searchParams={searchParams.toString()}
-                walletAddress={params.walletAddress}
-              />
-            )}
-          </div>
-        </Suspense>
+        </main>
       </div>
     </div>
   );
@@ -226,5 +241,4 @@ const getAllAssets = async (walletAddress: string) => {
 
   return { fungibleTokens, nonFungibleTokens };
 };
-
 export default PortfolioPage;

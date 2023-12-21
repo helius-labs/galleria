@@ -142,7 +142,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                     // console.log("CREATOR", creator);
                     <div
                       key={index}
-                      className="rounded-lg bg-gray-700/5 ring-1 ring-inset ring-white/30 px-2"
+                      className="rounded-lg bg-gray-700/5 px-2 ring-1 ring-inset ring-white/30"
                     >
                       {Object.entries(creator).map(([key, value]) => {
                         return (
@@ -156,12 +156,10 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                                 (typeof value === "boolean" && "Verified")}
                             </dt>
 
-                            <dd>
-                              <dd className="font-base mt-2 text-xl tracking-tight text-white">
-                                {value !== (null || undefined)
-                                  ? `${value}`
-                                  : `N/A`}
-                              </dd>
+                            <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                              {value !== (null || undefined)
+                                ? `${value}`
+                                : `N/A`}
                             </dd>
                           </div>
                         );
@@ -178,23 +176,27 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
               <hr className="my-2 border-gray-600" />
 
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {nftData[0].content.metadata?.attributes.map(
-                  ({ trait_type, value }, index) => {
-                    return (
-                      <>
-                        <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
-                          <dt className="truncate text-sm font-semibold text-gray-300">
-                            {trait_type}
-                          </dt>
-                          <dd className="font-base mt-2 text-xl tracking-tight text-white">
-                            {value !== (null || undefined || "")
-                              ? `${value}`
-                              : `N/A`}
-                          </dd>
-                        </div>
-                      </>
-                    );
-                  },
+                {nftData[0].content.metadata?.attributes?.length > 0 ? (
+                  nftData[0].content.metadata?.attributes?.map(
+                    ({ trait_type, value }, index) => {
+                      return (
+                        <>
+                          <div className="col-span-1 w-full overflow-hidden rounded-lg bg-gray-700/20 p-4 shadow ring-1 ring-inset ring-white/30">
+                            <dt className="truncate text-sm font-semibold text-gray-300">
+                              {trait_type}
+                            </dt>
+                            <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                              {value !== (null || undefined || "")
+                                ? `${value}`
+                                : `N/A`}
+                            </dd>
+                          </div>
+                        </>
+                      );
+                    },
+                  )
+                ) : (
+                  <p>No NFT Attributes</p>
                 )}
               </div>
             </div>

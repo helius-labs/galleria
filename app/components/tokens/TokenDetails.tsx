@@ -52,7 +52,7 @@ const TokenDetails = ({
               className="mt-4 w-full  border-gray-600"
               style={{ paddingLeft: `${indent * 20}px` }}
             >
-              <p className="w-40 flex justify-center rounded-md bg-gray-700/20px-3 py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
+              <p className="bg-gray-700/20px-3 flex w-40 justify-center rounded-md py-1.5 text-sm font-medium text-gray-300 ring-1 ring-inset ring-white/30">
                 {key}
               </p>
               <div className="mt-2 border-l border-dashed border-gray-600">
@@ -96,7 +96,8 @@ const TokenDetails = ({
   };
 
   return (
-    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-800 p-2 text-white shadow-glow sm:p-2">
+    <div className="h-full w-full overflow-y-auto overflow-x-clip rounded-lg bg-neutral-900 p-2 text-white shadow-glow sm:p-2">
+      {/* <div className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6"> */}
       {/* Header */}
       <div className="relative">
         <Link href={`/portfolio/${walletAddress}?view=${searchParams.view}`}>

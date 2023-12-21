@@ -1,8 +1,4 @@
-
-import {
-  Hero,
-  WalletInput
-} from "@/app/components";
+import { Hero } from "@/app/components";
 
 
 const Home = () => {

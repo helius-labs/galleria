@@ -1,33 +1,41 @@
 import Button from "./Button";
 import Hero from "./Hero";
-import NFTCard from "./NFTCard";
-import NFTDetails from "./NFTDetails";
-import NFTFilters from "./NFTFilters";
-import NFTs from "./NFTs";
-import NFTTable from "./NFTTable";
-import NavBar from "./NavBar";
-import Overview from "./Overview";
-import Tabs from "./Tabs";
-import TokenDetails from "./TokenDetails";
-import TokenTable from "./TokenTable";
-import Tokens from "./Tokens";
+import NFTCard from "./nfts/NFTCard";
+import NFTDetails from "./nfts/NFTDetails";
+import NFTFilters from "./nfts/NFTFilters";
+import NFTList from "./nfts/NFTList";
+import NFTTable from "./nfts/NFTTable";
+import TokenDetails from "./tokens/TokenDetails";
+import TokenTable from "./tokens/TokenTable";
+import TokensList from "./tokens/TokensList";
 import WalletInput from "./WalletInput";
-import DynamicTokenRow from "./TokenRow";
+import DynamicTokenRow from "./tokens/TokenRow";
+import Logo from "./Logo";
+import MobileNavigation from "./navigation/MobileNavigation";
+import SidebarNavigation from "./navigation/SidebarNavigation";
+import HeaderNavigation from "./navigation/HeaderNavigation";
+import TokenMetrics from "./tokens/TokenMetrics";
+import NFTMetrics from "./nfts/NFTMetrics";
+import Navigation from "./navigation/Navigation";
   
 export {
   Button,
   Hero,
-  NavBar,
   NFTCard,
   NFTDetails,
   NFTFilters,
-  NFTs,
+  NFTList,
   NFTTable,
-  Overview,
-  Tabs,
   TokenDetails,
-  Tokens,
+  TokensList,
   TokenTable,
   WalletInput,
   DynamicTokenRow,
+  Logo,
+  MobileNavigation,
+  SidebarNavigation,
+  HeaderNavigation,
+  TokenMetrics,
+  NFTMetrics,
+  Navigation,
 };

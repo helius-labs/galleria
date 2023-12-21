@@ -72,7 +72,7 @@ const NFTTable = ({ walletAddress, nftDataArray }: NFTTableProps) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center  px-4">
+    <div className="flex flex-col items-center justify-center">
       {currentItems.length > 0 ? (
         <>
           <div className="flex w-full flex-wrap justify-center gap-4">
@@ -86,21 +86,24 @@ const NFTTable = ({ walletAddress, nftDataArray }: NFTTableProps) => {
             ))}
           </div>
 
-          <div className="flex justify-center p-4">
-            <div className="join">
+          {/* Pagination */}
+          <div className="mb-4 mt-14 flex justify-center">
+            <div className="join flex items-center">
               <button
                 onClick={() => paginate(currentPage - 1)}
-                className="btn join-item btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
+                className="h-8 w-8 rounded-full bg-indigo-100/5 bg-opacity-50 text-white ring-1 ring-inset ring-white/10 disabled:cursor-not-allowed disabled:bg-neutral"
                 disabled={currentPage === 1}
               >
                 «
               </button>
-              <button className="bg-neutral px-2 text-white opacity-60">
+
+              <span className="mx-6 flex h-8 w-20 items-center justify-center rounded-full bg-indigo-100/5 text-sm font-semibold leading-6 text-white ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out">
                 Page {currentPage}
-              </button>
+              </span>
+
               <button
                 onClick={() => paginate(currentPage + 1)}
-                className="btn join-item btn-neutral text-white opacity-60 disabled:bg-neutral disabled:text-gray-500 disabled:opacity-30"
+                className="h-8 w-8 rounded-full bg-indigo-100/5 bg-opacity-50 text-white ring-1 ring-inset ring-white/10 disabled:cursor-not-allowed disabled:bg-neutral"
                 disabled={currentPage === totalPages}
               >
                 »
