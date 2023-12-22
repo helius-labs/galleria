@@ -56,13 +56,15 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
           </div>
           <div className="w-full sm:w-1/2">
             {description && (
-              <div>
-                <p className="text-2xl font-bold">Description:</p>
+              <div className="mt-6">
+                <p className="mb-4 border-b border-white/50 pb-1 text-2xl font-bold">
+                  Description:
+                </p>
                 <hr className="my-2 border-gray-600" />
                 <p className="text-lg">{description}</p>
               </div>
             )}
-            <div className="break-words">
+            <div className="mt-6 break-words">
               <p className="mb-4 border-b border-white/50 pb-1 text-2xl font-bold">
                 Details:
               </p>
@@ -115,10 +117,10 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
         </div>
 
         <div className="flex justify-center">
-          <div className="mx-4 w-full p-3">
+          <div className="w-full p-3">
             {/* Creators */}
             {nftData[0].creators.length > 0 && (
-              <div className="mb-10">
+              <div className="mt-6">
                 <p className="mb-4 border-b border-white/50 pb-1 text-xl font-bold">
                   Creators:
                 </p>
@@ -188,7 +190,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
 
             {/* Attributes */}
             {nftData[0].content.metadata?.attributes?.length > 0 && (
-              <div className="mb-10">
+              <div className="mt-6">
                 <p className="mb-4 border-b border-white/50 pb-1 text-xl font-bold">
                   Attributes:
                 </p>
@@ -222,7 +224,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
 
             {/* Compression Details */}
             {nftData[0].compression.compressed && (
-              <div className="mb-10">
+              <div className="mt-6">
                 <p className="mb-4 border-b border-white/50 pb-1 text-xl font-bold">
                   Compression Details:
                 </p>
@@ -237,7 +239,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
                               <dt className="truncate text-sm font-semibold text-gray-300">
                                 {key}
                               </dt>
-                              <dd className="font-base mt-2 text-xl tracking-tight text-white">
+                              <dd className="font-base mt-2 text-xl tracking-tight text-white overflow-x-scroll">
                                 {value}
                               </dd>
                             </div>
@@ -252,7 +254,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
 
             {/* SPL20 Details */}
             {nftData[0].spl20 && (
-              <div className="mb-10">
+              <div className="mt-6">
                 <p className="mb-4 border-b border-white/50 pb-1 text-xl font-bold">
                   SPL20 Details:
                 </p>
@@ -280,7 +282,7 @@ const NFTDetails = ({ searchParams, walletAddress, nftData }: NFTDetails) => {
 
             {/* Inscription Details */}
             {nftData[0].inscription && (
-              <div className="mb-10">
+              <div className="mt-6">
                 <p className="mb-4 border-b border-white/50 pb-1 text-xl font-bold">
                   Inscription Details:
                 </p>
