@@ -150,10 +150,33 @@ const getAllAssets = async (walletAddress: string) => {
   const items: (FungibleToken | NonFungibleToken)[] = data.result.items;
 
   // Split the items into fungible and non-fungible tokens
-  const fungibleTokens: FungibleToken[] = items.filter(
+  let fungibleTokens: FungibleToken[] = items.filter(
     (item): item is FungibleToken =>
       item.interface === "FungibleToken" || item.interface === "FungibleAsset",
   );
+  // Hardcoding the image for USDC
+  fungibleTokens = fungibleTokens.map((item) => {
+    if (item.id === "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v") {
+      return {
+        ...item,
+        content: {
+          ...item.content,
+          files: [
+            {
+              uri: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+              cdn_uri: "", // Assuming this is correct
+              mime: "image/png",
+            },
+          ],
+          links: {
+            image:
+              "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+          },
+        },
+      };
+    }
+    return item;
+  });
   const nonFungibleTokens: NonFungibleToken[] = items.filter(
     (item): item is NonFungibleToken =>
       !["FungibleToken", "FungibleAsset"].includes(item.interface),

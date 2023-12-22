@@ -32,6 +32,7 @@ const options = {
 };
 const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
   const [totalTokens, setTotalTokens] = useState(0);
+  const [totalToken22, setTotalToken22] = useState(0);
   const [totalValue, setTotalValue] = useState(0);
   const [chartData, setChartData] = useState<{
     labels: string[];
@@ -66,6 +67,12 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
         0,
       );
       setTotalValue(total);
+
+      // Set totalToken22
+      const totalToken22 = fungibleTokens.filter(
+        (token) => token.mint_extensions !== undefined,
+      ).length;
+      setTotalToken22(totalToken22);
     }
   }, [fungibleTokens]);
 
@@ -118,10 +125,10 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
 
             <div className="overflow-hidden rounded-lg bg-black bg-opacity-60 px-4 py-5 shadow sm:p-6">
               <dt className="truncate text-sm font-medium text-gray-300">
-                Average Value
+                Token22 Tokens
               </dt>
               <dd className="mt-1 text-3xl font-semibold tracking-tight text-white">
-                ${(totalValue / totalTokens).toFixed(2)}
+                {totalToken22}
               </dd>
             </div>
           </div>
