@@ -12,7 +12,7 @@ const Hero = () => {
         rel="noopener noreferrer"
         className="group mb-8 flex justify-center"
       >
-        <div className="relative flex items-center rounded-full border border-white border-opacity-20 bg-opacity-25 px-3 py-1 text-sm leading-6 text-white transition-all duration-200 ease-in-out hover:bg-black/10 group-hover:border-opacity-60 group-hover:bg-opacity-75">
+        <div className="relative flex items-center rounded-full border border-white border-opacity-20 bg-opacity-25 px-4 sm:px-3 py-1 text-xs sm:text-sm leading-6 text-white transition-all duration-200 ease-in-out hover:bg-black/10 group-hover:border-opacity-60 group-hover:bg-opacity-75">
           Read the open source repository{" "}
           <span className="mx-2 h-4 border-l border-white/20" />
           <div className="flex items-center font-semibold text-accent">
