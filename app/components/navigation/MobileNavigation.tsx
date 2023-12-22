@@ -108,6 +108,7 @@ const MobileNavigation = ({
                         <Link
                           key={item.name}
                           href={`/portfolio/${params.walletAddress}?view=${item.href}`}
+                          onClick={() => setSidebarOpen(false)}
                           className={classNames(
                             searchParams.view === item.href
                               ? "bg-indigo-100/5 text-white ring-1 ring-inset ring-white/30 transition duration-200 ease-in-out"
