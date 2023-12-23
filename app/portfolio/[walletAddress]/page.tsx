@@ -174,6 +174,24 @@ const getAllAssets = async (walletAddress: string) => {
           },
         },
       };
+    } else if (item.id === "bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1") {
+      return {
+        ...item,
+        content: {
+          ...item.content,
+          files: [
+            {
+              uri: "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1/logo.png",
+              cdn_uri: "", // Assuming this is correct
+              mime: "image/png",
+            },
+          ],
+          links: {
+            image:
+              "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1/logo.png",
+          },
+        },
+      };
     }
     return item;
   });
