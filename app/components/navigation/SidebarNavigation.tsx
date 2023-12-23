@@ -44,7 +44,7 @@ const SidebarNavigation = ({
                                         className="h-5 w-5 shrink-0"
                                         aria-hidden="true"
                                     />
-                                    <span className="text-xs font-light mt-.5">
+                                    <span className="text-xs font-base mt-1">
                                         {item.href.charAt(0).toUpperCase() + item.href.slice(1)}
                                     </span>
                                     <span className="sr-only">{item.name}</span>
