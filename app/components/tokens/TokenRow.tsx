@@ -75,7 +75,7 @@ const TokenRow = ({ token, walletAddress }: TokenRowProps) => {
 
           {/* VALUE */}
           <td className=" py-4 pl-0 pr-4 text-right text-sm leading-6 text-gray-400 transition-all duration-200 ease-in-out group-hover:text-white  sm:pr-6 lg:pr-8">
-            {tokenValue}
+            ${tokenValue}
           </td>
         </tr>
       </>

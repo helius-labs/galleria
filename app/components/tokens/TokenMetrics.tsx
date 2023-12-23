@@ -60,7 +60,16 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
   const options = {
     plugins: {
       legend: {
-        display: true, // Hides the chart legends
+        display: true, // Display chart legend
+        position: "bottom", // Legend position
+        labels: {
+          color: "#ffffff", // Legend font color
+          boxWidth: 20, // Width of the little colored squares
+          padding: 20, // Padding between squares and labels
+          usePointStyle: true, // Font style
+        },
+        align: "center",
+        fullSize: true,
       },
       tooltip: {
         callbacks: {
