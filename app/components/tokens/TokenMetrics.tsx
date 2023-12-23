@@ -60,7 +60,7 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
   const options = {
     plugins: {
       legend: {
-        display: true, // or false
+        display: false, // or false
         labels: {
           color: "#fff", // specify the color
           boxWidth: 40, // specify the box width
@@ -126,7 +126,7 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
               Value Distribution
             </dt>
             <div className="flex h-full w-full items-center justify-center">
-              <dd className="w-full mt-1 flex items-center justify-center">
+              <dd className="mt-1 flex items-center justify-center w-full sm:w-56">
                 <Pie data={chartData} options={options} />
               </dd>
             </div>

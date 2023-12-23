@@ -72,7 +72,7 @@ const WalletInput = ({ source }: { source: string }) => {
     }
 
     setIsValid(true); // Assuming the address is valid if it's resolved
-    const currentView = searchParams.get("view") || "tokens";
+    const currentView = searchParams.get("view") || "nfts";
 
     try {
       await router.push(

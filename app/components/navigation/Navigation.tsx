@@ -17,8 +17,8 @@ interface NavigationProps {
 }
 
 const navigation = [
-  { name: "Tokens", href: "tokens", icon: StopCircleIcon },
   { name: "NFTs", href: "nfts", icon: PhotoIcon },
+  { name: "Tokens", href: "tokens", icon: StopCircleIcon },
 ];
 
 const Navigation = ({
