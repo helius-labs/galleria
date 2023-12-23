@@ -13,11 +13,11 @@ const Hero = () => {
         className="group mb-8 flex justify-center"
       >
         <div className="relative flex items-center rounded-full border border-white border-opacity-20 bg-opacity-25 px-4 py-1 text-xs leading-6 text-white transition-all duration-200 ease-in-out hover:bg-black/10 group-hover:border-opacity-60 group-hover:bg-opacity-75 sm:px-3 sm:text-sm">
-          Read the open source repository{" "}
+          Read the open source code{" "}
           <span className="mx-2 h-4 border-l border-white/20" />
           <div className="flex items-center font-semibold text-accent">
             <span className="absolute inset-0" aria-hidden="true" />
-            View GitHub
+            View Source
             <svg
               xmlns="http://www.w3.org/2000/svg"
               x="0px"
