@@ -11,25 +11,6 @@ interface TokenMetricsProps {
   fungibleTokens: FungibleToken[];
 }
 
-const options = {
-  plugins: {
-    legend: {
-      display: false, // Hides the chart legends
-    },
-    tooltip: {
-      callbacks: {
-        label: function (context: any) {
-          let label = context.label || "Unknown Token";
-
-          if (context.parsed !== null) {
-            label += `: $${context.parsed.toFixed(2)}`; // Adds '$' symbol
-          }
-          return label;
-        },
-      },
-    },
-  },
-};
 const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
   const [totalTokens, setTotalTokens] = useState(0);
   const [totalToken22, setTotalToken22] = useState(0);
@@ -79,7 +60,7 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
   const options = {
     plugins: {
       legend: {
-        display: false, // Hides the chart legends
+        display: true, // Hides the chart legends
       },
       tooltip: {
         callbacks: {
