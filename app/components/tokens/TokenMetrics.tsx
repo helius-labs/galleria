@@ -65,7 +65,7 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
         labels: {
           color: "#ffffff", // Legend font color
           boxWidth: 20, // Width of the little colored squares
-          padding: 20, // Padding between squares and labels
+          padding: 16, // Padding between squares and labels
           usePointStyle: true, // Font style
         },
         align: "center",
@@ -128,7 +128,7 @@ const TokenMetrics = ({ fungibleTokens }: TokenMetricsProps) => {
               Value Distribution
             </dt>
             <div className="flex h-full w-full items-center justify-center">
-              <dd className="mt-1 flex w-40 items-center justify-center sm:w-56">
+              <dd className="w-full mt-1 flex items-center justify-center">
                 <Pie data={chartData} options={options} />
               </dd>
             </div>

@@ -28,7 +28,7 @@ const SidebarNavigation = ({
                     <Logo />
                 </div>
                 <nav className="mt-8">
-                    <ul role="list" className="flex flex-col items-center space-y-2">
+                    <ul role="list" className="flex flex-col items-center space-y-4">
                         {navigation.map((item) => (
                             <li key={item.name}>
                                 <a
@@ -37,13 +37,16 @@ const SidebarNavigation = ({
                                         searchParams.view === item.href
                                             ? "bg-indigo-100/5 text-white ring-1 ring-inset ring-white/30 transition duration-200 ease-in-out"
                                             : "bg-indigo-100/5 text-white/40 transition duration-200 ease-in-out hover:bg-indigo-100/10 hover:text-white",
-                                        "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6",
+                                        "group flex flex-col justify-center items-center gap-x-3 rounded-md text-sm font-semibold leading-6 w-16 h-14",
                                     )}
                                 >
                                     <item.icon
-                                        className="h-6 w-6 shrink-0"
+                                        className="h-5 w-5 shrink-0"
                                         aria-hidden="true"
                                     />
+                                    <span className="text-xs font-light mt-.5">
+                                        {item.href.charAt(0).toUpperCase() + item.href.slice(1)}
+                                    </span>
                                     <span className="sr-only">{item.name}</span>
                                 </a>
                             </li>
