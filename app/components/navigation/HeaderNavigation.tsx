@@ -33,11 +33,11 @@ const HeaderNavigation = ({ setSidebarOpen }: HeaderNavigationProps) => {
               className="group mb-8"
             >
               <div className="relative flex items-center rounded-full border border-white border-opacity-20 bg-opacity-25 px-3 py-1 text-sm leading-6 text-white transition-all duration-200 ease-in-out hover:bg-black/10 group-hover:border-opacity-60 group-hover:bg-opacity-75">
-                Start Building{" "}
+                Read the open source code{" "}
                 <span className="mx-2 h-4 border-l border-white/20" />
                 <div className="flex items-center font-semibold text-accent">
                   <span className="absolute inset-0" aria-hidden="true" />
-                  View GitHub
+                  View Source
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     x="0px"
@@ -63,7 +63,7 @@ const HeaderNavigation = ({ setSidebarOpen }: HeaderNavigationProps) => {
               target="_blank"
               rel="noreferrer noopener"
             >
-              Read the open source code
+              Start Building
             </a>
 
             {/* Separator */}
