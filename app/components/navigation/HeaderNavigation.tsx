@@ -79,7 +79,7 @@ const HeaderNavigation = ({ setSidebarOpen }: HeaderNavigationProps) => {
               target="_blank"
               rel="noreferrer noopener"
             >
-              View Source
+              View Docs
             </a>
           </div>
         </div>
