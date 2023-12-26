@@ -54,7 +54,7 @@ const TokenRow = ({ token, walletAddress }: TokenRowProps) => {
           <td className=" py-4 pl-0 pr-4  sm:pr-8">
             <div className="flex gap-x-3">
               <div className="w-24 rounded-md bg-indigo-100/5 py-1 text-center text-sm font-semibold leading-6 text-gray-400 ring-1 ring-inset ring-white/10 transition duration-200 ease-in-out group-hover:ring-white/30 group-hover:text-white">
-                {tokenSymbol}
+                {tokenSymbol.toString().slice(0, 8)}
               </div>
             </div>
           </td>
