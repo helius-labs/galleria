@@ -4,7 +4,7 @@
 
 # Galleria
 
-Galleria is a comprehensive portfolio viewer powered by Helius's Decentralized Asset Service (DAS) API. It is designed to provide a seamless experience for viewing and managing your digital assets portfolio.
+Galleria is a comprehensive portfolio viewer powered by Helius's DAS API. It is designed to provide a seamless experience for viewing all your digital assets.
 
 ![Screenshot](./public/galleriaTokenPage.png)
 
