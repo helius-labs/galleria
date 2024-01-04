@@ -118,7 +118,7 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
 };
 
 const getAllAssets = async (walletAddress: string) => {
-  const url = `https://glori-cpoxlw-fast-mainnet.helius-rpc.com/`;
+  const url = process.env.NEXT_PUBLIC_HELIUS_RPC_URL;
 
   const response = await fetch(url, {
     next: { revalidate: 5 },
