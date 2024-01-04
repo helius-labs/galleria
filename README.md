@@ -1,37 +1,63 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<p align="center">
+    <img src="./public/logosmall.png" alt="Helius logo" width="200" height="200">
+</p>
+
+# Galleria
+
+Galleria is a comprehensive portfolio viewer powered by Helius's Decentralized Asset Service (DAS) API. It is designed to provide a seamless experience for viewing and managing your digital assets portfolio.
+
+![Screenshot](./public/galleriaTokenPage.png)
+
+## Features
+
+- Fetches and displays all tokens in a specified wallet.
+- Supports both fungible and non-fungible tokens.
+- Provides detailed information on specific token types such as Compressed NFTs, ProgrammableNFTs, Inscriptions, and Token Extensions (Token2022).
+- Retrieves and displays token data such as token supply and token prices for fungible tokens.
+
+## Built With
+
+- [Next.js](https://nextjs.org/): A React framework for building modern web applications.
+- [Helius's DAS API](https://docs.helius.dev/compression-and-das-api/digital-asset-standard-das-api): An API service for interacting with tokens on Solana.
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these simple steps:
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/helius-labs/galleria.git
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd galleria
+```
+
+3. Install the required packages:
+
+```bash
+npm i
+```
+
+4. Run the project:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Now, you should be able to see the application running on localhost:3000 (or your specified port) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Contributing
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Galleria is an open-source project, and contributions are always welcome! If you're interested in contributing, please see our Contributing Guidelines for more information.
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
+This project is licensed under the MIT License.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# galleria
+If you have any questions, issues, or suggestions, feel free to open an issue in this repository, or reach out though our Discord.
