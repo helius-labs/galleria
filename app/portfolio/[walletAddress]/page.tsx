@@ -120,6 +120,10 @@ const PortfolioPage = async ({ searchParams, params }: PortfolioPageProps) => {
 const getAllAssets = async (walletAddress: string) => {
   const url = process.env.NEXT_PUBLIC_HELIUS_RPC_URL;
 
+  if (!url) {
+    throw new Error("NEXT_PUBLIC_HELIUS_RPC_URL is not set");
+  }
+
   const response = await fetch(url, {
     next: { revalidate: 5 },
     method: "POST",
