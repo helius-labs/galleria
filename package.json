@@ -13,6 +13,7 @@
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.8",
     "clsx": "^2.0.0",
     "next": "14.0.3",
     "react": "^18",

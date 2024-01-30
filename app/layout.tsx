@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/react";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ToastContainer } from "react-toastify";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -29,6 +30,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           pauseOnHover={false}
         />
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
