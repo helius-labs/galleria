@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
       <a
-        href="https://github.com/owenventer/galleria"
+        href="https://github.com/helius-labs/galleria"
         target="_blank"
         rel="noopener noreferrer"
         className="group mb-8 flex justify-center"
