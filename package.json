@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@bonfida/spl-name-service": "^2.0.0-alpha.25",
+    "@bonfida/spl-name-service": "^2.5.4",
     "@headlessui/react": "^1.7.17",
     "@heroicons/react": "^2.1.1",
     "@vercel/analytics": "^1.1.1",
