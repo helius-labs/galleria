@@ -15,7 +15,7 @@
     "@vercel/analytics": "^1.1.1",
     "@vercel/speed-insights": "^1.0.8",
     "clsx": "^2.0.0",
-    "next": "14.0.3",
+    "next": "16.2.4",
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
